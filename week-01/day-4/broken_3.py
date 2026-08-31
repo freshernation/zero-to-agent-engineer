@@ -1,0 +1,2 @@
+age = 30
+print("You are " + age + " years old.")

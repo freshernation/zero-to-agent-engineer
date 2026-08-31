@@ -1,0 +1,60 @@
+# Licence
+
+Copyright (c) 2026 FresherNation (Saravanan Periyasamy)
+
+This repository contains two different kinds of material, licensed differently.
+
+---
+
+## 1. Code — MIT
+
+Applies to every `.py` file, `pytest.ini`, `conftest.py`, `check_setup.py`, and any
+configuration file in this repository.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+**In plain terms:** take the test harness, the fake clients, the scripts. Build on them.
+
+---
+
+## 2. Course material — CC BY-NC-SA 4.0
+
+Applies to every `.md` file: the week and day READMEs, `FENCE.md`, `DEFEND.md`, the AI
+role prompts in `ai/`, `SETUP.md`, `CUT_LIST.md`, and this README.
+
+Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International Licence: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+**In plain terms:**
+
+- **Learn from it.** Work through the whole course on your own, for free, forever.
+- **Share it.** Send it to anyone. Fork it. Translate it.
+- **Adapt it.** Change it for your own study, and publish your changes under this same
+  licence.
+- **Do not sell it.** You may not run this as a paid course, a paid bootcamp, or paid
+  training, or bundle it into a commercial product, without written permission.
+- **Credit it.** Say where it came from and link back.
+
+For commercial licensing, contact freshernation@gmail.com.
+
+---
+
+## 3. What is not here
+
+The reference solutions, the instructor runbooks, the grading harness and the triage
+tooling are not part of this repository and are not licensed for distribution.

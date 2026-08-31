@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.DS_Store
+.vscode/
+
+# --- Instructor materials -------------------------------------------------
+# instructor/ holds the reference solutions, the runbooks and the triage tool.
+# It MUST NOT reach the repo your students clone.
+#
+# It is its own git repository (freshernation/course-private), nested inside this
+# one and ignored by it. Two independent remotes, one working tree.
+instructor/
+_variant_*
+visits.json
+expenses.json

@@ -1,0 +1,22 @@
+# Weeks 1-4 need only pytest. The rest arrive as the course does.
+pytest>=8.0
+
+# Week 5 - talking to the internet
+requests>=2.31
+pydantic>=2.6
+python-dotenv>=1.0
+
+# Week 6 - talking to a model
+anthropic>=0.40
+
+# Week 8 - frameworks
+langchain-core>=0.3
+langgraph>=0.2
+langchain-anthropic>=0.3
+
+# Week 10 - the contrast
+crewai>=1.0
+
+# Week 11 - shipping it
+fastapi>=0.115
+uvicorn>=0.30

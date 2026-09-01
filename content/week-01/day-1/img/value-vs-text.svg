@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="Quotes turn a calculation into text">
+  <rect width="720" height="260" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="32" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Quotes change what Python is looking at</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <rect x="40" y="60" width="300" height="160" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+    <text x="60" y="88" fill="#0f172a">print(3 + 4)</text>
+    <text x="60" y="126" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">no quotes &#8594; Python does the sum</text>
+    <rect x="60" y="140" width="260" height="34" rx="5" fill="#0f172a"/>
+    <text x="74" y="163" fill="#4ade80" font-size="14">7</text>
+    <text x="60" y="200" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#14532d">a number</text>
+
+    <rect x="380" y="60" width="300" height="160" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+    <text x="400" y="88" fill="#0f172a">print(<tspan fill="#d97706">"3 + 4"</tspan>)</text>
+    <text x="400" y="126" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">quotes &#8594; Python just repeats it</text>
+    <rect x="400" y="140" width="260" height="34" rx="5" fill="#0f172a"/>
+    <text x="414" y="163" fill="#4ade80" font-size="14">3 + 4</text>
+    <text x="400" y="200" font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#92400e">a picture of a number</text>
+  </g>
+  <text x="360" y="242" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">Same characters. Completely different meaning.</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" width="720" height="270" role="img" aria-label="A list finds things by position, a dict finds them by name">
+  <rect width="720" height="270" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A list says &#8220;the third thing&#8221;. A dict says &#8220;the price&#8221;.</text>
+
+  <rect x="24" y="50" width="322" height="184" rx="8" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="185" y="74" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" font-weight="700" fill="#5b21b6">list &#8212; by position</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="44" y="102" fill="#7c3aed" font-weight="700">0</text><rect x="66" y="88" width="256" height="26" rx="4" fill="#faf5ff" stroke="#c4b5fd"/><text x="80" y="106" fill="#0f172a">"Ana Silva"</text>
+    <text x="44" y="134" fill="#7c3aed" font-weight="700">1</text><rect x="66" y="120" width="256" height="26" rx="4" fill="#faf5ff" stroke="#c4b5fd"/><text x="80" y="138" fill="#0f172a">"ana@example.com"</text>
+    <text x="44" y="166" fill="#7c3aed" font-weight="700">2</text><rect x="66" y="152" width="256" height="26" rx="4" fill="#faf5ff" stroke="#c4b5fd"/><text x="80" y="170" fill="#0f172a">"Lisbon"</text>
+    <text x="44" y="200" fill="#0f172a">contact[2]</text>
+  </g>
+  <text x="44" y="220" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">You have to remember that 2 means &#8220;city&#8221;.</text>
+
+  <rect x="374" y="50" width="322" height="184" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="74" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" font-weight="700" fill="#14532d">dict &#8212; by key</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="392" y="106" fill="#16a34a" font-weight="700">"name"</text><rect x="470" y="88" width="212" height="26" rx="4" fill="#f0fdf4" stroke="#86efac"/><text x="482" y="106" fill="#0f172a">"Ana Silva"</text>
+    <text x="392" y="138" fill="#16a34a" font-weight="700">"email"</text><rect x="470" y="120" width="212" height="26" rx="4" fill="#f0fdf4" stroke="#86efac"/><text x="482" y="138" fill="#0f172a">"ana@example.com"</text>
+    <text x="392" y="170" fill="#16a34a" font-weight="700">"city"</text><rect x="470" y="152" width="212" height="26" rx="4" fill="#f0fdf4" stroke="#86efac"/><text x="482" y="170" fill="#0f172a">"Lisbon"</text>
+    <text x="392" y="200" font-size="13" fill="#0f172a">contact["city"]</text>
+  </g>
+  <text x="392" y="220" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">It says what it is. Order is irrelevant.</text>
+
+  <text x="360" y="256" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#475569">Once an item has more than one field, counting positions stops working and starts causing bugs.</text>
+</svg>

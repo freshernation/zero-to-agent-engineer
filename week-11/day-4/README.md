@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on LLM evaluation and guardrails — 25 min]`
+- [ ] [**LLM evaluation and guardrails**](../../content/week-11/day-4/evaluation-and-guardrails.md) — 25 min · docs: [Create strong empirical evaluations](https://docs.claude.com/en/docs/test-and-evaluate/develop-tests)
 
 ---
 

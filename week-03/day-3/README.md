@@ -10,8 +10,8 @@ changes, and with it your programs stop being exercises.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on reading and writing files — 25 min]`
-- [ ] `[INSTRUCTOR: source on JSON in Python — 15 min]`
+- [ ] [**Reading and writing files**](../../content/week-03/day-3/reading-and-writing-files.md) — 25 min · docs: [Reading and Writing Files](https://docs.python.org/3.14/tutorial/inputoutput.html#reading-and-writing-files)
+- [ ] [**JSON in Python**](../../content/week-03/day-3/json-in-python.md) — 15 min · docs: [`json`](https://docs.python.org/3.14/library/json.html)
 
 ---
 

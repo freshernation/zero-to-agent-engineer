@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on structured logging and tracing — 25 min]`
+- [ ] [**Structured logging and tracing**](../../content/week-11/day-3/logging-and-tracing.md) — 25 min · docs: [`logging`](https://docs.python.org/3.14/library/logging.html)
 
 ---
 

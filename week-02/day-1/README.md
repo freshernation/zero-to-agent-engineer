@@ -6,8 +6,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on Python lists — 25 min]`
-- [ ] `[INSTRUCTOR: source on indexing and slicing — 15 min]`
+- [ ] [**Python lists**](../../content/week-02/day-1/python-lists.md) — 25 min · docs: [More on Lists](https://docs.python.org/3.14/tutorial/datastructures.html#more-on-lists)
+- [ ] [**Indexing and slicing**](../../content/week-02/day-1/indexing-and-slicing.md) — 15 min · docs: [Common Sequence Operations](https://docs.python.org/3.14/library/stdtypes.html#common-sequence-operations)
 
 ---
 

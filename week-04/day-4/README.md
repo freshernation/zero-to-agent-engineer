@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on Python type hints — 20 min]`
-- [ ] `[INSTRUCTOR: source on writing a good README — 15 min]`
+- [ ] [**Python type hints**](../../content/week-04/day-4/type-hints.md) — 20 min · docs: [`typing`](https://docs.python.org/3.14/library/typing.html)
+- [ ] [**Writing a good README**](../../content/week-04/day-4/writing-a-good-readme.md) — 15 min · docs: [PEP 257 — Docstring Conventions](https://peps.python.org/pep-0257/)
 
 ---
 

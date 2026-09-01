@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="The or trap: a bare string is always true">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The trap: <tspan font-family="ui-monospace,monospace">or</tspan> needs a full comparison on both sides</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="15">
+    <rect x="30" y="52" width="660" height="86" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="50" y="82" fill="#0f172a">if day == "Saturday" or <tspan fill="#dc2626" font-weight="700">"Sunday"</tspan>:</text>
+    <text x="50" y="108" font-family="system-ui,sans-serif" font-size="12" fill="#991b1b">Python asks two separate questions: (1) is day Saturday? (2) is <tspan font-family="ui-monospace,monospace">"Sunday"</tspan> truthy?</text>
+    <text x="50" y="126" font-family="system-ui,sans-serif" font-size="12" fill="#991b1b">A non-empty string is always truthy &#8212; so this is <tspan font-weight="700">True on every day of the week</tspan>.</text>
+
+    <rect x="30" y="156" width="660" height="70" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="50" y="186" fill="#0f172a">if day == "Saturday" or <tspan fill="#16a34a" font-weight="700">day == "Sunday"</tspan>:</text>
+    <text x="50" y="212" font-family="system-ui,sans-serif" font-size="12" fill="#14532d">Write out the whole comparison on both sides. Every time. No exceptions.</text>
+  </g>
+</svg>

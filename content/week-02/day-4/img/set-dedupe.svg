@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="A set keeps each thing once and forgets the order">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A set answers &#8220;how many <tspan font-style="italic">different</tspan> ones were there?&#8221;</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="30" y="62" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#475569">a list &#8212; keeps everything, in order</text>
+    <rect x="30" y="72" width="76" height="30" rx="4" fill="#eff6ff" stroke="#2563eb"/><text x="68" y="92" text-anchor="middle" fill="#0f172a">"ana"</text>
+    <rect x="112" y="72" width="76" height="30" rx="4" fill="#eff6ff" stroke="#2563eb"/><text x="150" y="92" text-anchor="middle" fill="#0f172a">"ben"</text>
+    <rect x="194" y="72" width="76" height="30" rx="4" fill="#fee2e2" stroke="#dc2626"/><text x="232" y="92" text-anchor="middle" fill="#0f172a">"ana"</text>
+    <rect x="276" y="72" width="86" height="30" rx="4" fill="#eff6ff" stroke="#2563eb"/><text x="319" y="92" text-anchor="middle" fill="#0f172a">"cara"</text>
+    <text x="378" y="92" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">len = 4</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#e1)"><path d="M196 110 V138"/></g>
+  <text x="212" y="132" font-family="ui-monospace,monospace" font-size="13" fill="#0f172a">set(visitors)</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="30" y="164" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#475569">a set &#8212; each thing once, order not guaranteed</text>
+    <rect x="30" y="174" width="76" height="30" rx="4" fill="#f0fdf4" stroke="#16a34a"/><text x="68" y="194" text-anchor="middle" fill="#0f172a">"ben"</text>
+    <rect x="112" y="174" width="86" height="30" rx="4" fill="#f0fdf4" stroke="#16a34a"/><text x="155" y="194" text-anchor="middle" fill="#0f172a">"cara"</text>
+    <rect x="204" y="174" width="76" height="30" rx="4" fill="#f0fdf4" stroke="#16a34a"/><text x="242" y="194" text-anchor="middle" fill="#0f172a">"ana"</text>
+    <text x="296" y="194" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">len = 3</text>
+  </g>
+
+  <rect x="30" y="216" width="660" height="24" rx="5" fill="#fffbeb" stroke="#d97706"/>
+  <text x="360" y="232" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#92400e">Always print it as <tspan font-family="ui-monospace,monospace" font-weight="700">sorted(set(x))</tspan> &#8212; otherwise your output changes between runs and no test can pass.</text>
+
+  <defs><marker id="e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

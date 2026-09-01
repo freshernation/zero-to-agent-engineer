@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on Python classes and __init__ — 30 min]`
-- [ ] `[INSTRUCTOR: source on self and instance attributes — 15 min]`
+- [ ] [**Python classes and `__init__`**](../../content/week-04/day-1/classes-and-init.md) — 30 min · docs: [Classes](https://docs.python.org/3.14/tutorial/classes.html)
+- [ ] [**`self` and instance attributes**](../../content/week-04/day-1/self-and-instance-attributes.md) — 15 min · docs: [Class and Instance Variables](https://docs.python.org/3.14/tutorial/classes.html#class-and-instance-variables)
 
 ---
 

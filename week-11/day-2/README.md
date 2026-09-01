@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on twelve-factor config and deployment — 25 min]`
+- [ ] [**Twelve-factor config and deployment**](../../content/week-11/day-2/config-and-deployment.md) — 25 min · docs: [The Twelve-Factor App — Config](https://12factor.net/config)
 
 ---
 

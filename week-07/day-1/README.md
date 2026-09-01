@@ -10,7 +10,7 @@ you put that in a `while`.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on tool use / function calling — 30 min]`
+- [ ] [**Tool use / function calling**](../../content/week-07/day-1/tool-use.md) — 30 min · docs: [Tool use overview](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview)
 
 ---
 

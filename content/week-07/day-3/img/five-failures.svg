@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" width="720" height="340" role="img" aria-label="The five ways an agent goes wrong and what fixes each">
+  <rect width="720" height="340" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Five failures. Three share one fix.</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="24" y="46" width="440" height="42" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+    <text x="40" y="64" font-size="12" font-weight="700" fill="#991b1b">1. It invents a tool</text>
+    <text x="40" y="80" font-family="ui-monospace,monospace" fill="#0f172a">ToolUseBlock("search_web", ...) &#8594; KeyError</text>
+
+    <rect x="24" y="94" width="440" height="42" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+    <text x="40" y="112" font-size="12" font-weight="700" fill="#991b1b">2. The arguments are wrong</text>
+    <text x="40" y="128" font-family="ui-monospace,monospace" fill="#0f172a">calculate(expr="2+2") &#8594; TypeError</text>
+
+    <rect x="24" y="142" width="440" height="42" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+    <text x="40" y="160" font-size="12" font-weight="700" fill="#991b1b">3. The tool itself fails</text>
+    <text x="40" y="176" font-family="ui-monospace,monospace" fill="#0f172a">a 404, a timeout, a division by zero</text>
+  </g>
+
+  <rect x="476" y="46" width="220" height="138" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="586" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">one fix for all three</text>
+  <text x="586" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0f172a">Every tool call returns</text>
+  <text x="586" y="114" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0f172a">a <tspan font-weight="700">string</tspan>. Always.</text>
+  <text x="586" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">Success or failure, the model</text>
+  <text x="586" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">gets something it can act on.</text>
+  <text x="586" y="174" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#475569">A tool that raises has broken the contract.</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="24" y="196" width="332" height="76" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="40" y="216" font-size="12" font-weight="700" fill="#92400e">4. It goes round in circles</text>
+    <text x="40" y="234" fill="#0f172a">Same call, same result, again. Nothing raises.</text>
+    <text x="40" y="252" font-weight="700" fill="#92400e">Fix: repeat detection on a stable signature</text>
+    <text x="40" y="266" font-family="ui-monospace,monospace" font-size="10" fill="#475569">(name, json.dumps(input, sort_keys=True))</text>
+
+    <rect x="368" y="196" width="328" height="76" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="384" y="216" font-size="12" font-weight="700" fill="#92400e">5. The context runs away</text>
+    <text x="384" y="234" fill="#0f172a">One tool returns 50,000 chars of HTML &#8212; and it</text>
+    <text x="384" y="248" fill="#0f172a">stays in the history for every remaining step.</text>
+    <text x="384" y="266" font-weight="700" fill="#92400e">Fix: truncate every tool result</text>
+  </g>
+
+  <rect x="24" y="286" width="672" height="40" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="360" y="304" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">The iteration cap catches 4 and 5 eventually. These fixes catch them in two steps instead of five.</text>
+  <text x="360" y="319" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#475569">&#8220;Eventually&#8221; is measured in dollars.</text>
+</svg>

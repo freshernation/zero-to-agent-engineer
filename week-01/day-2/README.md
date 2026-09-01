@@ -9,8 +9,8 @@ Yesterday your programs printed the same thing every time. Today they start reac
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on variables and types — 25 min]`
-- [ ] `[INSTRUCTOR: source on input() and type conversion — 20 min]`
+- [ ] [**Variables and types**](../../content/week-01/day-2/variables-and-types.md) — 25 min · docs: [Using Python as a Calculator](https://docs.python.org/3.14/tutorial/introduction.html#using-python-as-a-calculator)
+- [ ] [**`input()` and type conversion**](../../content/week-01/day-2/input-and-type-conversion.md) — 20 min · docs: [`input()`](https://docs.python.org/3.14/library/functions.html#input)
 
 ---
 

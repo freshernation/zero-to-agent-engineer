@@ -9,7 +9,7 @@ Short day. Tomorrow is Project 2.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on asyncio basics — 25 min]`
+- [ ] [**`asyncio` basics**](../../content/week-07/day-4/asyncio-basics.md) — 25 min · docs: [`asyncio` — Asynchronous I/O](https://docs.python.org/3.14/library/asyncio.html)
 
 ---
 

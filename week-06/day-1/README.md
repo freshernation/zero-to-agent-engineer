@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on the Anthropic Messages API — 25 min]`
-- [ ] `[INSTRUCTOR: source on tokens and context windows — 15 min]`
+- [ ] [**The Anthropic Messages API**](../../content/week-06/day-1/anthropic-messages-api.md) — 25 min · docs: [Messages API reference](https://docs.claude.com/en/api/messages)
+- [ ] [**Tokens and context windows**](../../content/week-06/day-1/tokens-and-context-windows.md) — 15 min · docs: [Context windows](https://docs.claude.com/en/docs/build-with-claude/context-windows)
 
 ---
 

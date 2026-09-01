@@ -10,7 +10,7 @@ almost nobody does, and it is the part that gets discussed in interviews.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on evaluating retrieval — 25 min]`
+- [ ] [**Evaluating retrieval**](../../content/week-09/day-4/evaluating-retrieval.md) — 25 min · docs: [Create strong empirical evaluations](https://docs.claude.com/en/docs/test-and-evaluate/develop-tests)
 
 ---
 

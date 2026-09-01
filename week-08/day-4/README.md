@@ -10,7 +10,7 @@ once you know they exist.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on streaming and debugging LangGraph — 20 min]`
+- [ ] [**Streaming and debugging LangGraph**](../../content/week-08/day-4/streaming-and-debugging.md) — 20 min · docs: [Streaming](https://langchain-ai.github.io/langgraph/how-tos/streaming/)
 
 ---
 

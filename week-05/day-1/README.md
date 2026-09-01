@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on how HTTP works — 25 min]`
-- [ ] `[INSTRUCTOR: source on the requests library — 20 min]`
+- [ ] [**How HTTP works**](../../content/week-05/day-1/how-http-works.md) — 25 min · docs: [MDN — An overview of HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
+- [ ] [**The `requests` library**](../../content/week-05/day-1/the-requests-library.md) — 20 min · docs: [requests Quickstart](https://requests.readthedocs.io/en/latest/user/quickstart/)
 
 ---
 

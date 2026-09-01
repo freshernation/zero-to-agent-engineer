@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" width="720" height="330" role="img" aria-label="Python checks conditions top to bottom and stops at the first true one">
+  <rect width="720" height="330" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Top to bottom. First match wins. The rest are never even looked at.</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <rect x="60" y="56" width="300" height="42" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="78" y="83" fill="#0f172a">if score &gt;= 90:</text>
+
+    <rect x="60" y="122" width="300" height="42" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="78" y="149" fill="#0f172a">elif score &gt;= 80:</text>
+
+    <rect x="60" y="188" width="300" height="42" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="78" y="215" fill="#0f172a">elif score &gt;= 70:</text>
+
+    <rect x="60" y="254" width="300" height="42" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="78" y="281" fill="#0f172a">else:</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#a4)">
+    <path d="M210 100 V118"/><path d="M210 166 V184"/><path d="M210 232 V250"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="11" fill="#64748b">
+    <text x="222" y="115">false &#8594; try the next one</text>
+    <text x="222" y="181">false &#8594; try the next one</text>
+    <text x="222" y="247">false &#8594; nothing matched</text>
+  </g>
+
+  <g stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#a5)">
+    <path d="M362 77 H430"/><path d="M362 143 H430"/><path d="M362 209 H430"/><path d="M362 275 H430"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="12" font-weight="600" fill="#14532d">
+    <text x="440" y="82">true &#8594; grade A, then stop</text>
+    <text x="440" y="148">true &#8594; grade B, then stop</text>
+    <text x="440" y="214">true &#8594; grade C, then stop</text>
+    <text x="440" y="280" fill="#475569">the catch-all: grade F</text>
+  </g>
+
+  <defs>
+    <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker>
+    <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker>
+  </defs>
+</svg>

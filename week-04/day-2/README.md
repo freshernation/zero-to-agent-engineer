@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on __repr__ and __eq__ — 20 min]`
-- [ ] `[INSTRUCTOR: source on composition — 15 min]`
+- [ ] [**`__repr__` and `__eq__`**](../../content/week-04/day-2/repr-and-eq.md) — 20 min · docs: [Special method names](https://docs.python.org/3.14/reference/datamodel.html#special-method-names)
+- [ ] [**Composition**](../../content/week-04/day-2/composition.md) — 15 min · docs: [Classes](https://docs.python.org/3.14/tutorial/classes.html)
 
 ---
 

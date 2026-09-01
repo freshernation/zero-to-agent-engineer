@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="Where a secret lives and where it must never go">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Git never forgets. A key committed once is a key leaked forever.</text>
+
+  <rect x="30" y="48" width="322" height="106" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="46" y="70" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">In the code &#8212; never</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="46" y="94" fill="#dc2626">API_KEY = "sk-ant-api03-real-key"</text>
+  </g>
+  <text x="46" y="118" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">Deleting the line later does not remove it. It stays in</text>
+  <text x="46" y="134" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">every clone, and scanners find published keys in minutes.</text>
+
+  <rect x="368" y="48" width="322" height="106" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="384" y="70" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">In the environment &#8212; always</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="384" y="94" fill="#16a34a">api_key = os.getenv("COURSE_API_KEY")</text>
+  </g>
+  <text x="384" y="118" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">The code says which key it needs.</text>
+  <text x="384" y="134" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">It never says what the key is.</text>
+
+  <text x="360" y="182" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0f172a">The three files, and which ones git sees</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <rect x="30" y="196" width="212" height="62" rx="6" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="136" y="216" text-anchor="middle" font-weight="700" fill="#991b1b">.env</text>
+    <text x="136" y="234" text-anchor="middle" font-size="10" fill="#0f172a">COURSE_API_KEY=real-key</text>
+    <text x="136" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#991b1b">gitignored. Never committed.</text>
+
+    <rect x="254" y="196" width="212" height="62" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="360" y="216" text-anchor="middle" font-weight="700" fill="#14532d">.env.example</text>
+    <text x="360" y="234" text-anchor="middle" font-size="10" fill="#0f172a">COURSE_API_KEY=</text>
+    <text x="360" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#14532d">committed. Names, no values.</text>
+
+    <rect x="478" y="196" width="212" height="62" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="584" y="216" text-anchor="middle" font-weight="700" fill="#1e3a8a">.gitignore</text>
+    <text x="584" y="234" text-anchor="middle" font-size="10" fill="#0f172a">.env</text>
+    <text x="584" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e3a8a">committed. Add this FIRST.</text>
+  </g>
+</svg>

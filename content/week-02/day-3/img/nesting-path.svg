@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" width="720" height="290" role="img" aria-label="Reading a nested lookup one bracket at a time">
+  <rect width="720" height="290" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Read a nested lookup left to right, one bracket at a time</text>
+
+  <text x="70" y="76" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="22" fill="#0f172a">data<tspan fill="#7c3aed">["teams"]</tspan><tspan fill="#2563eb">[0]</tspan><tspan fill="#16a34a">["members"]</tspan></text>
+
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M120 88 V116"/><path d="M232 88 V150"/><path d="M290 88 V184"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="12">
+    <text x="120" y="132" fill="#0f172a">start with the whole thing &#8212; a <tspan font-family="ui-monospace,monospace" font-weight="700">dict</tspan></text>
+    <text x="232" y="166" fill="#5b21b6">key <tspan font-family="ui-monospace,monospace" font-weight="700">"teams"</tspan> &#8594; now you are holding a <tspan font-weight="700">list</tspan></text>
+    <text x="290" y="200" fill="#1e3a8a">position <tspan font-family="ui-monospace,monospace" font-weight="700">0</tspan> &#8594; now you are holding a <tspan font-weight="700">dict</tspan></text>
+    <text x="290" y="222" fill="#14532d">key <tspan font-family="ui-monospace,monospace" font-weight="700">"members"</tspan> &#8594; now you are holding a <tspan font-weight="700">list</tspan></text>
+  </g>
+
+  <rect x="40" y="238" width="640" height="38" rx="6" fill="#fffbeb" stroke="#d97706"/>
+  <text x="360" y="262" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#92400e">Square brackets with a <tspan font-weight="700">number</tspan> = a list. Square brackets with a <tspan font-weight="700">string</tspan> = a dict. That is the whole rule.</text>
+</svg>

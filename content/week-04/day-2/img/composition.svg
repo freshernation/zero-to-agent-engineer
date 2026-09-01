@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="Composition: a Ledger has Expenses">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Composition &#8212; a Ledger <tspan font-style="italic">has</tspan> Expenses</text>
+
+  <rect x="40" y="52" width="250" height="180" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="165" y="76" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700" fill="#1e3a8a">Ledger</text>
+  <text x="58" y="102" font-family="ui-monospace,monospace" font-size="12" fill="#0f172a">self.expenses = [ ]</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <rect x="58" y="114" width="214" height="30" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="165" y="134" text-anchor="middle" fill="#0f172a">Expense("Tea", 2.5)</text>
+    <rect x="58" y="150" width="214" height="30" rx="4" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="165" y="170" text-anchor="middle" fill="#0f172a">Expense("Rent", 900)</text>
+  </g>
+  <text x="58" y="204" font-family="ui-monospace,monospace" font-size="12" fill="#1e3a8a">def total(self): ...</text>
+  <text x="58" y="222" font-family="ui-monospace,monospace" font-size="12" fill="#1e3a8a">def add(self, e): ...</text>
+
+  <rect x="330" y="52" width="350" height="88" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="346" y="76" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#0f172a">Each class minds its own business</text>
+  <text x="346" y="98" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Ledger does not know how an Expense stores</text>
+  <text x="346" y="114" font-family="system-ui,sans-serif" font-size="11" fill="#475569">its amount. It just asks: <tspan font-family="ui-monospace,monospace">e.amount</tspan>.</text>
+  <text x="346" y="132" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">So either can be replaced without touching the other.</text>
+
+  <rect x="330" y="152" width="350" height="80" rx="8" fill="#fffbeb" stroke="#d97706"/>
+  <text x="346" y="176" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">&#8220;has a&#8221; not &#8220;is a&#8221;</text>
+  <text x="346" y="196" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">A Ledger <tspan font-weight="700">has</tspan> Expenses &#8594; composition.</text>
+  <text x="346" y="214" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">You will hear a lot about inheritance. You will</text>
+  <text x="346" y="228" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">use composition ten times as often.</text>
+
+  <text x="360" y="262" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#475569">This is the shape of the overwhelming majority of real object design.</text>
+</svg>

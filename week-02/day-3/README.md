@@ -10,8 +10,8 @@ than one field per item, counting positions stops working and starts causing bug
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on Python dictionaries — 25 min]`
-- [ ] `[INSTRUCTOR: source on nested data (lists of dicts) — 15 min]`
+- [ ] [**Python dictionaries**](../../content/week-02/day-3/python-dictionaries.md) — 25 min · docs: [Dictionaries](https://docs.python.org/3.14/tutorial/datastructures.html#dictionaries)
+- [ ] [**Nested data — lists of dicts**](../../content/week-02/day-3/nested-data.md) — 15 min · docs: [Mapping Types — `dict`](https://docs.python.org/3.14/library/stdtypes.html#mapping-types-dict)
 
 ---
 

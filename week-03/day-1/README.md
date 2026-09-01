@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on defining and calling functions — 30 min]`
-- [ ] `[INSTRUCTOR: source on return values and scope — 20 min]`
+- [ ] [**Defining and calling functions**](../../content/week-03/day-1/defining-and-calling-functions.md) — 30 min · docs: [Defining Functions](https://docs.python.org/3.14/tutorial/controlflow.html#defining-functions)
+- [ ] [**Return values and scope**](../../content/week-03/day-1/return-values-and-scope.md) — 20 min · docs: [Scopes and Namespaces](https://docs.python.org/3.14/tutorial/classes.html#python-scopes-and-namespaces)
 
 ---
 

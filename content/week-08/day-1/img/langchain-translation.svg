@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="What you already built, and what LangChain calls it">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A vocabulary lesson. You already built all of it.</text>
+
+  <rect x="24" y="46" width="330" height="30" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="189" y="66" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">what you wrote in week 6&#8211;7</text>
+  <rect x="366" y="46" width="330" height="30" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="531" y="66" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b21b6">what LangChain calls it</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="34" y="100" fill="#0f172a">{"role": "user", "content": ...}</text>
+    <text x="376" y="100" fill="#5b21b6">HumanMessage(...)</text>
+
+    <text x="34" y="124" fill="#0f172a">{"role": "assistant", ...}</text>
+    <text x="376" y="124" fill="#5b21b6">AIMessage(...)</text>
+
+    <text x="34" y="148" fill="#0f172a">system="..."</text>
+    <text x="376" y="148" fill="#5b21b6">SystemMessage(...)</text>
+
+    <text x="34" y="172" fill="#0f172a">{"type": "tool_result", ...}</text>
+    <text x="376" y="172" fill="#5b21b6">ToolMessage(content=, tool_call_id=)</text>
+
+    <text x="34" y="196" fill="#0f172a">f"You are a {role}."</text>
+    <text x="376" y="196" fill="#5b21b6">ChatPromptTemplate</text>
+
+    <text x="34" y="220" fill="#0f172a">the hand-written schema dict</text>
+    <text x="376" y="220" fill="#16a34a" font-weight="700">@tool  &#8212; a genuine saving</text>
+
+    <text x="34" y="244" fill="#0f172a">[b for b in content if b.type=="tool_use"]</text>
+    <text x="376" y="244" fill="#5b21b6">response.tool_calls</text>
+  </g>
+
+  <rect x="24" y="262" width="672" height="28" rx="6" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="360" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#14532d"><tspan font-family="ui-monospace,monospace" font-weight="700">@tool</tspan> builds your schema from the type hints and the docstring &#8212; so the docstring <tspan font-style="italic">is</tspan> the prompt.</text>
+</svg>

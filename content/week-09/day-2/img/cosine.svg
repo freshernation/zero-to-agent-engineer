@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="Cosine similarity compares direction not size">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Cosine similarity compares <tspan font-style="italic">direction</tspan>, not size</text>
+
+  <g stroke="#cbd5e1" stroke-width="1">
+    <line x1="80" y1="230" x2="330" y2="230"/><line x1="80" y1="230" x2="80" y2="60"/>
+  </g>
+  <text x="336" y="234" font-family="ui-monospace,monospace" font-size="10" fill="#64748b">"expense"</text>
+  <text x="60" y="56" font-family="ui-monospace,monospace" font-size="10" fill="#64748b">"claims"</text>
+
+  <g stroke-width="3" fill="none" marker-end="url(#ad1)">
+    <path d="M80 230 L200 120" stroke="#2563eb"/>
+  </g>
+  <g stroke-width="3" fill="none" marker-end="url(#ad2)">
+    <path d="M80 230 L290 90" stroke="#16a34a"/>
+  </g>
+  <g stroke-width="3" fill="none" marker-end="url(#ad3)">
+    <path d="M80 230 L280 205" stroke="#dc2626"/>
+  </g>
+
+  <text x="196" y="112" font-family="system-ui,sans-serif" font-size="10" fill="#1e3a8a">short chunk</text>
+  <text x="286" y="82" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">long chunk, same topic</text>
+  <text x="286" y="222" font-family="system-ui,sans-serif" font-size="10" fill="#991b1b">different topic</text>
+
+  <path d="M120 200 A 55 55 0 0 1 133 178" stroke="#7c3aed" stroke-width="2" fill="none"/>
+  <text x="146" y="196" font-family="system-ui,sans-serif" font-size="10" fill="#5b21b6">small angle = similar</text>
+
+  <rect x="376" y="60" width="314" height="90" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="392" y="82" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">Why direction and not length</text>
+  <text x="392" y="102" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Two chunks about expenses point the same way</text>
+  <text x="392" y="118" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">whether one is a sentence and one is a page.</text>
+  <text x="392" y="138" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">Otherwise every search returns the longest chunk.</text>
+
+  <rect x="376" y="162" width="314" height="98" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="392" y="184" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">Do not trust a threshold</text>
+  <text x="392" y="204" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">TF-IDF: 0 means no shared words at all.</text>
+  <text x="392" y="222" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Neural embeddings: 0 effectively never happens,</text>
+  <text x="392" y="238" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">and the useful range is much narrower.</text>
+  <text x="392" y="256" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#92400e">Compare scores to each other, not to a number.</text>
+
+  <defs>
+    <marker id="ad1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <marker id="ad2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker>
+    <marker id="ad3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/></marker>
+  </defs>
+</svg>

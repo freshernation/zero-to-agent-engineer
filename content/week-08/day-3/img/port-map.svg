@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" width="720" height="330" role="img" aria-label="Week 7's loop mapped onto a LangGraph graph">
+  <rect width="720" height="330" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The same agent, rearranged. Notice exactly what moved.</text>
+
+  <rect x="24" y="42" width="330" height="26" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="189" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">week 7 &#8212; your loop</text>
+  <rect x="366" y="42" width="330" height="26" rx="5" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="531" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b21b6">week 8 &#8212; the graph</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">
+    <rect x="24" y="76" width="672" height="24" rx="3" fill="#dcfce7"/>
+    <text x="34" y="92" fill="#0f172a">messages list you appended to</text>
+    <text x="376" y="92" fill="#14532d" font-weight="700">state, with an add_messages reducer &#8212; SAVING</text>
+
+    <text x="34" y="118" fill="#0f172a">"call the model"</text>
+    <text x="376" y="118" fill="#5b21b6">a node</text>
+
+    <text x="34" y="140" fill="#0f172a">"run the tools"</text>
+    <text x="376" y="140" fill="#5b21b6">a node</text>
+
+    <text x="34" y="162" fill="#0f172a">if stop_reason != "tool_use"</text>
+    <text x="376" y="162" fill="#5b21b6">a conditional edge</text>
+
+    <text x="34" y="184" fill="#0f172a">for step in range(max_iterations)</text>
+    <text x="376" y="184" fill="#5b21b6">a step counter in state, checked in the router</text>
+
+    <rect x="24" y="192" width="672" height="24" rx="3" fill="#dcfce7"/>
+    <text x="34" y="208" fill="#0f172a">messages.append(assistant_turn(...))</text>
+    <text x="376" y="208" fill="#14532d" font-weight="700">the reducer, automatically &#8212; SAVING</text>
+
+    <rect x="24" y="220" width="672" height="24" rx="3" fill="#fee2e2"/>
+    <text x="34" y="236" fill="#0f172a">matching tool_use_id</text>
+    <text x="376" y="236" fill="#991b1b" font-weight="700">ToolMessage(tool_call_id=...) &#8212; STILL BY HAND</text>
+
+    <rect x="24" y="248" width="672" height="24" rx="3" fill="#fee2e2"/>
+    <text x="34" y="264" fill="#0f172a">looking the tool up, running it, catching failures</text>
+    <text x="376" y="264" fill="#991b1b" font-weight="700">unchanged &#8212; STILL BY HAND</text>
+  </g>
+
+  <rect x="24" y="284" width="672" height="36" rx="6" fill="#fffbeb" stroke="#d97706"/>
+  <text x="360" y="306" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#92400e">Two genuine savings. The rest is the same work with different names. Friday asks you to defend every row.</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" width="720" height="320" role="img" aria-label="The top third of page one does the work">
+  <rect width="720" height="320" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Ninety seconds. The top third of page one does all the work.</text>
+
+  <rect x="60" y="46" width="250" height="250" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="185" y="66" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#991b1b">what most people do</text>
+  <rect x="72" y="76" width="226" height="30" rx="3" fill="#f1f5f9"/><text x="84" y="95" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Name &#183; contact</text>
+  <rect x="72" y="112" width="226" height="52" rx="3" fill="#fee2e2" stroke="#dc2626"/><text x="84" y="132" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#991b1b">Education</text><text x="84" y="150" font-family="system-ui,sans-serif" font-size="10" fill="#991b1b">a degree in something else</text>
+  <rect x="72" y="170" width="226" height="52" rx="3" fill="#f1f5f9"/><text x="84" y="190" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Experience</text><text x="84" y="208" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">the previous career</text>
+  <rect x="72" y="228" width="226" height="56" rx="3" fill="#f1f5f9"/><text x="84" y="248" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Projects</text><text x="84" y="266" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">the evidence, below the fold</text>
+  <line x1="60" y1="152" x2="310" y2="152" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="316" y="150" font-family="system-ui,sans-serif" font-size="10" fill="#dc2626">90 seconds ends here</text>
+
+  <rect x="410" y="46" width="250" height="250" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="66" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">what you do</text>
+  <rect x="422" y="76" width="226" height="26" rx="3" fill="#f1f5f9"/><text x="434" y="93" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Name &#183; contact</text>
+  <rect x="422" y="108" width="226" height="86" rx="3" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="434" y="128" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">Projects</text>
+  <text x="434" y="146" font-family="system-ui,sans-serif" font-size="9" fill="#0f172a">Expense tracker &#8212; 47 tests, ...</text>
+  <text x="434" y="162" font-family="system-ui,sans-serif" font-size="9" fill="#0f172a">Agent from scratch &#8212; no framework, ...</text>
+  <text x="434" y="178" font-family="system-ui,sans-serif" font-size="9" fill="#0f172a">Deployed assistant &#8212; 0.85 hit rate, live</text>
+  <rect x="422" y="200" width="226" height="40" rx="3" fill="#f1f5f9"/><text x="434" y="224" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Skills</text>
+  <rect x="422" y="246" width="226" height="38" rx="3" fill="#f1f5f9"/><text x="434" y="269" font-family="system-ui,sans-serif" font-size="11" fill="#475569">Experience &#183; Education</text>
+  <line x1="410" y1="194" x2="660" y2="194" stroke="#16a34a" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="418" y="212" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">90 seconds ends here &#8212; and they have seen the evidence</text>
+
+  <text x="360" y="312" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#475569">For a career changer, projects go above education. Always. It is the single most important formatting decision on the page.</text>
+</svg>

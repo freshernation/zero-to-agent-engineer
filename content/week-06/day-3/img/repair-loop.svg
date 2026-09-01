@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" width="720" height="270" role="img" aria-label="Feeding the validation error back so the model can fix its own output">
+  <rect width="720" height="270" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Feed the error back. The model usually fixes it on the second go.</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="30" y="52" width="140" height="52" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="100" y="74" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">ask</text>
+    <text x="100" y="92" text-anchor="middle" fill="#475569">the original prompt</text>
+
+    <rect x="210" y="52" width="150" height="52" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="285" y="74" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">validate</text>
+    <text x="285" y="92" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">model_validate</text>
+
+    <rect x="400" y="52" width="140" height="52" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="470" y="74" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">valid &#8594; return</text>
+    <text x="470" y="92" text-anchor="middle" fill="#475569">a real object</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#y1)">
+    <path d="M176 78 H204"/><path d="M366 78 H394"/>
+  </g>
+
+  <g stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#y2)">
+    <path d="M285 108 V140 H100 V110"/>
+  </g>
+  <rect x="150" y="122" width="420" height="60" rx="6" fill="#fff1f2" stroke="#dc2626"/>
+  <text x="164" y="142" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#991b1b">invalid &#8594; ask again, WITH the error</text>
+  <text x="164" y="162" font-family="ui-monospace,monospace" font-size="10" fill="#0f172a">"Your last answer was rejected: price</text>
+  <text x="164" y="176" font-family="ui-monospace,monospace" font-size="10" fill="#0f172a"> Input should be a valid number. Return only valid JSON."</text>
+
+  <rect x="30" y="196" width="660" height="58" rx="8" fill="#fffbeb" stroke="#d97706"/>
+  <text x="46" y="218" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">This is not the week 5 retry</text>
+  <text x="46" y="238" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">A 503 is worth retrying <tspan font-style="italic">identically</tspan>. A bad answer is only worth retrying <tspan font-style="italic">differently</tspan> &#8212; same prompt, same answer.</text>
+</svg>

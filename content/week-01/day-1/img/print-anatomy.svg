@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" width="720" height="230" role="img" aria-label="The parts of a print call">
+  <rect width="720" height="230" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="32" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The parts of one print() call</text>
+
+  <text x="90" y="90" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="24" fill="#0f172a">print<tspan fill="#2563eb">(</tspan><tspan fill="#d97706">"a"</tspan>, <tspan fill="#d97706">"b"</tspan>, sep<tspan fill="#94a3b8">=</tspan><tspan fill="#d97706">""</tspan><tspan fill="#2563eb">)</tspan></text>
+
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M110 100 V130"/>
+    <path d="M200 100 V150"/>
+    <path d="M262 100 V130"/>
+    <path d="M350 100 V170"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="12" fill="#475569">
+    <text x="110" y="146">the name of the tool</text>
+    <text x="200" y="166">the values you want shown, separated by commas</text>
+    <text x="262" y="146">and another one</text>
+    <text x="350" y="186">an option: what to put between them (default is one space)</text>
+  </g>
+</svg>

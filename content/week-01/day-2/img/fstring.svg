@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" width="720" height="240" role="img" aria-label="How an f-string is put together">
+  <rect width="720" height="240" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Reading an f-string</text>
+
+  <text x="50" y="86" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" fill="#0f172a"><tspan fill="#dc2626" font-weight="700">f</tspan>"Total: $<tspan fill="#2563eb">{</tspan><tspan fill="#16a34a">total</tspan><tspan fill="#7c3aed">:.2f</tspan><tspan fill="#2563eb">}</tspan>"</text>
+
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M56 96 V124"/><path d="M232 96 V150"/><path d="M300 96 V176"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="12" fill="#475569">
+    <text x="56"  y="140"><tspan font-weight="700" fill="#dc2626">f</tspan> turns this into an f-string &#8212; without it the braces stay as literal text</text>
+    <text x="232" y="166"><tspan font-weight="700" fill="#16a34a">total</tspan> &#8212; the variable whose value gets dropped in here</text>
+    <text x="300" y="192"><tspan font-weight="700" fill="#7c3aed">:.2f</tspan> &#8212; format it: a decimal number, exactly 2 places</text>
+  </g>
+
+  <rect x="50" y="204" width="620" height="26" rx="5" fill="#0f172a"/>
+  <text x="64" y="222" font-family="ui-monospace,monospace" font-size="13" fill="#4ade80">Total: $27.50</text>
+</svg>

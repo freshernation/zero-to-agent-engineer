@@ -10,7 +10,7 @@ hard to build by hand and nearly free here.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on LangGraph checkpointers and threads — 25 min]`
+- [ ] [**LangGraph checkpointers and threads**](../../content/week-10/day-1/langgraph-checkpointers.md) — 25 min · docs: [Persistence](https://langchain-ai.github.io/langgraph/concepts/persistence/)
 
 ---
 

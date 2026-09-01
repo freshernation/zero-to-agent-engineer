@@ -10,8 +10,8 @@ your laptop and something you would let other people depend on.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on environment variables and .env files — 20 min]`
-- [ ] `[INSTRUCTOR: source on retries and backoff — 15 min]`
+- [ ] [**Environment variables and `.env` files**](../../content/week-05/day-3/environment-variables.md) — 20 min · docs: [`os.environ`](https://docs.python.org/3.14/library/os.html#os.environ)
+- [ ] [**Retries and backoff**](../../content/week-05/day-3/retries-and-backoff.md) — 15 min · docs: [`time.sleep()`](https://docs.python.org/3.14/library/time.html#time.sleep)
 
 ---
 

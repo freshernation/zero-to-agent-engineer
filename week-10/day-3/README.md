@@ -6,7 +6,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on CrewAI basics — 30 min]`
+- [ ] [**CrewAI basics**](../../content/week-10/day-3/crewai-basics.md) — 30 min · docs: [CrewAI — Introduction](https://docs.crewai.com/introduction)
 
 ---
 

@@ -10,7 +10,7 @@ one you already own get rearranged, and noticing exactly what changes.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on building an agent in LangGraph — 30 min]`
+- [ ] [**Building an agent in LangGraph**](../../content/week-08/day-3/agent-in-langgraph.md) — 30 min · docs: [LangGraph agents](https://langchain-ai.github.io/langgraph/agents/agents/)
 
 ---
 

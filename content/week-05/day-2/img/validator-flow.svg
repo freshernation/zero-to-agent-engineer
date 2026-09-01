@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="A validator runs after the type check and must return the value">
+  <rect width="720" height="260" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A validator runs <tspan font-style="italic">after</tspan> the type check &#8212; and must return the value</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="24" y="60" width="140" height="60" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="94" y="84" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">raw input</text>
+    <text x="94" y="104" text-anchor="middle" font-family="ui-monospace,monospace" fill="#475569">" ANA@EX.COM "</text>
+
+    <rect x="192" y="60" width="140" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="262" y="84" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">type check</text>
+    <text x="262" y="104" text-anchor="middle" fill="#475569">is it a str? yes</text>
+
+    <rect x="360" y="60" width="160" height="60" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="440" y="84" text-anchor="middle" font-size="12" font-weight="600" fill="#5b21b6">your validator</text>
+    <text x="440" y="104" text-anchor="middle" font-family="ui-monospace,monospace" fill="#475569">strip + lower + check</text>
+
+    <rect x="548" y="60" width="148" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="622" y="84" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">stored on the model</text>
+    <text x="622" y="104" text-anchor="middle" font-family="ui-monospace,monospace" fill="#475569">"ana@ex.com"</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#u1)">
+    <path d="M170 90 H186"/><path d="M338 90 H354"/><path d="M526 90 H542"/>
+  </g>
+
+  <rect x="24" y="140" width="322" height="98" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="40" y="162" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">Forgetting the return</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="40" y="184" fill="#0f172a">def check(cls, value):</text>
+    <text x="40" y="200" fill="#0f172a">    if "@" not in value:</text>
+    <text x="40" y="216" fill="#0f172a">        raise ValueError(...)</text>
+    <text x="40" y="232" fill="#dc2626">    # no return &#8594; field becomes None</text>
+  </g>
+
+  <rect x="374" y="140" width="322" height="98" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="390" y="162" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">Validators can clean as well as check</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="390" y="184" fill="#0f172a">def check(cls, value):</text>
+    <text x="390" y="200" fill="#0f172a">    if "@" not in value:</text>
+    <text x="390" y="216" fill="#0f172a">        raise ValueError(...)</text>
+    <text x="390" y="232" fill="#16a34a">    return value.strip().lower()</text>
+  </g>
+
+  <defs><marker id="u1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

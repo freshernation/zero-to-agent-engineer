@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="Catching is recovering, raising is refusing">
+  <rect width="720" height="260" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Two halves of the same skill</text>
+
+  <rect x="24" y="46" width="330" height="192" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="189" y="70" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700" fill="#1e3a8a">catch &#8212; &#8220;I can recover&#8221;</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="42" y="98"  fill="#0f172a">try:</text>
+    <text x="42" y="116" fill="#0f172a">    age = int(text)</text>
+    <text x="42" y="134" fill="#0f172a">except ValueError:</text>
+    <text x="42" y="152" fill="#0f172a">    age = 0</text>
+  </g>
+  <text x="42" y="184" font-family="system-ui,sans-serif" font-size="12" fill="#0f172a">You know a sensible fallback.</text>
+  <text x="42" y="204" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">Use it at the edge &#8212; where a person types,</text>
+  <text x="42" y="220" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">where a file is read, where a network replies.</text>
+
+  <rect x="374" y="46" width="322" height="192" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="535" y="70" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="700" fill="#92400e">raise &#8212; &#8220;I refuse this&#8221;</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="392" y="98"  fill="#0f172a">if age &lt; 0 or age &gt; 130:</text>
+    <text x="392" y="116" fill="#0f172a">    raise ValueError(</text>
+    <text x="392" y="134" fill="#0f172a">        "Age must be 0&#8211;130")</text>
+  </g>
+  <text x="392" y="184" font-family="system-ui,sans-serif" font-size="12" fill="#0f172a">Only you know this rule.</text>
+  <text x="392" y="204" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">Use it deep inside &#8212; a function that cannot</text>
+  <text x="392" y="220" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">know what the caller wants to do about it.</text>
+</svg>

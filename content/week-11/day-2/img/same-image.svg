@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="One image, three environments, different config">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The same image everywhere. The only difference is the environment it is given.</text>
+
+  <rect x="280" y="46" width="160" height="52" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">one image</text>
+  <text x="360" y="88" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">built once, from one Dockerfile</text>
+
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ai1)">
+    <path d="M320 100 C 300 122, 180 130, 130 146"/>
+    <path d="M360 100 V146"/>
+    <path d="M400 100 C 420 122, 540 130, 590 146"/>
+  </g>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">
+    <rect x="30" y="152" width="200" height="100" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="130" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#475569">your laptop</text>
+    <text x="44" y="194" fill="#0f172a">ENVIRONMENT=development</text>
+    <text x="44" y="212" fill="#0f172a">MODEL=claude-haiku-4-5</text>
+    <text x="44" y="230" fill="#0f172a">LOG_LEVEL=DEBUG</text>
+
+    <rect x="260" y="152" width="200" height="100" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="360" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#475569">staging</text>
+    <text x="274" y="194" fill="#0f172a">ENVIRONMENT=staging</text>
+    <text x="274" y="212" fill="#0f172a">MODEL=claude-sonnet-5</text>
+    <text x="274" y="230" fill="#0f172a">LOG_LEVEL=INFO</text>
+
+    <rect x="490" y="152" width="200" height="100" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="590" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">production</text>
+    <text x="504" y="194" fill="#0f172a">ENVIRONMENT=production</text>
+    <text x="504" y="212" fill="#0f172a">MODEL=claude-opus-5</text>
+    <text x="504" y="230" fill="#0f172a">LOG_LEVEL=INFO</text>
+  </g>
+
+  <text x="360" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">An <tspan font-family="ui-monospace,monospace">if environment == "production"</tspan> in your code means the thing you tested is not the thing you shipped.</text>
+
+  <defs><marker id="ai1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

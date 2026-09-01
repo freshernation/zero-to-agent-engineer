@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="A fixture runs again for every test that asks for it">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A fixture runs <tspan font-style="italic">again</tspan> for every test that asks for it</text>
+
+  <rect x="30" y="46" width="200" height="84" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="130" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#5b21b6">the fixture</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
+    <text x="44" y="90"  fill="#7c3aed">@pytest.fixture</text>
+    <text x="44" y="106" fill="#0f172a">def ledger():</text>
+    <text x="44" y="122" fill="#0f172a">    return Ledger()</text>
+  </g>
+
+  <g stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#r1)">
+    <path d="M238 78 H288"/><path d="M238 100 C 260 100, 268 170, 288 178"/>
+  </g>
+
+  <rect x="296" y="46" width="394" height="84" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="312" y="70" fill="#0f172a">def test_add(<tspan fill="#7c3aed" font-weight="700">ledger</tspan>):</text>
+    <text x="312" y="90" fill="#0f172a">    ledger.add(Expense("Tea", 2.5))</text>
+    <text x="312" y="110" fill="#0f172a">    assert len(ledger) == 1</text>
+  </g>
+  <rect x="620" y="56" width="60" height="22" rx="4" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="650" y="72" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#14532d">a NEW one</text>
+
+  <rect x="296" y="146" width="394" height="84" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="312" y="170" fill="#0f172a">def test_empty(<tspan fill="#7c3aed" font-weight="700">ledger</tspan>):</text>
+    <text x="312" y="196" fill="#0f172a">    assert len(ledger) == 0</text>
+  </g>
+  <rect x="620" y="156" width="60" height="22" rx="4" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="650" y="172" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#14532d">a NEW one</text>
+  <text x="312" y="218" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">Passes &#8212; the Tea from the test above is not here.</text>
+
+  <rect x="30" y="244" width="660" height="26" rx="5" fill="#fffbeb" stroke="#d97706"/>
+  <text x="360" y="261" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#92400e">If they shared one object, test order would change the results &#8212; the worst kind of flaky test.</text>
+
+  <defs><marker id="r1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7c3aed"/></marker></defs>
+</svg>

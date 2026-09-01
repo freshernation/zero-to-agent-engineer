@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="The two nested shapes you meet most often">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The two shapes you will meet again and again</text>
+
+  <rect x="24" y="46" width="330" height="186" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="189" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">list of dicts &#8212; many of the same thing</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="42" y="96"  fill="#0f172a">[</text>
+    <text x="58" y="114" fill="#0f172a">{"name": "Ana", "score": 92},</text>
+    <text x="58" y="132" fill="#0f172a">{"name": "Ben", "score": 78},</text>
+    <text x="42" y="150" fill="#0f172a">]</text>
+  </g>
+  <text x="42" y="178" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#1e3a8a">Loop it. Every record has the same keys.</text>
+  <text x="42" y="198" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">API responses, CSV rows, database results.</text>
+  <text x="42" y="218" font-family="ui-monospace,monospace" font-size="11" fill="#1e3a8a">for s in students: s["score"]</text>
+
+  <rect x="374" y="46" width="322" height="186" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#14532d">dict of lists &#8212; groups under labels</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="392" y="96"  fill="#0f172a">{</text>
+    <text x="408" y="114" fill="#0f172a">"fruit": ["apple", "pear"],</text>
+    <text x="408" y="132" fill="#0f172a">"veg":   ["leek"],</text>
+    <text x="392" y="150" fill="#0f172a">}</text>
+  </g>
+  <text x="392" y="178" font-family="system-ui,sans-serif" font-size="11" font-weight="600" fill="#14532d">Look up a label, then loop the list.</text>
+  <text x="392" y="198" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">Grouping, categories, an index.</text>
+  <text x="392" y="218" font-family="ui-monospace,monospace" font-size="11" fill="#14532d">for item in shelf["fruit"]:</text>
+</svg>

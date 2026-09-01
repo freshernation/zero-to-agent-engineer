@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on résumés for career changers — 20 min]`
+- [ ] [**Résumés for career changers**](../../content/week-12/day-1/resumes-for-career-changers.md) — 20 min · source: your own project READMEs, and [GitHub — About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
 
 ---
 

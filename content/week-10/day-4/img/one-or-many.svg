@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" width="720" height="320" role="img" aria-label="Reasons that justify more than one agent, and reasons that do not">
+  <rect width="720" height="320" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The default is one agent. Add another when you can name the reason.</text>
+
+  <rect x="30" y="46" width="322" height="168" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="191" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">reasons that hold up</text>
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <text x="46" y="92"  font-weight="700" fill="#0f172a">different tools</text>
+    <text x="46" y="106" fill="#475569">20 tools &#8594; it chooses badly. Split the list.</text>
+    <text x="46" y="128" font-weight="700" fill="#0f172a">different permissions</text>
+    <text x="46" y="142" fill="#475569">read customer data vs. send email &#8212; a security control</text>
+    <text x="46" y="164" font-weight="700" fill="#0f172a">different models</text>
+    <text x="46" y="178" fill="#475569">cheap for extraction, expensive for judgement</text>
+    <text x="46" y="196" font-weight="700" fill="#0f172a">genuinely parallel work</text>
+  </g>
+
+  <rect x="368" y="46" width="322" height="168" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="529" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">reasons that do not</text>
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <text x="384" y="92"  font-weight="700" fill="#0f172a">&#8220;it mirrors how a team works&#8221;</text>
+    <text x="384" y="106" fill="#475569">Your org chart is not a system design.</text>
+    <text x="384" y="128" font-weight="700" fill="#0f172a">&#8220;it is more modular&#8221;</text>
+    <text x="384" y="142" fill="#475569">So is a function.</text>
+    <text x="384" y="164" font-weight="700" fill="#0f172a">&#8220;specialised agents perform better&#8221;</text>
+    <text x="384" y="178" fill="#475569">Sometimes. Measure it before believing it.</text>
+    <text x="384" y="196" font-weight="700" fill="#0f172a">&#8220;it is what the tutorial did&#8221;</text>
+  </g>
+
+  <rect x="30" y="228" width="322" height="76" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="46" y="250" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">The cost is not subtle</text>
+  <text x="46" y="270" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">1 agent, 1 tool  &#8594;  ~2 calls</text>
+  <text x="46" y="288" font-family="ui-monospace,monospace" font-size="11" fill="#dc2626">3 agents, 5 tools &#8594;  ~8 calls</text>
+  <text x="230" y="288" font-family="system-ui,sans-serif" font-size="10" fill="#991b1b">4&#215; cost, 4&#215; latency</text>
+
+  <rect x="368" y="228" width="322" height="76" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="384" y="250" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">How to decide, in one question</text>
+  <text x="384" y="272" font-family="system-ui,sans-serif" font-size="12" font-style="italic" fill="#0f172a">&#8220;What would break if one agent</text>
+  <text x="384" y="290" font-family="system-ui,sans-serif" font-size="12" font-style="italic" fill="#0f172a">did all of this?&#8221;</text>
+</svg>

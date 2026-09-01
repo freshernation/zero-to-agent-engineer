@@ -11,8 +11,8 @@ that sentence. Today you meet it for the first time, on purpose, in a safe place
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on running Python + print — 20-30 min]`
-- [ ] `[INSTRUCTOR: source on strings and quotes — 15 min]`
+- [ ] [**Running Python, and `print()`**](../../content/week-01/day-1/running-python-and-print.md) — 25 min · docs: [`print()`](https://docs.python.org/3.14/library/functions.html#print)
+- [ ] [**Strings and quotes**](../../content/week-01/day-1/strings-and-quotes.md) — 15 min · docs: [String literals](https://docs.python.org/3.14/reference/lexical_analysis.html#strings)
 
 ---
 

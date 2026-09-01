@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="Variables inside a function do not exist outside it">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">What happens inside a function stays inside it</text>
+
+  <rect x="30" y="46" width="360" height="200" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="46" y="68" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#475569">the file &#8212; global</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="46" y="92" fill="#0f172a">def calculate():</text>
+  </g>
+
+  <rect x="62" y="102" width="310" height="76" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="76" y="122" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#1e3a8a">inside the call &#8212; local</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="76" y="144" fill="#0f172a">subtotal = 50</text>
+    <text x="76" y="166" fill="#0f172a">return subtotal</text>
+  </g>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="46" y="204" fill="#0f172a">print(subtotal)</text>
+    <text x="46" y="226" fill="#dc2626">NameError: name 'subtotal' is not defined</text>
+  </g>
+
+  <rect x="410" y="46" width="286" height="200" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="428" y="70" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#14532d">The way that always works</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="428" y="100" fill="#dc2626">def increment():</text>
+    <text x="428" y="118" fill="#dc2626">    count = count + 1</text>
+    <text x="428" y="136" font-size="11" fill="#991b1b">UnboundLocalError</text>
+
+    <text x="428" y="170" fill="#16a34a">def increment(count):</text>
+    <text x="428" y="188" fill="#16a34a">    return count + 1</text>
+  </g>
+  <text x="428" y="214" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">Take what you need in.</text>
+  <text x="428" y="230" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">Hand what you made back.</text>
+
+  <text x="360" y="268" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#475569">A function that reaches outside itself gives you bugs that only appear when things run in a different order.</text>
+</svg>

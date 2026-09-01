@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on multi-agent design trade-offs — 20 min]`
+- [ ] [**Multi-agent design trade-offs**](../../content/week-10/day-4/multi-agent-tradeoffs.md) — 20 min · docs: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 
 ---
 

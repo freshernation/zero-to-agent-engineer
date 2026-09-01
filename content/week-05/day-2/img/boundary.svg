@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="Validate once at the boundary, then trust it everywhere">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Validate once, at the door. Then everything inside can trust it.</text>
+
+  <rect x="30" y="70" width="130" height="110" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="95" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">outside</text>
+  <text x="95" y="120" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">the API</text>
+  <text x="95" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">a file</text>
+  <text x="95" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">a person typing</text>
+
+  <rect x="240" y="60" width="80" height="130" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="3"/>
+  <text x="280" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">the</text>
+  <text x="280" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">boundary</text>
+  <text x="280" y="146" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#92400e">model_validate</text>
+
+  <rect x="400" y="70" width="290" height="110" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="545" y="96" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">inside &#8212; your program</text>
+  <text x="545" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Every <tspan font-family="ui-monospace,monospace">User</tspan> here is guaranteed valid.</text>
+  <text x="545" y="142" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">No defensive checks. No <tspan font-family="ui-monospace,monospace">if x is None</tspan>.</text>
+  <text x="545" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">No <tspan font-family="ui-monospace,monospace">.get()</tspan> with a fallback.</text>
+
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#t1)">
+    <path d="M166 122 H234"/><path d="M326 122 H394"/>
+  </g>
+
+  <rect x="30" y="204" width="660" height="32" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="360" y="224" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1e3a8a">Validating in five places means five chances to disagree with yourself. Validate in one.</text>
+
+  <defs><marker id="t1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

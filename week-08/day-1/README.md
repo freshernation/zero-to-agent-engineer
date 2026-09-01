@@ -10,7 +10,7 @@ have, with the names the ecosystem uses.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on LangChain core concepts — 30 min]`
+- [ ] [**LangChain core concepts**](../../content/week-08/day-1/langchain-core-concepts.md) — 30 min · docs: [LangChain — Introduction](https://python.langchain.com/docs/introduction/)
 
 ---
 

@@ -10,7 +10,7 @@ part that separates a demo from something you would leave running.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on agent failure modes — 20 min]`
+- [ ] [**Agent failure modes**](../../content/week-07/day-3/agent-failure-modes.md) — 20 min · docs: [Handling tool errors](https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use#handling-tool-errors)
 
 ---
 

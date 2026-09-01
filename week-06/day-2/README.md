@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on prompt engineering fundamentals — 25 min]`
-- [ ] `[INSTRUCTOR: source on temperature and sampling — 15 min]`
+- [ ] [**Prompt engineering fundamentals**](../../content/week-06/day-2/prompt-engineering.md) — 25 min · docs: [Prompt engineering overview](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [ ] [**Temperature and sampling**](../../content/week-06/day-2/temperature-and-sampling.md) — 15 min · docs: [Messages API reference](https://docs.claude.com/en/api/messages)
 
 ---
 

@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on embeddings and vector similarity — 25 min]`
+- [ ] [**Embeddings and vector similarity**](../../content/week-09/day-2/embeddings-and-similarity.md) — 25 min · docs: [Embeddings](https://docs.claude.com/en/docs/build-with-claude/embeddings)
 
 ---
 

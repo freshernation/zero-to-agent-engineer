@@ -6,7 +6,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on FastAPI basics — 30 min]`
+- [ ] [**FastAPI basics**](../../content/week-11/day-1/fastapi-basics.md) — 30 min · docs: [FastAPI — First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 
 ---
 

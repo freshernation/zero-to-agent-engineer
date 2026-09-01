@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="A chunk boundary can destroy an answer">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The chunk is the unit of retrieval. The boundary decides what can be found.</text>
+
+  <text x="30" y="56" font-family="system-ui,sans-serif" font-size="12" fill="#475569">the source text:</text>
+  <rect x="30" y="64" width="660" height="26" rx="4" fill="#ffffff" stroke="#94a3b8"/>
+  <text x="42" y="82" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">...expense claims must be in by the fifth of the following month. Late claims...</text>
+
+  <text x="30" y="118" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">fixed-size, no overlap &#8212; the cut lands mid-sentence</text>
+  <rect x="30" y="128" width="330" height="26" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="42" y="146" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">...expense claims must be in by the</text>
+  <rect x="366" y="128" width="324" height="26" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="378" y="146" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">fifth of the following month. Late...</text>
+  <text x="30" y="176" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">Question: &#8220;When are expense claims due?&#8221; &#8212; the answer is in <tspan font-weight="700">neither</tspan> chunk.</text>
+  <text x="30" y="192" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">No amount of clever searching can fix this. The information was destroyed at split time.</text>
+
+  <text x="30" y="224" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">with overlap &#8212; the sentence survives whole somewhere</text>
+  <rect x="30" y="234" width="330" height="26" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="42" y="252" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">...expense claims must be in by the</text>
+  <rect x="270" y="266" width="420" height="26" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="282" y="284" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">must be in by the fifth of the following month. Late...</text>
+  <text x="366" y="252" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">&#8592; the tail repeats in the next chunk</text>
+</svg>

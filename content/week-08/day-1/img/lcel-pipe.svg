@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" width="720" height="240" role="img" aria-label="LCEL pipes the output of each stage into the next">
+  <rect width="720" height="240" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a"><tspan font-family="ui-monospace,monospace">|</tspan> means &#8220;feed the output of the left into the right&#8221;</text>
+
+  <text x="360" y="60" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="16" fill="#0f172a">chain = <tspan fill="#2563eb">prompt</tspan> | <tspan fill="#7c3aed">model</tspan> | <tspan fill="#16a34a">StrOutputParser()</tspan></text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="30" y="90" width="140" height="60" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+    <text x="100" y="114" text-anchor="middle" font-size="12" font-weight="600" fill="#0f172a">a dict</text>
+    <text x="100" y="132" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">{"question": "..."}</text>
+
+    <rect x="200" y="90" width="140" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="270" y="114" text-anchor="middle" font-size="12" font-weight="600" fill="#1e3a8a">prompt</text>
+    <text x="270" y="132" text-anchor="middle" font-size="10" fill="#475569">&#8594; a message list</text>
+
+    <rect x="370" y="90" width="140" height="60" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="440" y="114" text-anchor="middle" font-size="12" font-weight="600" fill="#5b21b6">model</text>
+    <text x="440" y="132" text-anchor="middle" font-size="10" fill="#475569">&#8594; an AIMessage</text>
+
+    <rect x="540" y="90" width="150" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="615" y="114" text-anchor="middle" font-size="12" font-weight="600" fill="#14532d">parser</text>
+    <text x="615" y="132" text-anchor="middle" font-size="10" fill="#475569">&#8594; a plain string</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ab1)">
+    <path d="M172 120 H196"/><path d="M342 120 H366"/><path d="M512 120 H536"/>
+  </g>
+
+  <rect x="30" y="172" width="660" height="52" rx="8" fill="#fffbeb" stroke="#d97706"/>
+  <text x="46" y="192" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#92400e">The catch worth knowing</text>
+  <text x="46" y="212" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">When a chain breaks, the traceback points inside LangChain &#8212; not at the stage that failed. Test each stage alone first.</text>
+
+  <defs><marker id="ab1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="Everything you send plus everything that comes back must fit in the context window">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The context window holds <tspan font-style="italic">everything</tspan> &#8212; what you send and what comes back</text>
+
+  <rect x="30" y="52" width="660" height="66" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="32" y="54" width="150" height="62" rx="6" fill="#dbeafe"/>
+  <text x="107" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#1e3a8a">system prompt</text>
+  <text x="107" y="98" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">~200 tokens</text>
+
+  <rect x="184" y="54" width="330" height="62" rx="6" fill="#eff6ff"/>
+  <text x="349" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#1e3a8a">every message in the history</text>
+  <text x="349" y="98" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">grows with every turn</text>
+
+  <rect x="516" y="54" width="172" height="62" rx="6" fill="#dcfce7"/>
+  <text x="602" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">room for the reply</text>
+  <text x="602" y="98" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#475569">max_tokens</text>
+
+  <text x="30" y="140" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">&#8592; all of this must fit inside one window &#8212; 1M tokens on Opus 5 and Sonnet 5, 200K on Haiku 4.5 &#8594;</text>
+
+  <line x1="30" y1="156" x2="690" y2="156" stroke="#cbd5e1"/>
+
+  <text x="30" y="180" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0f172a">Roughly how many tokens?</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <rect x="30" y="192" width="322" height="90" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="46" y="214" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#92400e">the rough guide (planning only)</text>
+    <text x="46" y="238" fill="#0f172a">1 token &#8776; &#190; of an English word</text>
+    <text x="46" y="258" fill="#0f172a">1,000 words &#8776; 1,300 tokens</text>
+    <text x="46" y="276" font-family="system-ui,sans-serif" font-size="10" fill="#92400e">Code, JSON and non-English all cost more.</text>
+
+    <rect x="368" y="192" width="322" height="90" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="384" y="214" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">the exact answer (always use this)</text>
+    <text x="384" y="238" fill="#0f172a">client.messages.count_tokens(</text>
+    <text x="384" y="256" fill="#0f172a">    model=..., messages=...)</text>
+    <text x="384" y="276" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">Free, exact, and the tokeniser is model-specific.</text>
+  </g>
+</svg>

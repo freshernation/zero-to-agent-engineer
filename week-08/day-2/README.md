@@ -10,7 +10,7 @@ you are thinking about.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on LangGraph state and nodes — 30 min]`
+- [ ] [**LangGraph state and nodes**](../../content/week-08/day-2/langgraph-state-and-nodes.md) — 30 min · docs: [Graph API concepts](https://langchain-ai.github.io/langgraph/concepts/low_level/)
 
 ---
 

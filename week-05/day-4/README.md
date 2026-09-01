@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on combining API data — 15 min]`
+- [ ] [**Combining API data**](../../content/week-05/day-4/combining-api-data.md) — 15 min · docs: [Dictionaries](https://docs.python.org/3.14/tutorial/datastructures.html#dictionaries)
 
 ---
 

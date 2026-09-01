@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="The parts of a pytest test and how it is discovered">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A test is a function that asserts. That is the whole mechanism.</text>
+
+  <rect x="30" y="46" width="400" height="100" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="46" y="68" font-family="ui-monospace,monospace" font-size="11" fill="#64748b"># file: <tspan fill="#dc2626" font-weight="700">test_</tspan>shapes.py</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <text x="46" y="98"  fill="#0f172a">def <tspan fill="#dc2626" font-weight="700">test_</tspan>square_area():</text>
+    <text x="46" y="124" fill="#0f172a">    <tspan fill="#16a34a" font-weight="700">assert</tspan> Square(3).area() == 9</text>
+  </g>
+
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none">
+    <path d="M448 62 H478"/><path d="M448 94 H478"/><path d="M448 122 H478"/>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="11" fill="#475569">
+    <text x="486" y="66">file must start <tspan font-family="ui-monospace,monospace" font-weight="700">test_</tspan></text>
+    <text x="486" y="98">function must start <tspan font-family="ui-monospace,monospace" font-weight="700">test_</tspan></text>
+    <text x="486" y="126">true passes, false fails</text>
+  </g>
+
+  <rect x="30" y="162" width="660" height="96" rx="8" fill="#0f172a"/>
+  <text x="46" y="184" font-family="ui-monospace,monospace" font-size="12" fill="#94a3b8">$ pytest week-04/day-3 -v</text>
+  <text x="46" y="206" font-family="ui-monospace,monospace" font-size="12" fill="#4ade80">test_shapes.py::test_square_area PASSED</text>
+  <text x="46" y="226" font-family="ui-monospace,monospace" font-size="12" fill="#f87171">test_shapes.py::test_circle_area FAILED</text>
+  <text x="46" y="246" font-family="ui-monospace,monospace" font-size="11" fill="#fca5a5">E    assert 12.566... == 12.0</text>
+</svg>

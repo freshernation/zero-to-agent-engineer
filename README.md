@@ -82,6 +82,7 @@ judges both on Friday.
 |---|---|
 | `SETUP.md` | Day zero. Do this before anything else. |
 | `week-01/` … `week-13/` | One folder per week: four days, a milestone, a fence, a defence |
+| [`content/`](content/README.md) | The reading for every day — 66 articles, each opening with the official docs |
 | `ai/` | Your four AI roles — tutor, editor, interviewer, defend |
 | `logs/stuck-log.md` | Every time you get stuck. Non-negotiable. |
 | `logs/signal-log.md` | Your daily five numbers. Two minutes at end of day. |

@@ -11,8 +11,8 @@ cases you did *not* have in mind.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on if/elif/else — 25 min]`
-- [ ] `[INSTRUCTOR: source on boolean logic — 15 min]`
+- [ ] [**`if` / `elif` / `else`**](../../content/week-01/day-3/if-elif-else.md) — 25 min · docs: [`if` Statements](https://docs.python.org/3.14/tutorial/controlflow.html#if-statements)
+- [ ] [**Boolean logic — `and`, `or`, `not`**](../../content/week-01/day-3/boolean-logic.md) — 15 min · docs: [Boolean Operations](https://docs.python.org/3.14/library/stdtypes.html#boolean-operations-and-or-not)
 
 ---
 

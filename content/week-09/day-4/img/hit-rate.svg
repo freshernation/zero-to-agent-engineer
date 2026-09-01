@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" width="720" height="290" role="img" aria-label="Hit rate at k separates the retrieval half from the generation half">
+  <rect width="720" height="290" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Hit rate separates the two halves &#8212; which is why it is the number to start with</text>
+
+  <rect x="30" y="46" width="300" height="112" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="180" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">the retrieval half</text>
+  <text x="180" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Was the right passage in the top k?</text>
+  <rect x="60" y="104" width="240" height="30" rx="5" fill="#ffffff" stroke="#2563eb"/>
+  <text x="180" y="124" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" font-weight="700" fill="#1e3a8a">hit@3 = 0.65</text>
+  <text x="180" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">measured with a golden set, no model needed</text>
+
+  <rect x="390" y="46" width="300" height="112" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="540" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b21b6">the generation half</text>
+  <text x="540" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Given the passage, was the answer right?</text>
+  <rect x="420" y="104" width="240" height="30" rx="5" fill="#ffffff" stroke="#7c3aed"/>
+  <text x="540" y="124" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#5b21b6">prompt work lives here</text>
+  <text x="540" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#64748b">costs money to measure &#8212; needs model calls</text>
+
+  <rect x="30" y="172" width="660" height="34" rx="6" fill="#fff1f2" stroke="#dc2626"/>
+  <text x="360" y="193" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">If the passage was never retrieved, no prompt engineering can save the answer.</text>
+
+  <text x="30" y="230" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#0f172a">A comparison looks like this &#8212; one variable, both numbers, the same questions</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <rect x="30" y="240" width="660" height="22" rx="3" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="44" y="256" fill="#0f172a">fixed 200, no overlap</text>
+    <text x="400" y="256" fill="#991b1b">hit@3 = 0.65</text>
+    <rect x="30" y="264" width="660" height="22" rx="3" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="44" y="280" fill="#0f172a">sentence 400, overlap 1</text>
+    <text x="400" y="280" fill="#14532d" font-weight="700">hit@3 = 0.85</text>
+  </g>
+</svg>

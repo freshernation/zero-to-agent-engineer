@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="input always returns a string, so you must convert it">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">input() always hands you text &#8212; even when it looks like a number</text>
+
+  <g font-family="system-ui,sans-serif" font-size="12">
+    <rect x="30" y="56" width="140" height="56" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="100" y="80" text-anchor="middle" font-size="13" font-weight="600" fill="#0f172a">person types</text>
+    <text x="100" y="99" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" fill="#0f172a">30</text>
+
+    <rect x="215" y="56" width="140" height="56" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="285" y="80" text-anchor="middle" font-family="ui-monospace,monospace" font-size="14" fill="#1e3a8a">input()</text>
+    <text x="285" y="99" text-anchor="middle" fill="#64748b">hands back...</text>
+
+    <rect x="400" y="56" width="140" height="56" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="470" y="82" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" fill="#0f172a">"30"</text>
+    <text x="470" y="101" text-anchor="middle" font-weight="600" fill="#92400e">a str, not an int</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#a3)">
+    <path d="M172 84 H211"/><path d="M357 84 H396"/>
+  </g>
+
+  <line x1="30" y1="134" x2="690" y2="134" stroke="#cbd5e1"/>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <rect x="30" y="150" width="315" height="120" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="48" y="176" fill="#0f172a">age = input("Age: ")</text>
+    <text x="48" y="198" fill="#0f172a">print(age + 1)</text>
+    <rect x="48" y="212" width="279" height="44" rx="5" fill="#0f172a"/>
+    <text x="60" y="230" font-size="11" fill="#f87171">TypeError: can only concatenate</text>
+    <text x="60" y="247" font-size="11" fill="#f87171">str (not "int") to str</text>
+
+    <rect x="375" y="150" width="315" height="120" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="393" y="176" fill="#0f172a">age = <tspan fill="#2563eb">int(</tspan>input("Age: ")<tspan fill="#2563eb">)</tspan></text>
+    <text x="393" y="198" fill="#0f172a">print(age + 1)</text>
+    <rect x="393" y="212" width="279" height="44" rx="5" fill="#0f172a"/>
+    <text x="405" y="238" font-size="13" fill="#4ade80">31</text>
+  </g>
+  <text x="360" y="288" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">Convert at the moment you read it. Then the rest of your program deals in numbers.</text>
+
+  <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

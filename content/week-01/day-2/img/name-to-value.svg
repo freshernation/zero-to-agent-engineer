@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="A variable is a name pointing at a value">
+  <rect width="720" height="260" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A variable is a name pointing at a value</text>
+
+  <text x="60" y="72" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#0f172a">price = 4.50</text>
+
+  <g font-family="system-ui,sans-serif" font-size="12" fill="#475569">
+    <rect x="60" y="110" width="150" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="135" y="139" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#1e3a8a">price</text>
+    <text x="135" y="158" text-anchor="middle" font-size="11">the name</text>
+
+    <rect x="330" y="110" width="150" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="405" y="139" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#14532d">4.50</text>
+    <text x="405" y="158" text-anchor="middle" font-size="11">the value in memory</text>
+  </g>
+
+  <line x1="212" y1="140" x2="324" y2="140" stroke="#94a3b8" stroke-width="2" marker-end="url(#a2)"/>
+  <text x="268" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">points at</text>
+
+  <text x="60" y="210" font-family="system-ui,sans-serif" font-size="13" fill="#0f172a"><tspan font-weight="700">Read <tspan font-family="ui-monospace,monospace">=</tspan> right to left:</tspan> &#8220;put 4.50 into the name price&#8221;.</text>
+  <text x="60" y="232" font-family="system-ui,sans-serif" font-size="13" fill="#991b1b">It does <tspan font-weight="700">not</tspan> mean &#8220;equals&#8221;. That is <tspan font-family="ui-monospace,monospace">==</tspan>, and you meet it on Day 3.</text>
+
+  <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

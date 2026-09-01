@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="How a for loop fills the loop variable each time around">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Python refills the loop variable and runs the block again</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <text x="40" y="62" fill="#0f172a">for <tspan fill="#2563eb" font-weight="700">name</tspan> in <tspan fill="#7c3aed" font-weight="700">names</tspan>:</text>
+    <text x="74" y="84" fill="#0f172a">print(f"Hello {<tspan fill="#2563eb" font-weight="700">name</tspan>}")</text>
+  </g>
+  <text x="300" y="62" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">&#8592; a name you invent here</text>
+  <text x="300" y="84" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">&#8592; indented = inside the loop</text>
+
+  <line x1="40" y1="100" x2="680" y2="100" stroke="#cbd5e1"/>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <rect x="40" y="118" width="200" height="130" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="140" y="142" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#5b21b6">names</text>
+    <rect x="60" y="152" width="160" height="26" rx="4" fill="#ffffff" stroke="#c4b5fd"/><text x="140" y="170" text-anchor="middle" fill="#0f172a">"Ana"</text>
+    <rect x="60" y="182" width="160" height="26" rx="4" fill="#ffffff" stroke="#c4b5fd"/><text x="140" y="200" text-anchor="middle" fill="#0f172a">"Ben"</text>
+    <rect x="60" y="212" width="160" height="26" rx="4" fill="#ffffff" stroke="#c4b5fd"/><text x="140" y="230" text-anchor="middle" fill="#0f172a">"Cara"</text>
+  </g>
+
+  <g stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#b1)">
+    <path d="M242 165 H320"/><path d="M242 195 H320"/><path d="M242 225 H320"/>
+  </g>
+
+  <g font-family="ui-monospace,monospace" font-size="13">
+    <rect x="330" y="150" width="150" height="28" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="405" y="169" text-anchor="middle" fill="#1e3a8a">name = "Ana"</text>
+    <rect x="330" y="180" width="150" height="28" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="405" y="199" text-anchor="middle" fill="#1e3a8a">name = "Ben"</text>
+    <rect x="330" y="210" width="150" height="28" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="405" y="229" text-anchor="middle" fill="#1e3a8a">name = "Cara"</text>
+  </g>
+
+  <g stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#b2)">
+    <path d="M482 164 H528"/><path d="M482 194 H528"/><path d="M482 224 H528"/>
+  </g>
+  <rect x="536" y="146" width="150" height="96" rx="5" fill="#0f172a"/>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#4ade80">
+    <text x="550" y="170">Hello Ana</text>
+    <text x="550" y="196">Hello Ben</text>
+    <text x="550" y="222">Hello Cara</text>
+  </g>
+
+  <text x="360" y="278" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#475569">Three lines of code. Would be the same three lines for three thousand names.</text>
+
+  <defs>
+    <marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <marker id="b2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker>
+  </defs>
+</svg>

@@ -11,8 +11,8 @@ thousand.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on for loops and range — 25 min]`
-- [ ] `[INSTRUCTOR: source on while loops — 15 min]`
+- [ ] [**`for` loops and `range`**](../../content/week-02/day-2/for-loops-and-range.md) — 25 min · docs: [`for` Statements](https://docs.python.org/3.14/tutorial/controlflow.html#for-statements)
+- [ ] [**`while` loops**](../../content/week-02/day-2/while-loops.md) — 15 min · docs: [The `while` statement](https://docs.python.org/3.14/reference/compound_stmts.html#the-while-statement)
 
 ---
 

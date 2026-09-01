@@ -14,8 +14,8 @@ answer at all.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on writing tests with pytest — 30 min]`
-- [ ] `[INSTRUCTOR: source on pytest fixtures and parametrize — 15 min]`
+- [ ] [**Writing tests with pytest**](../../content/week-04/day-3/writing-tests-with-pytest.md) — 30 min · docs: [pytest — Get Started](https://docs.pytest.org/en/stable/getting-started.html)
+- [ ] [**pytest fixtures and `parametrize`**](../../content/week-04/day-3/pytest-fixtures-and-parametrize.md) — 15 min · docs: [How to use fixtures](https://docs.pytest.org/en/stable/how-to/fixtures.html)
 
 ---
 

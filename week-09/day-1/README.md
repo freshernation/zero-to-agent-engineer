@@ -7,7 +7,7 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on chunking strategies for RAG — 25 min]`
+- [ ] [**Chunking strategies for RAG**](../../content/week-09/day-1/chunking-strategies.md) — 25 min · docs: [`re` — Regular expressions](https://docs.python.org/3.14/library/re.html)
 
 ---
 

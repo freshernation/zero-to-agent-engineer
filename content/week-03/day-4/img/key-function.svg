@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="key= calls a function on each item to decide what to compare">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a"><tspan font-family="ui-monospace,monospace">key=</tspan> answers one question: &#8220;what should I compare?&#8221;</text>
+
+  <text x="40" y="60" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14" fill="#0f172a">sorted(expenses, key=<tspan fill="#7c3aed" font-weight="700">lambda e: e["amount"]</tspan>, reverse=True)</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <rect x="40" y="86" width="230" height="118" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="155" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#475569">each item</text>
+    <text x="56" y="132" fill="#0f172a">{"item": "Tea", "amount": 2.5}</text>
+    <text x="56" y="158" fill="#0f172a">{"item": "Rent", "amount": 900}</text>
+    <text x="56" y="184" fill="#0f172a">{"item": "Bus", "amount": 12}</text>
+
+    <rect x="316" y="86" width="130" height="118" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="381" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#5b21b6">key(e) gives</text>
+    <text x="381" y="132" text-anchor="middle" fill="#0f172a">2.5</text>
+    <text x="381" y="158" text-anchor="middle" fill="#0f172a">900</text>
+    <text x="381" y="184" text-anchor="middle" fill="#0f172a">12</text>
+
+    <rect x="492" y="86" width="204" height="118" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="594" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#14532d">sorted by those, descending</text>
+    <text x="508" y="132" fill="#0f172a">Rent  900</text>
+    <text x="508" y="158" fill="#0f172a">Bus    12</text>
+    <text x="508" y="184" fill="#0f172a">Tea   2.5</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#m1)">
+    <path d="M274 145 H312"/><path d="M450 145 H488"/>
+  </g>
+
+  <rect x="40" y="222" width="656" height="60" rx="8" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="56" y="244" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">This is exactly what last week&#8217;s tuple trick did by hand</text>
+  <g font-family="ui-monospace,monospace" font-size="12">
+    <text x="56" y="266" fill="#0f172a">pairs.append((e["amount"], e["item"]))  &#8594;  sorted(pairs)</text>
+  </g>
+  <text x="470" y="266" font-family="system-ui,sans-serif" font-size="11" fill="#64748b">You built the comparison value. Now you name it.</text>
+
+  <defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

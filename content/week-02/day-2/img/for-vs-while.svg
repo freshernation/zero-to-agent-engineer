@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" width="720" height="230" role="img" aria-label="When to use for and when to use while">
+  <rect width="720" height="230" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Which loop?</text>
+
+  <rect x="24" y="52" width="330" height="156" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="189" y="78" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#1e3a8a">for</text>
+  <text x="189" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0f172a">&#8220;do this once per item&#8221;</text>
+  <g font-family="system-ui,sans-serif" font-size="12" fill="#475569">
+    <text x="44" y="126">&#8226; You have a list, a string, a range</text>
+    <text x="44" y="146">&#8226; The number of rounds is decided up front</text>
+    <text x="44" y="166">&#8226; It <tspan font-weight="700">cannot</tspan> run forever</text>
+    <text x="44" y="192" font-family="ui-monospace,monospace" fill="#1e3a8a">for name in names:</text>
+  </g>
+
+  <rect x="366" y="52" width="330" height="156" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <text x="531" y="78" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700" fill="#92400e">while</text>
+  <text x="531" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="600" fill="#0f172a">&#8220;keep going until something changes&#8221;</text>
+  <g font-family="system-ui,sans-serif" font-size="12" fill="#475569">
+    <text x="386" y="126">&#8226; You are waiting on a person or a result</text>
+    <text x="386" y="146">&#8226; You do not know how many rounds</text>
+    <text x="386" y="166">&#8226; It <tspan font-weight="700" fill="#991b1b">can</tspan> run forever if you are careless</text>
+    <text x="386" y="192" font-family="ui-monospace,monospace" fill="#92400e">while guess != secret:</text>
+  </g>
+</svg>

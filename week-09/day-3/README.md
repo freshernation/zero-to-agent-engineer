@@ -11,7 +11,7 @@ not a simplification.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on RAG prompt construction — 20 min]`
+- [ ] [**RAG prompt construction**](../../content/week-09/day-3/rag-prompt-construction.md) — 20 min · docs: [Reduce hallucinations](https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
 
 ---
 

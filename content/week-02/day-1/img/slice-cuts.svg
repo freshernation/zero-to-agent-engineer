@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-label="Slice numbers are the cuts between items, not the items themselves">
+  <rect width="720" height="300" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Slice numbers are the <tspan font-style="italic">cuts between</tspan> items, not the items</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <rect x="80"  y="90" width="94" height="44" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="127" y="118" text-anchor="middle" fill="#0f172a">10</text>
+    <rect x="174" y="90" width="94" height="44" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="221" y="118" text-anchor="middle" fill="#0f172a">20</text>
+    <rect x="268" y="90" width="94" height="44" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="315" y="118" text-anchor="middle" fill="#0f172a">30</text>
+    <rect x="362" y="90" width="94" height="44" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="409" y="118" text-anchor="middle" fill="#0f172a">40</text>
+    <rect x="456" y="90" width="94" height="44" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="503" y="118" text-anchor="middle" fill="#0f172a">50</text>
+    <rect x="550" y="90" width="94" height="44" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="597" y="118" text-anchor="middle" fill="#0f172a">60</text>
+  </g>
+
+  <g stroke="#dc2626" stroke-width="2.5">
+    <line x1="174" y1="76" x2="174" y2="148"/>
+    <line x1="456" y1="76" x2="456" y2="148"/>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="14" font-weight="700" fill="#dc2626" text-anchor="middle">
+    <text x="174" y="70">1</text><text x="456" y="70">4</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#94a3b8" text-anchor="middle">
+    <text x="80" y="70">0</text><text x="268" y="70">2</text><text x="362" y="70">3</text><text x="550" y="70">5</text><text x="644" y="70">6</text>
+  </g>
+
+  <text x="127" y="168" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" fill="#0f172a">numbers[1:4] &#8594; [20, 30, 40]</text>
+  <text x="360" y="192" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">Cut at 1, cut at 4, keep what is between. Three items, not four.</text>
+
+  <line x1="40" y1="208" x2="680" y2="208" stroke="#cbd5e1"/>
+  <text x="40" y="232" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#14532d">Why the end is excluded &#8212; it makes splitting clean:</text>
+  <g font-family="ui-monospace,monospace" font-size="14">
+    <text x="40" y="256" fill="#0f172a">numbers[:3]  &#8594; [10, 20, 30]</text>
+    <text x="40" y="278" fill="#0f172a">numbers[3:]  &#8594; [40, 50, 60]</text>
+  </g>
+  <text x="330" y="268" font-family="system-ui,sans-serif" font-size="12" fill="#14532d">Same number 3. No overlap, no gap, nothing lost.</text>
+</svg>

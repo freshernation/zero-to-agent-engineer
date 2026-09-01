@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" role="img" aria-label="A key without a reducer is overwritten, a key with one is merged">
+  <rect width="720" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">A key without a reducer is last-write-wins. A key with one is merged.</text>
+
+  <text x="360" y="54" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#475569">node returns  {"count": 2, "log": ["incremented"]}</text>
+
+  <rect x="30" y="70" width="322" height="176" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="191" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">no reducer &#8212; overwrite</text>
+  <text x="46" y="116" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">count: int</text>
+  <g font-family="ui-monospace,monospace" font-size="11">
+    <text x="46" y="146" fill="#64748b">before:  count = 1</text>
+    <text x="46" y="170" fill="#0f172a">node returns count = 2</text>
+    <rect x="46" y="182" width="290" height="26" rx="4" fill="#ffffff" stroke="#dc2626"/>
+    <text x="60" y="200" fill="#dc2626">after:   count = 2</text>
+  </g>
+  <text x="46" y="230" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">The old value is gone. Usually what you want for a scalar.</text>
+
+  <rect x="368" y="70" width="322" height="176" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="529" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#14532d">with a reducer &#8212; merge</text>
+  <text x="384" y="116" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">log: Annotated[list, operator.add]</text>
+  <g font-family="ui-monospace,monospace" font-size="11">
+    <text x="384" y="146" fill="#64748b">before:  log = ["started"]</text>
+    <text x="384" y="170" fill="#0f172a">node returns log = ["incremented"]</text>
+    <rect x="384" y="182" width="290" height="26" rx="4" fill="#ffffff" stroke="#16a34a"/>
+    <text x="398" y="200" fill="#16a34a">after:   ["started", "incremented"]</text>
+  </g>
+  <text x="384" y="230" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">The reducer function decides. Here, list concatenation.</text>
+
+  <rect x="30" y="256" width="660" height="0" fill="none"/>
+</svg>

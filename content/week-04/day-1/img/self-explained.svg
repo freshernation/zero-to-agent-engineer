@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="self is just the instance passed in as the first argument">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a"><tspan font-family="ui-monospace,monospace">self</tspan> is not magic &#8212; it is the instance, passed in first</text>
+
+  <text x="120" y="80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#0f172a"><tspan fill="#16a34a" font-weight="700">coffee</tspan>.label()</text>
+  <text x="330" y="80" font-family="system-ui,sans-serif" font-size="16" fill="#64748b">is shorthand for</text>
+  <text x="490" y="80" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#0f172a">Expense.label(<tspan fill="#16a34a" font-weight="700">coffee</tspan>)</text>
+
+  <g stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#p1)"><path d="M150 92 C 200 130, 560 130, 600 92"/></g>
+  <text x="375" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">the same object, moved into the first slot</text>
+
+  <line x1="30" y1="150" x2="690" y2="150" stroke="#cbd5e1"/>
+
+  <rect x="30" y="164" width="322" height="70" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="46" y="186" fill="#dc2626">def label():</text>
+    <text x="46" y="204" fill="#0f172a">    return "..."</text>
+  </g>
+  <text x="46" y="226" font-family="system-ui,sans-serif" font-size="10" fill="#991b1b">TypeError: label() takes 0 positional arguments but 1 was given</text>
+
+  <rect x="368" y="164" width="322" height="70" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">
+    <text x="384" y="186" fill="#16a34a">def label(self):</text>
+    <text x="384" y="204" fill="#0f172a">    return f"{<tspan fill="#16a34a">self.</tspan>description}"</text>
+  </g>
+  <text x="384" y="226" font-family="system-ui,sans-serif" font-size="10" fill="#14532d">Plain <tspan font-family="ui-monospace,monospace">description</tspan> would be a local variable. <tspan font-family="ui-monospace,monospace">self.description</tspan> is the instance&#8217;s.</text>
+
+  <defs><marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker></defs>
+</svg>

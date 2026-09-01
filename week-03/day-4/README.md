@@ -11,8 +11,8 @@ is a shortcut you have earned.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on list comprehensions — 20 min]`
-- [ ] `[INSTRUCTOR: source on lambda and sorted(key=) — 15 min]`
+- [ ] [**List comprehensions**](../../content/week-03/day-4/list-comprehensions.md) — 20 min · docs: [List Comprehensions](https://docs.python.org/3.14/tutorial/datastructures.html#list-comprehensions)
+- [ ] [**`lambda` and `sorted(key=)`**](../../content/week-03/day-4/lambda-and-sorted-key.md) — 15 min · docs: [Sorting Techniques](https://docs.python.org/3.14/howto/sorting.html)
 
 ---
 

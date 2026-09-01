@@ -11,7 +11,7 @@ code can rely on.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on structured output from LLMs — 25 min]`
+- [ ] [**Structured output from LLMs**](../../content/week-06/day-3/structured-output.md) — 25 min · docs: [Structured outputs](https://docs.claude.com/en/docs/build-with-claude/structured-outputs)
 
 ---
 

@@ -11,8 +11,8 @@ cannot.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on try/except — 25 min]`
-- [ ] `[INSTRUCTOR: source on raising exceptions — 15 min]`
+- [ ] [**`try` / `except`**](../../content/week-03/day-2/try-except.md) — 25 min · docs: [Handling Exceptions](https://docs.python.org/3.14/tutorial/errors.html#handling-exceptions)
+- [ ] [**Raising exceptions**](../../content/week-03/day-2/raising-exceptions.md) — 15 min · docs: [Raising Exceptions](https://docs.python.org/3.14/tutorial/errors.html#raising-exceptions)
 
 ---
 

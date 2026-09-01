@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-label="What happens when you call a function">
+  <rect width="720" height="260" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Defining is writing a recipe. Calling is cooking.</text>
+
+  <rect x="24" y="46" width="290" height="110" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="169" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#475569">the definition &#8212; runs nothing</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+    <text x="42" y="96"  fill="#0f172a">def add_tax(<tspan fill="#2563eb" font-weight="700">amount</tspan>):</text>
+    <text x="42" y="118" fill="#0f172a">    return <tspan fill="#2563eb" font-weight="700">amount</tspan> * 1.08</text>
+  </g>
+  <text x="42" y="144" font-family="system-ui,sans-serif" font-size="11" fill="#64748b"><tspan font-family="ui-monospace,monospace" font-weight="700">amount</tspan> is a parameter: a name that exists only in here</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="14">
+    <text x="360" y="96" fill="#0f172a">total = add_tax(<tspan fill="#d97706" font-weight="700">100</tspan>)</text>
+  </g>
+  <text x="360" y="72" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#475569">the call &#8212; now it runs</text>
+
+  <g stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#g1)">
+    <path d="M470 84 C 470 50, 130 40, 108 82"/>
+  </g>
+  <text x="300" y="46" font-family="system-ui,sans-serif" font-size="11" fill="#92400e">100 goes in as amount</text>
+
+  <g stroke="#16a34a" stroke-width="2" fill="none" marker-end="url(#g2)">
+    <path d="M180 130 C 250 190, 340 180, 370 118"/>
+  </g>
+  <text x="250" y="196" font-family="system-ui,sans-serif" font-size="11" fill="#14532d">108.0 comes back out</text>
+
+  <rect x="360" y="140" width="336" height="90" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="376" y="162" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">Why bother?</text>
+  <text x="376" y="182" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">The tax rule now lives in exactly one place.</text>
+  <text x="376" y="200" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">Change it once, and everything that calls it</text>
+  <text x="376" y="218" font-family="system-ui,sans-serif" font-size="11" fill="#0f172a">changes too. That is the whole point.</text>
+
+  <defs>
+    <marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d97706"/></marker>
+    <marker id="g2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/></marker>
+  </defs>
+</svg>

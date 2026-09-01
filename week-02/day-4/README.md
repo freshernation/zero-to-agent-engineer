@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on tuples and sets — 20 min]`
-- [ ] `[INSTRUCTOR: source on sorting in Python — 15 min]`
+- [ ] [**Tuples and sets**](../../content/week-02/day-4/tuples-and-sets.md) — 20 min · docs: [Tuples and Sequences](https://docs.python.org/3.14/tutorial/datastructures.html#tuples-and-sequences)
+- [ ] [**Sorting in Python**](../../content/week-02/day-4/sorting-in-python.md) — 15 min · docs: [Sorting Techniques](https://docs.python.org/3.14/howto/sorting.html)
 
 ---
 

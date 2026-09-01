@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="720" height="250" role="img" aria-label="The five-step debugging method">
+  <rect width="720" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">The method &#8212; in this order, no skipping</text>
+
+  <g font-family="system-ui,sans-serif" font-size="12">
+    <circle cx="60"  cy="76" r="17" fill="#2563eb"/><text x="60" y="81" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">1</text>
+    <text x="90" y="72" font-size="13" font-weight="600" fill="#0f172a">Read the last line of the traceback</text>
+    <text x="90" y="89" fill="#64748b">Out loud, if you are alone. It says what went wrong.</text>
+
+    <circle cx="60"  cy="122" r="17" fill="#2563eb"/><text x="60" y="127" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">2</text>
+    <text x="90" y="118" font-size="13" font-weight="600" fill="#0f172a">Go to that line number. Look at that line only.</text>
+    <text x="90" y="135" fill="#64748b">Not the whole file. One line.</text>
+
+    <circle cx="60"  cy="168" r="17" fill="#2563eb"/><text x="60" y="173" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">3</text>
+    <text x="90" y="164" font-size="13" font-weight="600" fill="#0f172a">Say what you expected that line to do, in words</text>
+    <text x="90" y="181" fill="#64748b">The gap between that sentence and reality is the bug.</text>
+
+    <circle cx="400" cy="76" r="17" fill="#16a34a"/><text x="400" y="81" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">4</text>
+    <text x="430" y="72" font-size="13" font-weight="600" fill="#0f172a">Print the values</text>
+    <text x="430" y="89" fill="#64748b">Do not reason about what a variable holds.</text>
+    <text x="430" y="105" font-family="ui-monospace,monospace" fill="#1e3a8a">print(age); print(type(age))</text>
+
+    <circle cx="400" cy="150" r="17" fill="#d97706"/><text x="400" y="155" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">5</text>
+    <text x="430" y="146" font-size="13" font-weight="600" fill="#0f172a">Change ONE thing. Run it.</text>
+    <text x="430" y="163" fill="#64748b">If it did not help, change it back.</text>
+  </g>
+
+  <rect x="30" y="200" width="660" height="34" rx="6" fill="#fffbeb" stroke="#d97706"/>
+  <text x="360" y="222" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#92400e">Step 5 is the discipline. Three changes at once teaches you nothing about which one mattered.</text>
+</svg>

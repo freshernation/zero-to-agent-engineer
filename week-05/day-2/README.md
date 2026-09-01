@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on pydantic v2 basics — 30 min]`
-- [ ] `[INSTRUCTOR: source on pydantic validators — 15 min]`
+- [ ] [**pydantic v2 basics**](../../content/week-05/day-2/pydantic-basics.md) — 30 min · docs: [pydantic — Models](https://docs.pydantic.dev/latest/concepts/models/)
+- [ ] [**pydantic validators**](../../content/week-05/day-2/pydantic-validators.md) — 15 min · docs: [Validators](https://docs.pydantic.dev/latest/concepts/validators/)
 
 ---
 

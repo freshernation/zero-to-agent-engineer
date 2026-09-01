@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" width="720" height="290" role="img" aria-label="Parsing and validating are two different questions">
+  <rect width="720" height="290" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0f172a">Three questions, three tools. Skipping one is where the bug lives.</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11">
+    <rect x="24" y="50" width="212" height="130" rx="8" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+    <text x="130" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">1. Where is it?</text>
+    <text x="130" y="94" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">extract_json(text)</text>
+    <text x="40" y="120" fill="#475569">The reply may be wrapped in</text>
+    <text x="40" y="136" fill="#475569">prose or code fences.</text>
+    <text x="40" y="158" fill="#92400e">First <tspan font-family="ui-monospace,monospace" font-weight="700">{</tspan> to last <tspan font-family="ui-monospace,monospace" font-weight="700">}</tspan>.</text>
+
+    <rect x="254" y="50" width="212" height="130" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <text x="360" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">2. Is it JSON?</text>
+    <text x="360" y="94" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">json.loads(...)</text>
+    <text x="270" y="120" fill="#475569">Syntax only. Braces balanced,</text>
+    <text x="270" y="136" fill="#475569">quotes closed, no trailing comma.</text>
+    <text x="270" y="158" fill="#991b1b">Says nothing about the keys.</text>
+
+    <rect x="484" y="50" width="212" height="130" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+    <text x="590" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#14532d">3. Is it the RIGHT JSON?</text>
+    <text x="590" y="94" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#0f172a">Model.model_validate(...)</text>
+    <text x="500" y="120" fill="#475569">Required keys present, types</text>
+    <text x="500" y="136" fill="#475569">right, values in range.</text>
+    <text x="500" y="158" fill="#14532d">Only now can you use it.</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#x1)">
+    <path d="M242 115 H248"/><path d="M472 115 H478"/>
+  </g>
+
+  <rect x="24" y="196" width="672" height="76" rx="8" fill="#fff1f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="40" y="218" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#991b1b">Why step 3 is not optional</text>
+  <text x="40" y="242" font-family="ui-monospace,monospace" font-size="12" fill="#0f172a">{"name": "Ana", "emial": "ana@example.com"}</text>
+  <text x="40" y="262" font-family="system-ui,sans-serif" font-size="11" fill="#991b1b">Perfectly valid JSON. <tspan font-family="ui-monospace,monospace">json.loads</tspan> is delighted. The data is useless, and nothing has told you.</text>
+
+  <defs><marker id="x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+</svg>

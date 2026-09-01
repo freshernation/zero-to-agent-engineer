@@ -15,7 +15,7 @@ not cut out for this. It is the most useful output your program produces.
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on reading Python tracebacks — 20 min]`
+- [ ] [**Reading Python tracebacks**](../../content/week-01/day-4/reading-python-tracebacks.md) — 20 min · docs: [Errors and Exceptions](https://docs.python.org/3.14/tutorial/errors.html)
 
 ---
 

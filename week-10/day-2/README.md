@@ -10,7 +10,7 @@ cannot pause — it can only block, which is a completely different and much wor
 
 ## Read / watch first
 
-- [ ] `[INSTRUCTOR: source on human-in-the-loop with LangGraph — 25 min]`
+- [ ] [**Human-in-the-loop with LangGraph**](../../content/week-10/day-2/human-in-the-loop.md) — 25 min · docs: [Human-in-the-loop](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/)
 
 ---
 

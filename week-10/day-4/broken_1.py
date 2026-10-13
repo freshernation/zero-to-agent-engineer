@@ -5,6 +5,7 @@ import operator
 from typing import Annotated, TypedDict
 
 from langgraph.graph import END, START, StateGraph
+from langgraph.types import interrupt
 
 
 class State(TypedDict):
@@ -17,6 +18,7 @@ def prepare(state):
 
 
 def spend(state):
+    interrupt("spend?")
     return {"log": ["spent"]}
 
 
@@ -27,7 +29,7 @@ graph.add_edge(START, "prepare")
 graph.add_edge("prepare", "spend")
 graph.add_edge("spend", END)
 
-app = graph.compile(interrupt_before=["spend"])
+app = graph.compile()
 
 config = {"configurable": {"thread_id": "t1"}}
 app.invoke({"amount": 500, "log": []}, config)

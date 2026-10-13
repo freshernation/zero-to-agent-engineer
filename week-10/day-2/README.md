@@ -10,7 +10,7 @@ cannot pause — it can only block, which is a completely different and much wor
 
 ## Read / watch first
 
-- [ ] [**Human-in-the-loop with LangGraph**](../../content/week-10/day-2/human-in-the-loop.md) — 25 min · docs: [Human-in-the-loop](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/)
+- [ ] [**Human-in-the-loop with LangGraph**](../../content/week-10/day-2/human-in-the-loop.md) — 25 min · docs: [Interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts)
 
 ---
 
@@ -19,29 +19,39 @@ cannot pause — it can only block, which is a completely different and much wor
 ### Pausing
 
 ```python
-app = graph.compile(
-    checkpointer=MemorySaver(),
-    interrupt_before=["spend"],
-)
+from langgraph.types import interrupt
+
+def spend(state):
+    approved = interrupt({"amount": state["amount"]})    # stops here
+    ...
 ```
 
-The graph runs up to that node, saves, and **returns**. The process is free. Hours or
-days later:
+`interrupt()` saves the state and makes the graph **return**. The process is free.
+Whatever you pass to it is what the person gets shown:
 
 ```python
-app.invoke(None, config)     # None means "carry on from where you were"
+result = app.invoke({"amount": 500, ...}, config)
+result["__interrupt__"][0].value        # {"amount": 500}
 ```
 
-Passing `None` rather than a state is the signal to resume. The state is already saved;
-there is nothing to pass.
+Hours or days later, somebody answers:
 
-`interrupt_after` does the same on the other side of a node, for when you want to review
-what it produced rather than approve what it is about to do.
+```python
+from langgraph.types import Command
 
-> LangGraph also has an `interrupt()` function that you call from inside a node, and its
-> documentation now recommends that one for approval steps. `interrupt_before` is the
-> simpler mechanism and shows the same idea: save, stop, resume. Expect to meet
-> `interrupt()` in production code.
+app.invoke(Command(resume=True), config)
+```
+
+The value you resume with becomes the return value of `interrupt()` inside the node.
+
+**The node starts again from its first line.** When you resume, `spend` runs from the
+top, reaches `interrupt()` a second time, and this time gets the answer instead of
+stopping. So anything written above that line happens twice. Put the `interrupt()`
+first, and the thing that cannot be undone after it.
+
+> You will also see `graph.compile(interrupt_before=["spend"])` in older code. It pauses
+> before a node from the outside, without the node knowing. LangGraph's documentation now
+> keeps that for debugging and recommends `interrupt()` for approval.
 
 ### Why this needs a checkpointer
 
@@ -66,15 +76,15 @@ next.
 
 ### Saying no
 
-Resuming runs the node. To *refuse*, change the state first and let the node see it:
+Resume with a different value:
 
 ```python
-app.update_state(config, {"approved": False})
-app.invoke(None, config)        # the node runs, sees the refusal, and does nothing
+app.invoke(Command(resume=False), config)       # the node runs, and does not spend
 ```
 
-The node has to be written to check. That is a design decision worth noticing: the graph
-gives you the pause, and **what "no" means is yours to define.**
+The node has to be written to check what came back. That is a design decision worth
+noticing: the graph gives you the pause, and **what "no" means is yours to define.**
+Treat anything that is not a clear yes as a no.
 
 ### Subgraphs
 
@@ -104,21 +114,21 @@ pytest week-10/day-2 -v
 
 ### 1. `approval.py`
 
-An expense graph: `prepare → spend`, pausing before `spend`.
+An expense graph: `prepare → spend`. `spend` asks for approval before it spends.
 
 State: `amount: int`, `approved` (`None`, `True` or `False`), `log` (accumulating).
 
 | Function | Does |
 |---|---|
-| `build(checkpointer)` | compiled, pausing before `spend` |
+| `build(checkpointer)` | the compiled graph |
 | `start(app, thread_id, amount)` | run until it pauses, return the state |
 | `pending(app, thread_id)` | the node it is waiting on, or `None` if finished |
-| `approve(app, thread_id)` | resume; the spend happens |
-| `reject(app, thread_id)` | set `approved` to `False`, resume; the spend does not |
+| `approve(app, thread_id)` | resume with `True`; the spend happens |
+| `reject(app, thread_id)` | resume with `False`; the spend does not |
 | `is_finished(app, thread_id)` | `True` when nothing is next |
 
-`prepare` logs `"prepared 500"`. `spend` logs `"spent 500"` — or `"rejected"` when
-`approved` is `False`.
+`prepare` logs `"prepared 500"`. `spend` calls `interrupt()`, records the answer in
+`approved`, and logs `"spent 500"` — or `"rejected"` when the answer was not `True`.
 
 ### 2. `nested.py`
 

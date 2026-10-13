@@ -62,7 +62,7 @@ identical.
 
 ### What makes a line strong
 
-**A number.** `47 tests`, `0.85 hit rate`, `3.2× cost difference`, `1,500 tests passing`.
+**A number.** `47 tests`, `0.85 hit rate`, `3.2× cost difference`, `1,502 tests passing`.
 Numbers cannot be bluffed, and they are the fastest possible signal that you measured
 something.
 

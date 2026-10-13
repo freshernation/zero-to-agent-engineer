@@ -11,8 +11,7 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Human-in-the-loop**](https://langchain-ai.github.io/langgraph/concepts/human_in_the_loop/) | The concept and the patterns |
-| [**How to add breakpoints**](https://langchain-ai.github.io/langgraph/how-tos/human_in_the_loop/breakpoints/) | `interrupt_before` and `interrupt_after` |
+| [**Interrupts**](https://docs.langchain.com/oss/python/langgraph/interrupts) | `interrupt()`, `Command(resume=...)`, and the patterns |
 | [**Persistence**](https://langchain-ai.github.io/langgraph/concepts/persistence/) | Yesterday, which today depends on |
 | [**Subgraphs**](https://langchain-ai.github.io/langgraph/how-tos/subgraph/) | A graph used as a node |
 
@@ -28,30 +27,54 @@ completely different and much worse thing.
 ## Pausing
 
 ```python
-app = graph.compile(
-    checkpointer=MemorySaver(),
-    interrupt_before=["spend"],
-)
+from langgraph.types import interrupt
+
+def spend(state: State) -> dict:
+    approved = interrupt({"amount": state["amount"]})    # stops here
+    ...
+
+app = graph.compile(checkpointer=MemorySaver())
 ```
 
-The graph runs up to that node, **saves, and returns**. The process is free.
+When the node reaches `interrupt()`, the graph **saves and returns**. The process is
+free.
 
-Hours or days later:
+Hours or days later, somebody answers:
 
 ```python
-app.invoke(None, config)     # None means "carry on from where you were"
+from langgraph.types import Command
+
+app.invoke(Command(resume=True), config)
 ```
 
-**Passing `None` rather than a state is the signal to resume.** The state is already
-saved; there is nothing to pass.
+**The value you resume with becomes the return value of `interrupt()`.** Inside the
+node, `approved` is now `True`, and the function carries on.
 
-`interrupt_after` does the same on the other side of a node, for when you want to review
-what it produced rather than approve what it is about to do.
+### The node starts again from the top
 
-| Use | When |
-|---|---|
-| `interrupt_before` | approve an action before it happens — spending, sending, deleting |
-| `interrupt_after` | review what a node produced before it goes further |
+This is the part that catches people. On resume the graph does not continue from the
+middle of the function — it **runs the node again from its first line**. The second time
+it reaches `interrupt()`, the answer is waiting, so it returns instead of stopping.
+
+```python
+def spend(state: State) -> dict:
+    send_email("about to spend")             # runs twice. Once per attempt.
+    approved = interrupt({"amount": state["amount"]})
+    charge_card(state["amount"])             # runs once, after the answer.
+```
+
+So: **put `interrupt()` first, and anything that cannot be undone after it.**
+
+### The older way
+
+```python
+app = graph.compile(checkpointer=MemorySaver(), interrupt_before=["spend"])
+```
+
+This pauses before a node from the outside; the node does not know. You resume it with
+`app.invoke(None, config)`. It still works and you will see it in older code, but
+LangGraph's documentation now keeps it for debugging and recommends `interrupt()` for
+approval, because the node can say what it is asking and receive the answer directly.
 
 ---
 
@@ -82,37 +105,39 @@ snapshot = app.get_state(config)
 snapshot.next       # ("spend",) when paused, () when finished
 ```
 
-`next` is how you tell a paused run from a finished one.
+`next` is how you tell a paused run from a finished one. The node that called
+`interrupt()` has not finished, so it is still what comes next.
+
+What the node passed to `interrupt()` comes back from the `invoke` that paused:
 
 ```python
 result = app.invoke(initial_state, config)
-snapshot = app.get_state(config)
 
-if snapshot.next:
-    pending = snapshot.values["pending_action"]
-    print(f"Waiting for approval: {pending}")
+if "__interrupt__" in result:
+    asking = result["__interrupt__"][0].value
+    print(f"Waiting for approval: {asking}")
 else:
     print(f"Done: {result}")
 ```
 
 **Show the person what they are approving.** A prompt saying "approve? y/n" with no
-context gets a reflexive yes, which makes the whole mechanism theatre. Put the pending
-action in the state so the interface can display it.
+context gets a reflexive yes, which makes the whole mechanism theatre. That is what the
+argument to `interrupt()` is for.
 
 ---
 
 ## Saying no
 
-Resuming runs the node. To **refuse**, change the state first and let the node see it:
+Resume with a different value:
 
 ```python
-app.update_state(config, {"approved": False})
-app.invoke(None, config)        # the node runs, sees the refusal, and does nothing
+app.invoke(Command(resume=False), config)
 ```
 
 ```python
 def spend(state: State) -> dict:
-    if not state.get("approved"):
+    approved = interrupt({"amount": state["amount"]})
+    if approved is not True:
         return {"log": ["spend refused by human"], "spent": 0}
     return {"log": [f"spent {state['amount']}"], "spent": state["amount"]}
 ```
@@ -128,13 +153,13 @@ and it should be, because it is domain logic.
 
 | Action | How |
 |---|---|
-| **Approve** | `invoke(None, config)` |
-| **Reject** | `update_state(config, {"approved": False})` then resume |
-| **Edit** | `update_state(config, {"amount": 50})` then resume |
+| **Approve** | `Command(resume=True)` |
+| **Reject** | `Command(resume=False)` |
+| **Edit** | `Command(resume={"approved": True, "amount": 50})` |
 
 That third one is underrated. A human who can say *"yes, but £50 not £500"* is far more
-useful than one who can only say yes or no — and it costs you nothing extra, because
-`update_state` already merges arbitrary changes.
+useful than one who can only say yes or no — and it costs you nothing extra, because the
+resume value can be anything the node knows how to read.
 
 ---
 
@@ -199,18 +224,16 @@ minute.
 ```python
 def test_pauses_before_spending(app):
     config = {"configurable": {"thread_id": "test-1"}}
-    app.invoke({"amount": 500, "log": []}, config)
+    result = app.invoke({"amount": 500, "log": []}, config)
 
-    snapshot = app.get_state(config)
-    assert snapshot.next == ("spend",)
-    assert snapshot.values["spent"] == 0        # nothing happened yet
+    assert app.get_state(config).next == ("spend",)
+    assert result["__interrupt__"][0].value == {"amount": 500}
 
 
 def test_refusal_spends_nothing(app):
     config = {"configurable": {"thread_id": "test-2"}}
     app.invoke({"amount": 500, "log": []}, config)
-    app.update_state(config, {"approved": False})
-    app.invoke(None, config)
+    app.invoke(Command(resume=False), config)
 
     assert app.get_state(config).values["spent"] == 0
 ```
@@ -224,9 +247,9 @@ threads are exactly the shared mutable state that makes tests order-dependent.
 
 ## Check yourself
 
-1. Why does `interrupt_before` need a checkpointer?
-2. What does `app.invoke(None, config)` do?
-3. You resume without setting `approved`. What happens?
+1. Why does `interrupt()` need a checkpointer?
+2. What does `app.invoke(Command(resume=True), config)` do?
+3. Your node resumes with a value it did not expect. What should happen?
 4. Your subgraph's log entries appear twice. Why?
 
 <details>
@@ -235,11 +258,10 @@ threads are exactly the shared mutable state that makes tests order-dependent.
 1. Because the graph **returns** at the interrupt. Without saved state there is nothing
    to resume from — the run is simply lost. The alternative, blocking, holds the process
    and dies on restart.
-2. Resumes the thread from its saved state. `None` is the signal "there is no new input;
-   carry on".
-3. **The node runs and does whatever it does by default.** If `spend` only checks
-   `state.get("approved")` and nothing set it, that is falsy and it refuses — but if your
-   node defaulted to approving, resuming would spend the money. **Default to refusing.**
+2. Resumes the thread from its saved state. The node runs again from the top, and
+   `interrupt()` returns `True` this time instead of stopping.
+3. **It should refuse.** Check for a clear yes — `approved is not True` — and treat
+   everything else as no. A node that spends on any truthy value will spend on a typo.
 4. The subgraph returned its **whole state**, including the log it merely received, and
    the parent's reducer added it again. Give the child a narrower state schema.
 </details>
@@ -248,10 +270,10 @@ threads are exactly the shared mutable state that makes tests order-dependent.
 
 ## What you can now do
 
-- [ ] Compile a graph with `interrupt_before` and a checkpointer
+- [ ] Pause a node with `interrupt()` and a checkpointer
 - [ ] Explain the difference between pausing and blocking
 - [ ] Detect a paused run with `snapshot.next`, and show what is pending
-- [ ] Resume with `invoke(None, config)`
+- [ ] Resume with `Command(resume=...)`, and say why the node runs again from the top
 - [ ] Implement approve, reject and edit at a pause
 - [ ] Say why "what no means" is your job and not the framework's
 - [ ] Choose where an interrupt belongs

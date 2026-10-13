@@ -34,7 +34,7 @@ only that.
 
 ### Mutation B — *"The lookup must be approved by a human before it runs."*
 
-Discussion. LangGraph does this with `interrupt_before` and a checkpointer. CrewAI's
+Discussion. LangGraph does this with `interrupt()` and a checkpointer. CrewAI's
 sequential process does not offer it the same way. **This is the honest case where the
 graph clearly wins**, and a student who has been arguing for the crew all session should
 be made to concede it — conceding a point cleanly is a skill worth practising before an
@@ -44,7 +44,7 @@ interview.
 
 | Seed | Break | Probes |
 |---|---|---|
-| Easy | `interrupt_before` names a node that does not exist | Fails at compile — do they read it? |
+| Easy | move `interrupt()` below the line that spends | Spends before anyone is asked — do they see why? |
 | Medium | remove the checkpointer from the approval graph | Pauses, cannot resume |
 | Medium | two threads share an id | Only the accumulating key shows it |
 | Hard | give the child subgraph the parent's schema again | Duplicate log entries return |

@@ -19,8 +19,8 @@ class TestPausing:
         state = mod.start(app, "t1", 500)
         assert "prepared 500" in state["log"]
         assert not any("spent" in entry for entry in state["log"]), (
-            "It spent the money without stopping. interrupt_before means the "
-            "graph returns before that node runs."
+            "It spent the money without stopping. interrupt() has to come "
+            "before the spending, inside the node."
         )
 
     def test_reports_what_it_is_waiting_on(self, approval):
@@ -32,6 +32,23 @@ class TestPausing:
         mod, app = approval
         mod.start(app, "t1", 500)
         assert mod.is_finished(app, "t1") is False
+
+
+class TestHowItPauses:
+    def test_shows_what_is_being_approved(self, approval):
+        mod, app = approval
+        state = mod.start(app, "t1", 500)
+        assert "500" in str(state["__interrupt__"][0].value), (
+            "Pass the amount to interrupt(). A person asked to approve "
+            "something has to be shown what it is."
+        )
+
+    def test_the_node_asks(self, approval, source):
+        code = source("approval.py", code_only=True)
+        assert "interrupt(" in code and "interrupt_before" not in code, (
+            "Call interrupt() inside spend. interrupt_before pauses from the "
+            "outside and is meant for debugging."
+        )
 
 
 class TestApproving:
@@ -56,8 +73,8 @@ class TestRejecting:
         state = mod.reject(app, "t1")
         assert "rejected" in state["log"]
         assert not any("spent" in entry for entry in state["log"]), (
-            "Resuming always runs the node - refusing means changing the state "
-            "first so the node can see it. What 'no' means is yours to define."
+            "Resuming always runs the node - refusing means resuming with a "
+            "value the node treats as no. What 'no' means is yours to define."
         )
 
     def test_finished_after_rejecting(self, approval):

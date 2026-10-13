@@ -6,7 +6,7 @@
 
 - **LangGraph persistence** — `MemorySaver`, `thread_id`, `get_state`,
   `get_state_history`, `update_state`, resuming with `invoke(None, config)`
-- **Interrupts** — `interrupt_before`, `interrupt_after`
+- **Interrupts** — `interrupt()`, resuming with `Command(resume=...)`
 - **Subgraphs** — a compiled graph used as a node
 - **CrewAI** — `Agent`, `Task`, `Crew`, `Process.sequential`
 - Everything from week 8

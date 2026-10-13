@@ -1,6 +1,6 @@
 # LLM evaluation and guardrails
 
-*Week 11 · Day 4 · about 25 minutes*
+*Week 12 · Day 4 · about 25 minutes*
 
 > By the end of this a bad change cannot reach production, and a runaway request cannot
 > empty your account.
@@ -338,8 +338,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: pytest week-11/milestone -q
-      - run: python week-11/milestone/evaluate.py
+      - run: pytest week-12/milestone -q
+      - run: python week-12/milestone/evaluate.py
 ```
 
 Read it top to bottom: on a push, get a fresh machine, fetch the code, install Python
@@ -391,7 +391,7 @@ Current: hit@3 = 0.85, mean score = 3.7, refusal rate = 0.15.
 ```
 
 **Almost no junior portfolio has that section.** It is four sentences and it says you
-have thought about cost, quality and failure — which is exactly what week 12's interviews
+have thought about cost, quality and failure — which is exactly what week 13's interviews
 are about.
 
 ---
@@ -444,5 +444,5 @@ are about.
 - [ ] Explain prompt injection, fence untrusted text, and measure an injection rate
 - [ ] Run the tests and the gate on every push
 
-**Next:** the week 11 milestone — **Project 3**, deployed, traced and evaluated. This is
+**Next:** the week 12 milestone — **Project 3**, deployed, traced and evaluated. This is
 the claim that closes offers.

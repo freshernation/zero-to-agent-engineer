@@ -63,7 +63,7 @@ tax_rate = 0.08   # good
 ```
 
 You are not writing this for Python. Python does not care. You are writing it for
-yourself in three weeks, and for the interviewer who reads your project in week 12.
+yourself in three weeks, and for the interviewer who reads your project in week 13.
 `temp` tells them nothing. `tax_rate` tells them everything.
 
 Rules for names: letters, digits and underscores; cannot start with a digit; no spaces.

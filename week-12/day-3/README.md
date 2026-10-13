@@ -1,75 +1,128 @@
-# Day 3 — Explaining it out loud
+# Day 3 — Seeing inside a request
 
-> **By the end of today** you can answer any of twelve concept questions in about thirty
-> seconds, without code and without hedging.
+> **By the end of today** you can answer "what happened at 3pm yesterday" from the logs
+> alone.
+
+---
+
+## Read / watch first
+
+- [ ] [**Structured logging and tracing**](../../content/week-12/day-3/logging-and-tracing.md) — 25 min · docs: [`logging`](https://docs.python.org/3.14/library/logging.html)
 
 ---
 
 ## What you need to know
 
-### The round with no code
+### `print` does not survive contact with production
 
-Gate 3 is a conversation. No editor, no screen share, often on a phone. Somebody asks
-*"what is RAG?"* and listens to how you think.
+It goes to stdout, has no timestamp, no severity, and no way to find one request among
+thousands. Fine on your laptop, useless the moment somebody else is using the thing.
 
-It is the round where the gap between people who have used a tool and people who
-understand it is most visible, and it is the round you can most improve in a day.
+### Structured logs are JSON, not sentences
 
-### What a good answer sounds like
+```python
+print("Answered question in 1.2s")                       # unsearchable
+log("info", "answered", duration_ms=1200, sources=2)     # searchable
+```
 
-**Thirty seconds. Three beats.**
+```json
+{"level": "info", "event": "answered", "duration_ms": 1200, "sources": 2}
+```
 
-1. **What it is**, in one sentence, no jargon
-2. **Why it exists** — the problem it solves
-3. **One concrete detail** that proves you have actually done it
+The difference is that you can ask *"show me every request over 5000ms"* and get an
+answer. With sentences you can only grep, and grep cannot compare numbers.
 
-> *"RAG is putting search results into the prompt. It exists because a model does not
-> know your private documents and retraining it on them is expensive and slow — so
-> instead you find the relevant passages at question time and paste them in. The hard
-> part isn't the retrieval, it's knowing whether it worked: on mine, changing the
-> chunking took hit rate from 0.65 to 0.85."*
+**Log events, not prose.** `"answered"` is an event. `"Successfully answered the user's
+question!"` is prose with an event hidden in it.
 
-That third beat is the whole thing. Anybody can give the first two.
+### The request id
 
-### What a bad answer sounds like
+```python
+request_id = uuid4().hex[:12]
+```
 
-- **A definition recited.** "RAG stands for retrieval-augmented generation, a technique
-  which..." — correct and worthless.
-- **Too long.** Ninety seconds unprompted reads as not knowing what matters.
-- **Hedged.** "I think it's kind of like..." Say it plainly. If you are unsure, say
-  which part you are unsure about — that is much stronger than hedging the whole thing.
+One id, generated when the request arrives, attached to **every** log line for that
+request. It is what turns "something broke" into "here is the whole story of that one
+request", and it is the single highest-value thing on this page.
 
-### Say "I don't know" properly
+Without it, a service handling ten requests a second produces logs that are interleaved
+and unreadable. With it, you filter by the id and see one story.
 
-You will get a question you cannot answer. The good version:
+### Never log the secret
 
-> *"I haven't used that. What I do know that's adjacent is — and I'd want to look at X
-> before saying more."*
+You masked it yesterday. The same rule applies to every log line, and it is easier to
+break here — a helpful `log("debug", "calling", headers=headers)` puts your key in the
+log service forever.
 
-Honest, shows the shape of what you do know, and takes five seconds. Bluffing takes
-thirty and ends worse.
+### A trace is a tree of timings
+
+A log line says something happened. A trace says how long it took and what it was inside:
+
+```
+request                     1240ms
+  retrieve                   140ms
+    embed                     12ms
+    search                   126ms
+  generate                  1090ms
+```
+
+Now "it is slow" becomes "generation is 88% of it, and retrieval is not the problem" —
+which is a completely different conversation, and the only one worth having about
+performance.
+
+You are writing a small tracer today. LangSmith, Langfuse and OpenTelemetry do this
+properly, and after today they will look like a nicer version of something you already
+understand.
+
+### Timing needs an injected clock
+
+```python
+tracer = Tracer(request_id, clock=time.monotonic)
+```
+
+Real time in production, a fake clock in tests. Dependency injection, for the fourth
+time — and here it is the only way to write a test about durations that is not flaky.
+
+Use `time.monotonic`, not `time.time`. Wall-clock time can go backwards when the machine
+syncs with a time server, and a negative duration in a chart is a genuinely confusing
+half hour.
 
 ---
 
 ## Exercises
 
 ```bash
-python3 week-12/day-3/quiz.py    # out loud, random order
-pytest week-12/day-3 -v          # grade your written answers
+pytest week-12/day-3 -v
 ```
 
-### `ANSWERS.md`
+### 1. `logs.py`
 
-Twelve questions in `concepts.py`. For each, a heading `## <id>` and your answer in
-**60–140 words** — about thirty seconds spoken.
+| Function | Returns |
+|---|---|
+| `new_request_id()` | 12 lowercase hex characters |
+| `redact(fields, secret_keys=("api_key", "authorization", "token"))` | the fields with those values replaced by `"****"`, case-insensitively, including nested dicts |
+| `log_line(level, event, **fields)` | a JSON string with `level`, `event` and the fields, redacted |
+| `parse(line)` | the JSON back to a dict — for the tests, and for you |
 
-Each answer must contain the ideas in that concept's `must_mention`. Those are not magic
-words; they are what somebody who understands it inevitably says. If yours does not
-contain them, it is probably a definition you have read rather than an explanation you
-own.
+### 2. `tracer.py`
 
-**Say it out loud first, then write down what you said.** Writing first produces prose
-you cannot speak.
+**`Tracer(request_id, clock)`**
+
+| Member | Does |
+|---|---|
+| `span(name, **metadata)` | a context manager; nests inside whatever is already open |
+| `to_dict()` | `{"request_id", "spans": [...]}` — a tree, each with `name`, `duration_ms`, `metadata`, `children` |
+| `total_ms()` | the whole request |
+| `flatten()` | `[(depth, name, duration_ms), ...]`, in the order they started |
+| `slowest()` | the name of the slowest **top-level** span |
+
+A span object has `set(key, value)` for adding metadata while it runs.
+
+`clock` returns a float in seconds; durations are whole milliseconds.
+
+A span whose body **raises** must still be closed and recorded, with
+`metadata["error"]` set to the exception's message. A tracer that loses its data when
+something goes wrong is a tracer that is missing exactly the runs you care about.
 
 ---
 
@@ -83,8 +136,8 @@ git add -A && git commit -m "week 12 day 3" && git push
 
 ## Predict-then-run
 
-Record yourself answering three of these on your phone. Play it back.
+Trace a request with a retrieval span and a generation span, and print `flatten()`.
 
-Count the filler words. Count the seconds before you say anything of substance. Most
-people find both numbers embarrassing and both halve on the second attempt — which is
-the entire argument for doing this rather than reading about it.
+Now ask: if this were 4 seconds and a user complained, what would you change? You can
+answer that in five seconds from the trace and not at all from the logs — which is the
+whole reason both exist.

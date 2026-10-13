@@ -1,80 +1,85 @@
-# Day 4 — Keeping the repo warm
+# Day 4 — Designing on a whiteboard
 
-> **By the end of today** Project 3 has one shipped improvement and a changelog entry.
+> **By the end of today** you can take a vague problem and describe a system, out loud,
+> without freezing.
 
 ---
 
 ## What you need to know
 
-### A frozen repository tells a story
+### What is actually being asked
 
-An interviewer looks at the commit graph. A repository whose last commit is the day a
-course ended says *"this was homework"*. One with a commit from last Tuesday says
-*"this is something I work on"*.
+Junior system design is not capacity planning. Nobody expects you to size a database or
+know what a load balancer costs. Four things are being checked:
 
-The difference costs about an hour a week and it is the cheapest signal you can send.
+1. Can you **name the components**
+2. Can you say **how data moves** between them
+3. Can you say **what goes wrong**
+4. Can you say **how you would know** it went wrong
 
-### One improvement, actually shipped
+Three and four are where candidates separate. Almost everyone can draw boxes.
 
-Not a refactor nobody can see. Something a user would notice, small enough to finish
-today, and deployed by the end of it.
+### The shape of an answer
 
-Good candidates, in rough order of value:
+**Ask a question first.** One, not five. *"Roughly how many articles, and how often do
+they change?"* It buys ten seconds, and it demonstrates that you know the answer depends
+on something.
 
-| Improvement | Why |
-|---|---|
-| Whatever your eval said was weakest | It is measured, so you can prove it worked |
-| The thing somebody told you was confusing | Outreach yesterday probably gave you one |
-| A failure mode you know about and have not handled | Shows you were honest about it |
-| Better first-screen copy | Most visitors leave from there |
+**Then say the shape in one sentence.** *"This is retrieval: index the articles, find
+the relevant ones per question, and answer from those."*
 
-Bad candidates: a rewrite, a new framework, a fourth project.
+**Then the components**, in the order data flows through them.
 
-### Prove it worked
+**Then the failure modes, unprompted.** This is the move. *"Three ways this goes wrong:
+the right article is never retrieved; it is retrieved and the model ignores it; or the
+question is about something we have no article for and it invents an answer."*
 
-Run the eval gate before and after. If the change was meant to improve retrieval and the
-number did not move, that is worth knowing and worth writing down — a changelog entry
-that says *"tried X, hit rate unchanged, reverted"* is more impressive than one that
-claims an improvement with nothing behind it.
+**Then what you would measure.** *"I'd write fifty questions with known answers and
+track how often the right article is in the top three. That number would gate deploys."*
 
-### The changelog
+If you say those five things you have given a better answer than most people with two
+years of experience, because most of them stop after the components.
 
-One entry per change, newest first, in a form a stranger can read:
+### Say what you would cut
 
-```markdown
-## 2026-01-22
+*"For a first version I'd skip the feedback loop and the reranking, and ship retrieval
+plus a refusal. I'd add reranking when the eval showed retrieval was the bottleneck."*
 
-- Chunk overlap raised from one sentence to two. Hit rate 0.850 -> 0.900 on the
-  twenty-question golden set. The two questions it fixed were both ones where the
-  answer sat across a paragraph break.
-```
+Scope judgement reads as seniority. It is also the truth.
 
-What changed, what it did to the number, and why. Three sentences.
+### Do not perform
+
+Nobody is impressed by a candidate who says "and then we'd add a vector database, a
+reranker, a semantic cache and an observability layer" in ninety seconds. That reads as
+a list of words. Two components you can defend beat six you cannot.
 
 ---
 
 ## Exercises
 
-### `CHANGELOG.md`
-
-At least one entry, dated, with:
-
-- what changed
-- what it did to a measurable number — **including "nothing"**
-- why, in one sentence
-
-### `SHIPPED.md`
-
-| Section | What goes in it |
-|---|---|
-| `## What I changed` | And why that one |
-| `## Before and after` | The numbers, both of them |
-| `## What it cost` | Time, and anything it made worse |
-| `## The habit` | What you are committing to weekly, and when |
-
 ```bash
 pytest week-13/day-4 -v
 ```
+
+### `DESIGNS.md`
+
+Three prompts in `design_bank.py`. **Answer two.**
+
+For each, a heading `## <id>` and these five sections:
+
+| Section | What goes in it |
+|---|---|
+| `### The question I'd ask` | One clarifying question and why it matters |
+| `### The shape` | One sentence |
+| `### Components` | In the order data flows |
+| `### What goes wrong` | Three failure modes, named specifically |
+| `### How I'd know` | The metric, and what it would gate |
+
+Each answer between 250 and 600 words. The tests check the sections are there and that
+the ideas in `must_cover` appear — those are what somebody who has built one of these
+inevitably mentions.
+
+Then say each one out loud, from your notes, in under four minutes.
 
 ---
 
@@ -84,6 +89,13 @@ pytest week-13/day-4 -v
 git add -A && git commit -m "week 13 day 4" && git push
 ```
 
-Then push the improvement to the live service and check it on your phone.
+Tomorrow: ten mock interviews, and your week-4 recording.
 
-Tomorrow is a full-length mock, unannounced in content, at real interview difficulty.
+---
+
+## Predict-then-run
+
+Answer the third prompt — the one you did not write up — out loud, cold, with a four
+minute timer and nothing in front of you.
+
+That is the real thing. The written ones were rehearsal for exactly this.

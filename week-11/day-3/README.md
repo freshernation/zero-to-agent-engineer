@@ -1,91 +1,67 @@
-# Day 3 — Seeing inside a request
+# Day 3 — The orchestrator
 
-> **By the end of today** you can answer "what happened at 3pm yesterday" from the logs
-> alone.
+> **By the end of today** one agent hands work to two others, survives either of them
+> failing, and tells you what the whole thing cost.
 
 ---
 
 ## Read / watch first
 
-- [ ] [**Structured logging and tracing**](../../content/week-11/day-3/logging-and-tracing.md) — 25 min · docs: [`logging`](https://docs.python.org/3.14/library/logging.html)
+- [ ] [**Orchestrator and workers**](../../content/week-11/day-3/orchestrator-and-workers.md) — 25 min · docs: [Building effective agents — Orchestrator-workers](https://www.anthropic.com/engineering/building-effective-agents)
 
 ---
 
 ## What you need to know
 
-### `print` does not survive contact with production
-
-It goes to stdout, has no timestamp, no severity, and no way to find one request among
-thousands. Fine on your laptop, useless the moment somebody else is using the thing.
-
-### Structured logs are JSON, not sentences
+### It is the loop you already have
 
 ```python
-print("Answered question in 1.2s")                       # unsearchable
-log("info", "answered", duration_ms=1200, sources=2)     # searchable
+schemas = [worker_schema(w) for w in workers]
+tools = {"ask_researcher": ..., "ask_analyst": ...}
+
+run_agent(client, ORCHESTRATOR_SYSTEM, schemas, tools, question)
 ```
 
-```json
-{"level": "info", "event": "answered", "duration_ms": 1200, "sources": 2}
-```
+The orchestrator is `run_agent`. Its tools are functions that take a brief, run a
+worker, and return the report. The model asks for `ask_researcher` exactly as it used
+to ask for `calculate`.
 
-The difference is that you can ask *"show me every request over 5000ms"* and get an
-answer. With sentences you can only grep, and grep cannot compare numbers.
+### An orchestrator holds no tools of its own
 
-**Log events, not prose.** `"answered"` is an event. `"Successfully answered the user's
-question!"` is prose with an event hidden in it.
+It cannot look anything up. It cannot calculate. It can only ask.
 
-### The request id
+Give it the real tools "to save a call" and it will use them, and you will have one
+agent with two confused assistants. The split is the design.
+
+### Its prompt has one job
+
+Getting it to write a brief. Left alone it sends the worker four words. Its system
+prompt has to say that a worker sees nothing but the brief — yesterday's lesson, now
+written as an instruction.
+
+### Three ways a delegation goes wrong
+
+All three are your code's job, not the model's.
+
+| What happens | What the orchestrator gets back |
+|---|---|
+| the worker ran out of steps | `Worker researcher did not finish: ...` — Monday's `report` |
+| the worker's model raised | `Worker researcher failed: overloaded` — and the team carries on |
+| the orchestrator will not stop delegating | `Refused: delegation limit of 4 reached.` — and the worker is **not run** |
+
+A failure goes back as a string, the same as a failed tool did in week 7. The
+orchestrator reads it and decides what to do. A team that crashes because one worker's
+model was briefly down is a team nobody can run.
+
+### Count everything
 
 ```python
-request_id = uuid4().hex[:12]
+result["model_calls"]    # {"orchestrator": 3, "researcher": 3, "analyst": 2}
+result["total_calls"]    # 8
 ```
 
-One id, generated when the request arrives, attached to **every** log line for that
-request. It is what turns "something broke" into "here is the whole story of that one
-request", and it is the single highest-value thing on this page.
-
-Without it, a service handling ten requests a second produces logs that are interleaved
-and unreadable. With it, you filter by the id and see one story.
-
-### Never log the secret
-
-You masked it yesterday. The same rule applies to every log line, and it is easier to
-break here — a helpful `log("debug", "calling", headers=headers)` puts your key in the
-log service forever.
-
-### A trace is a tree of timings
-
-A log line says something happened. A trace says how long it took and what it was inside:
-
-```
-request                     1240ms
-  retrieve                   140ms
-    embed                     12ms
-    search                   126ms
-  generate                  1090ms
-```
-
-Now "it is slow" becomes "generation is 88% of it, and retrieval is not the problem" —
-which is a completely different conversation, and the only one worth having about
-performance.
-
-You are writing a small tracer today. LangSmith, Langfuse and OpenTelemetry do this
-properly, and after today they will look like a nicer version of something you already
-understand.
-
-### Timing needs an injected clock
-
-```python
-tracer = Tracer(request_id, clock=time.monotonic)
-```
-
-Real time in production, a fake clock in tests. Dependency injection, for the fourth
-time — and here it is the only way to write a test about durations that is not flaky.
-
-Use `time.monotonic`, not `time.time`. Wall-clock time can go backwards when the machine
-syncs with a time server, and a negative duration in a chart is a genuinely confusing
-half hour.
+Eight model calls. Last week you estimated a number like this. Today you measure it,
+and on Friday you put it next to what one agent needs.
 
 ---
 
@@ -95,34 +71,29 @@ half hour.
 pytest week-11/day-3 -v
 ```
 
-### 1. `logs.py`
+`worker.py` is Monday's, given back to you.
 
-| Function | Returns |
+### `team.py`
+
+| Thing | Does |
 |---|---|
-| `new_request_id()` | 12 lowercase hex characters |
-| `redact(fields, secret_keys=("api_key", "authorization", "token"))` | the fields with those values replaced by `"****"`, case-insensitively, including nested dicts |
-| `log_line(level, event, **fields)` | a JSON string with `level`, `event` and the fields, redacted |
-| `parse(line)` | the JSON back to a dict — for the tests, and for you |
+| `ORCHESTRATOR_SYSTEM` | the orchestrator's instructions — it can only ask, and a worker sees only its brief |
+| `run_team(client, question, workers, max_delegations=4, max_steps=8)` | runs it all |
 
-### 2. `tracer.py`
+`run_team` returns:
 
-**`Tracer(request_id, clock)`**
+```python
+{
+    "text": str,                 # the orchestrator's final answer
+    "stopped": str,              # "answered" or "cap"
+    "delegations": [{"worker": ..., "brief": ..., "report": ...}, ...],
+    "model_calls": {"orchestrator": n, "researcher": n, "analyst": n},
+    "total_calls": int,
+}
+```
 
-| Member | Does |
-|---|---|
-| `span(name, **metadata)` | a context manager; nests inside whatever is already open |
-| `to_dict()` | `{"request_id", "spans": [...]}` — a tree, each with `name`, `duration_ms`, `metadata`, `children` |
-| `total_ms()` | the whole request |
-| `flatten()` | `[(depth, name, duration_ms), ...]`, in the order they started |
-| `slowest()` | the name of the slowest **top-level** span |
-
-A span object has `set(key, value)` for adding metadata while it runs.
-
-`clock` returns a float in seconds; durations are whole milliseconds.
-
-A span whose body **raises** must still be closed and recorded, with
-`metadata["error"]` set to the exception's message. A tracer that loses its data when
-something goes wrong is a tracer that is missing exactly the runs you care about.
+Every worker appears in `model_calls`, with 0 if it was never asked. Every delegation
+appears in `delegations`, including the refused ones.
 
 ---
 
@@ -136,8 +107,11 @@ git add -A && git commit -m "week 11 day 3" && git push
 
 ## Predict-then-run
 
-Trace a request with a retrieval span and a generation span, and print `flatten()`.
+With a real key, ask your team *"How many people live in Lisbon and Bogota combined?"*
+and print `result["delegations"]`.
 
-Now ask: if this were 4 seconds and a user complained, what would you change? You can
-answer that in five seconds from the trace and not at all from the logs — which is the
-whole reason both exist.
+Read the briefs the orchestrator wrote. Run each through Tuesday's `missing_parts`.
+Then change one sentence of `ORCHESTRATOR_SYSTEM` and run it again.
+
+That loop — read the briefs, change the prompt, read the briefs — is what tuning a
+multi-agent system actually consists of.

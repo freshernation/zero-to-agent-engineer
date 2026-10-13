@@ -1,89 +1,75 @@
-# Day 3 — Outreach
+# Day 3 — Explaining it out loud
 
-> **By the end of today** you have asked ten people for something specific.
-
-Yesterday's numbers almost certainly said referrals convert best and that you have used
-them least. Today fixes that.
+> **By the end of today** you can answer any of twelve concept questions in about thirty
+> seconds, without code and without hedging.
 
 ---
 
 ## What you need to know
 
-### Your list is longer than you think
+### The round with no code
 
-Everyone who has ever worked anywhere near software: former colleagues, people from
-whatever you did before who moved into tech, friends of friends, anybody from a meetup,
-anybody whose talk you watched. Write them all down before judging any of them.
+Gate 3 is a conversation. No editor, no screen share, often on a phone. Somebody asks
+*"what is RAG?"* and listens to how you think.
 
-Most people stop at four names and the list is closer to twenty.
+It is the round where the gap between people who have used a tool and people who
+understand it is most visible, and it is the round you can most improve in a day.
 
-### What to ask for
+### What a good answer sounds like
 
-**Not a job.** Nobody can give you one, and asking makes the conversation awkward for
-both of you.
+**Thirty seconds. Three beats.**
 
-Ask for something small and specific:
+1. **What it is**, in one sentence, no jargon
+2. **Why it exists** — the problem it solves
+3. **One concrete detail** that proves you have actually done it
 
-- *"You work at X — is there anyone on the platform team who would spare fifteen minutes
-  to tell me what they actually look for?"*
-- *"Would you look at this project for two minutes and tell me what is unclear?"*
-- *"Do you know anyone hiring juniors at the moment?"*
+> *"RAG is putting search results into the prompt. It exists because a model does not
+> know your private documents and retraining it on them is expensive and slow — so
+> instead you find the relevant passages at question time and paste them in. The hard
+> part isn't the retrieval, it's knowing whether it worked: on mine, changing the
+> chunking took hit rate from 0.65 to 0.85."*
 
-Specific and small gets answered. "Let me know if you hear of anything" gets forgotten
-by lunchtime, because there is nothing to do with it.
+That third beat is the whole thing. Anybody can give the first two.
 
-### The message
+### What a bad answer sounds like
 
-Four sentences. More than that and it reads as a cover letter.
+- **A definition recited.** "RAG stands for retrieval-augmented generation, a technique
+  which..." — correct and worthless.
+- **Too long.** Ninety seconds unprompted reads as not knowing what matters.
+- **Hedged.** "I think it's kind of like..." Say it plainly. If you are unsure, say
+  which part you are unsure about — that is much stronger than hedging the whole thing.
 
-1. Who you are and the connection
-2. What you have been doing — one line, with the deployed link
-3. **The specific small ask**
-4. An easy out
+### Say "I don't know" properly
 
-> *"Hi Priya — we worked together at Meridian, I was in ops. I've spent the last three
-> months learning to build with LLMs and just deployed a document assistant
-> (link) — it's the third of three projects. You're at Ashgrove now: would you be able to
-> point me at whoever runs their tooling team, or tell me whether they take juniors? No
-> problem at all if not."*
+You will get a question you cannot answer. The good version:
 
-The easy out is not politeness. It genuinely raises the reply rate, because it removes
-the cost of saying no.
+> *"I haven't used that. What I do know that's adjacent is — and I'd want to look at X
+> before saying more."*
 
-### Cold outreach works, at low volume
-
-An engineer at a company you have applied to, on LinkedIn or wherever they are:
-
-> *"I applied for the junior backend role last week. I'm a career changer with three
-> shipped projects — this one's live: (link). Would you be open to a fifteen-minute chat
-> about what the team actually works on? Happy to work around your calendar."*
-
-The reply rate is low. It is also not zero, and the ones that land are worth much more
-than a job board application. Ten of these is an afternoon.
-
-### Then follow through
-
-Every conversation ends with *"is there anyone else you think I should talk to?"* That
-one question is how ten becomes thirty.
+Honest, shows the shape of what you do know, and takes five seconds. Bluffing takes
+thirty and ends worse.
 
 ---
 
 ## Exercises
 
-### `OUTREACH.md`
-
-| Section | What goes in it |
-|---|---|
-| `## The list` | A table: name, how you know them, where they work, the specific ask |
-| `## Sent` | Who you actually messaged today, and what you asked for |
-| `## Replies` | What came back, including the silences so far |
-| `## What I would change` | About the message, after ten of them |
-
-At least ten rows in the list and at least five sent today.
-
 ```bash
-pytest week-13/day-3 -v
+python3 week-13/day-3/quiz.py    # out loud, random order
+pytest week-13/day-3 -v          # grade your written answers
 ```
+
+### `ANSWERS.md`
+
+Twelve questions in `concepts.py`. For each, a heading `## <id>` and your answer in
+**60–140 words** — about thirty seconds spoken.
+
+Each answer must contain the ideas in that concept's `must_mention`. Those are not magic
+words; they are what somebody who understands it inevitably says. If yours does not
+contain them, it is probably a definition you have read rather than an explanation you
+own.
+
+**Say it out loud first, then write down what you said.** Writing first produces prose
+you cannot speak.
 
 ---
 
@@ -92,3 +78,13 @@ pytest week-13/day-3 -v
 ```bash
 git add -A && git commit -m "week 13 day 3" && git push
 ```
+
+---
+
+## Predict-then-run
+
+Record yourself answering three of these on your phone. Play it back.
+
+Count the filler words. Count the seconds before you say anything of substance. Most
+people find both numbers embarrassing and both halve on the second attempt — which is
+the entire argument for doing this rather than reading about it.

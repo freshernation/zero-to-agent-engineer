@@ -1,59 +1,55 @@
-# Week 13 — Buffer, and pressure
+# Week 13 — The interview is the deliverable
 
 > **Destination**
-> The weakest thing fixed, applications out, and a repository that stays warm while you
-> interview.
+> Tell the story of three projects under pressure, and pass a screen.
 
-Every course needs this week and most pretend they do not. There is almost no new
-material. What there is instead is the last chance to fix the thing week 12 found, and
-the start of the part that actually gets you hired.
+You are done building. This week the code stops changing and the only thing that
+improves is you.
 
 ---
 
 ## The week
 
-| Day | Folder | What you'll be doing |
+| Day | Folder | What you'll be able to do |
 |---|---|---|
-| Mon | `day-1/` | The weakest dimension from your mock scores. Only that. |
-| Tue | `day-2/` | Applications out, and a tracker that tells you what is working |
-| Wed | `day-3/` | Outreach and referrals — the channel that actually converts |
-| Thu | `day-4/` | One shipped improvement, so the repo is not frozen |
-| Fri | `milestone/` | A full-length unannounced mock, and the plan for after |
+| Mon | `day-1/` | A résumé and a GitHub profile that survive ninety seconds |
+| Tue | `day-2/` | Write correct Python, fast, while somebody watches |
+| Wed | `day-3/` | Explain RAG, agents and evals out loud, with no code |
+| Thu | `day-4/` | Design a system on a whiteboard without freezing |
+| Fri | `milestone/` | Ten recorded mocks, scored, next to your week-4 baseline |
 
 ---
 
-## The rule for this week
+## The five gates, one last time
 
-**No new projects. No new frameworks. Nothing that delays applying.**
+| Gate | This week |
+|---|---|
+| **1 — Fundamentals** | Tuesday's timed drills |
+| **2 — Project deep-dive** | Monday's stories, every day's practice |
+| **3 — Concepts, verbal** | Wednesday |
+| **4 — Practical build/debug** | your three projects already prove it |
+| **5 — System design** | Thursday |
 
-The instinct at the end of a course is to build one more thing, because building is
-comfortable and applying is not. Resist it. You have three projects, one of them
-deployed, and a write-up almost nobody applying alongside you can match. The marginal
-value of a fourth project is close to zero and the marginal value of the tenth
-application is high.
-
----
-
-## The honest target, one last time
-
-Zero programming to a role in thirteen weeks converts most often into **AI-adjacent
-engineering**: automation and integration work, solutions or forward-deployed
-engineering, internal tooling at a company already using LLMs, junior backend with an AI
-slant.
-
-You heard this in week 1 and it has not changed. It is not a lowering of ambition — it
-is where the doors actually are at this stage, and a candidate applying to the right
-doors with three shipped projects does well.
+Gate 2 is still the one that decides it. Everything you built exists to be talked about,
+and this week is when talking about it gets good.
 
 ---
 
-## After this week
+## The honest thing about this week
 
-The course ends. The work does not:
+It will feel like a waste of time for about two days. You will want to add a feature.
 
-- one shipped improvement to Project 3 **every week** while you are interviewing
-- one mock a week, recorded
-- the applications keep going out
+Do not. A person who can build and cannot explain gets rejected in round one, and their
+repository is never opened. The gap between what you can do and what you can convey is,
+right now, the largest single thing standing between you and an offer — and it is the
+cheapest to close.
 
-A repository whose last commit is the day the course ended tells a story. Make it a
-different one.
+---
+
+## Your week-4 recording
+
+You made one in week 4. It was bad; everyone's is. On Friday you watch it next to your
+tenth one from this week.
+
+That comparison does more for a career-changer's nerve than any amount of encouragement,
+because it is evidence rather than reassurance. Make sure your instructor still has it.

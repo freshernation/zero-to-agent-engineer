@@ -1,145 +1,84 @@
-# Day 1 — Behind an API
+# Day 1 — A worker is a function
 
-> **By the end of today** your agent answers HTTP requests instead of terminal input,
-> and only from callers who hold a key.
+> **By the end of today** an agent you wrote is something another agent can call: a
+> brief goes in, a report comes out, and nothing else crosses.
 
 ---
 
 ## Read / watch first
 
-- [ ] [**FastAPI basics**](../../content/week-11/day-1/fastapi-basics.md) — 30 min · docs: [FastAPI — First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
+- [ ] [**An agent as a tool**](../../content/week-11/day-1/agent-as-a-tool.md) — 20 min · docs: [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [ ] `agent_kit.py`, one folder up — 10 min. It is week 7's loop. Find the cap, the
+  dispatch table, and where the tool result goes back.
 
 ---
 
 ## What you need to know
 
-### The smallest service
+### An agent with a signature
+
+Week 7's agent took a question and gave back text. Put that behind a function and you
+have a worker:
 
 ```python
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/health")
-def health():
-    return {"status": "ok"}
+result = run_worker(researcher, "Find the population of Lisbon. Digits only.")
+report(result)        # "545000"
 ```
 
-```bash
-uvicorn app:app --reload
-```
+To whoever calls it, it is a function that takes a string and returns a string. That
+it loops, calls a model three times and uses a tool is its own business.
 
-`app:app` means *the object called `app` in the module called `app`*. Then
-`http://127.0.0.1:8000/health` in a browser, and `/docs` for documentation FastAPI
-generated from your code.
+### What makes one worker different from another
 
-### Requests are Pydantic models
+Four things, and you choose all of them:
+
+| | |
+|---|---|
+| **its system prompt** | what it is for |
+| **its tools** | what it is able to do — and so what it is *not* able to do |
+| **its model** | cheap or capable; each worker has its own client |
+| **its description** | what an orchestrator reads when deciding whether to ask it |
+
+The description is week 7's lesson again: **the description is the prompt.** An
+orchestrator chooses a worker the same way a model chooses a tool, from that text and
+nothing else.
+
+### It starts from nothing, every time
 
 ```python
-from pydantic import BaseModel, Field
-
-class AskRequest(BaseModel):
-    question: str = Field(min_length=1, max_length=500)
-    k: int = Field(default=3, ge=1, le=10)
-
-@app.post("/ask")
-def ask(request: AskRequest):
-    return {"answer": answer_question(request.question, request.k)}
+run_worker(researcher, "Population of Lisbon.")
+run_worker(researcher, "And the one before?")     # it has no idea what you mean
 ```
 
-Week 5's models, now doing three jobs at once: they validate the request, they document
-the endpoint, and they reject bad input **before your code runs**. A request missing
-`question` gets a 422 with a message naming the field, and you wrote no code for that.
+Each brief opens an empty conversation. The worker does not remember the last brief,
+and it never sees the conversation of whoever asked.
 
-`max_length=500` is not tidiness. Without it somebody posts a megabyte and you pay to
-have a model read it.
+That is the feature — its context stays small and clean — and it is the cost. Tomorrow
+is about the cost.
 
-### Responses are models too
+### How a worker looks to an orchestrator
+
+Like any other tool: a name, a description, and one argument.
 
 ```python
-class AskResponse(BaseModel):
-    answer: str
-    sources: list[str]
-    refused: bool
-
-@app.post("/ask", response_model=AskResponse)
-def ask(request: AskRequest) -> AskResponse:
-    ...
+{
+    "name": "ask_researcher",
+    "description": "Finds population figures for cities. ...",
+    "input_schema": {
+        "type": "object",
+        "properties": {"brief": {"type": "string", "description": "..."}},
+        "required": ["brief"],
+    },
+}
 ```
 
-Declaring the response means it is documented, and that a field you forget to fill is an
-error rather than a missing key somebody discovers in production.
+### A worker that did not finish must say so
 
-### Status codes, deliberately
+A worker that hits its step cap still returns text: *"Stopped after 6 steps without
+finishing."* Hand that back as it is and the orchestrator will read it as the answer.
 
-```python
-from fastapi import HTTPException
-
-if not question_is_answerable:
-    raise HTTPException(status_code=404, detail="No documents matched")
-```
-
-Week 5 in reverse: then you read status codes, now you choose them. The same table
-applies — 4xx is the caller's problem, 5xx is yours — and choosing correctly is what
-lets a caller write sensible error handling.
-
-### Dependency injection, again
-
-```python
-def get_agent():
-    return AGENT
-
-@app.post("/ask")
-def ask(request: AskRequest, agent = Depends(get_agent)):
-    ...
-```
-
-`Depends` is week 6's `client` parameter with framework support. The endpoint says what
-it needs; something else decides what to give it — the real one in production, a fake
-in tests. Same idea, third time.
-
-### Who is calling
-
-A service on the internet is called by everybody, and every call to `/ask` costs you
-money. So the caller sends a key, and a request without the right one is refused before
-anything else happens.
-
-```python
-import secrets
-from fastapi import Depends, Header, HTTPException
-
-def check_key(authorization: str = Header(default="")):
-    expected = f"Bearer {API_KEY}"
-    if not secrets.compare_digest(authorization.encode(), expected.encode()):
-        raise HTTPException(status_code=401, detail="Missing or wrong API key.")
-
-@app.post("/ask", dependencies=[Depends(check_key)])
-def ask(request: AskRequest):
-    ...
-```
-
-- **The key travels in a header**, `Authorization: Bearer <key>`. Never in the URL:
-  URLs end up in logs, browser history and screenshots.
-- **`secrets.compare_digest`, not `==`.** `==` stops at the first character that
-  differs, so how long it takes says how much of the key was right.
-- **401, and nothing more.** The reply does not say whether the key was missing, wrong
-  or nearly right.
-- **`/health` stays open.** The platform that calls it has no key.
-
-One shared key says "somebody I gave the key to". It does not say who. Accounts, logins
-and a key per caller are a different job, and outside this week.
-
-### Testing it without a server
-
-```python
-from fastapi.testclient import TestClient
-
-client = TestClient(app)
-response = client.post("/ask", json={"question": "when are claims due"})
-assert response.status_code == 200
-```
-
-No server, no port, no network. This is how every test today works.
+So the report marks it: `Worker researcher did not finish: Stopped after 6 steps...`.
+The reader has to be able to tell an answer from a failure.
 
 ---
 
@@ -149,39 +88,17 @@ No server, no port, no network. This is how every test today works.
 pytest week-11/day-1 -v
 ```
 
-### 1. `models.py`
+### `worker.py`
 
-| Model | Fields |
+| Function | Does |
 |---|---|
-| `AskRequest` | `question: str` (1–500 chars), `k: int` (1–10, default 3) |
-| `AskResponse` | `answer: str`, `sources: list[str]`, `refused: bool` |
-| `HealthResponse` | `status: str`, `documents: int` |
+| `make_worker(name, description, system, schemas, tools, client)` | a dict with those six keys |
+| `worker_schema(worker)` | the tool schema: `ask_<name>`, the worker's description, one required string `brief` |
+| `run_worker(worker, brief, max_steps=6)` | runs the worker's own agent on the brief, from an empty conversation; `run_agent`'s result plus `"worker": name` |
+| `report(result)` | the worker's text when it answered; `Worker <name> did not finish: <text>` otherwise |
 
-### 2. `service.py`
-
-| Endpoint | Does |
-|---|---|
-| `GET /health` | `{"status": "ok", "documents": n}` |
-| `POST /ask` | answers a question |
-| `GET /sources` | the document names |
-
-Plus:
-
-| Function | Returns |
-|---|---|
-| `create_app(answerer, api_key=None)` | the `FastAPI` app, using the answerer given to it |
-| `default_answerer(question, k)` | a stub answer, so the app runs with nothing else |
-
-`create_app` takes the answerer as an argument — dependency injection, third time. It is
-what lets the tests run without a model.
-
-Bad input gets a **422** and you write no code for it. An empty question is bad input.
-`k` of 99 is bad input.
-
-When `create_app` is given an `api_key`, `POST /ask` answers only a request carrying
-`Authorization: Bearer <that key>`, and everything else gets a **401** without the
-answerer being called. `GET /health` answers either way. With no `api_key` there is no
-check — fine on your laptop, never on the internet.
+Describe the `brief` argument in a full sentence. The model that writes the brief has
+to be told that the worker sees nothing else.
 
 ---
 
@@ -195,10 +112,8 @@ git add -A && git commit -m "week 11 day 1" && git push
 
 ## Predict-then-run
 
-Start your service and open `http://127.0.0.1:8000/docs`.
+With a real key, make a researcher and brief it twice: first *"Population of Lisbon."*,
+then *"Now double it."*
 
-Everything on that page came from your Pydantic models and type hints. Now change
-`max_length` to 50 and reload.
-
-That page is also the fastest way to show somebody your project works — worth knowing on
-the day an interviewer asks you to demo something.
+Predict what the second one says before you run it. Then read the reply and decide what
+the second brief should have been.

@@ -89,12 +89,11 @@ condition under which it would be worth it* — not a flat no, and not a shrug.
 
 ## Instructor: framing week 11
 
-Week 11 is Project 3 and the last build week. Say this:
+Say this:
 
-> **Everything from here is about being hired.** Week 11 puts a system on the public
-> internet with tracing and evals, week 12 is interviews, week 13 is applications. The
-> code gets less interesting and the stakes get higher.
+> **Next week there is no framework.** You have now used two. Week 11 builds a team out
+> of the loop you wrote in week 7, so that you can see the three things every framework
+> hides: what a worker was told, what it sent back, and what it all cost. Your estimate
+> from this week becomes a measurement.
 
-Also worth flagging honestly: weeks 8–10 were the ones where a student could coast.
-Week 11 is not — there is a deployed artifact at the end of it, and either it is
-reachable or it is not.
+They need a real API key by Wednesday of week 11. Check now.

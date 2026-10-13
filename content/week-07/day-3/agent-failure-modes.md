@@ -241,7 +241,7 @@ Nothing in this article catches that. The only defences are:
 - **the trace** — you can see what it read and where the reasoning went wrong
 - **evaluation** — a set of questions with known answers, run after every change
 
-That is week 9 and week 11. For now, notice that guardrails bound the *cost* and the
+That is week 9 and week 12. For now, notice that guardrails bound the *cost* and the
 *chaos* of an agent. They do not make it *correct*, and anyone who tells you otherwise is
 selling something.
 

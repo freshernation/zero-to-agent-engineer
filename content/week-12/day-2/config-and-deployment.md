@@ -1,6 +1,6 @@
 # Twelve-factor config and deployment
 
-*Week 11 · Day 2 · about 25 minutes*
+*Week 12 · Day 2 · about 25 minutes*
 
 > By the end of this your service can be configured from outside, says whether it is
 > healthy, and has everything a platform needs to run it.

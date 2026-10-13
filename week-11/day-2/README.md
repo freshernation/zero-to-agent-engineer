@@ -1,112 +1,74 @@
-# Day 2 — Configuration, health, and deploying
+# Day 2 — The handoff
 
-> **By the end of today** your service can be configured from outside, says whether it
-> is healthy, and has everything a platform needs to run it.
+> **By the end of today** you can write a brief a worker can act on, and put a number
+> on what a handoff saves and what it loses.
 
 ---
 
 ## Read / watch first
 
-- [ ] [**Twelve-factor config and deployment**](../../content/week-11/day-2/config-and-deployment.md) — 25 min · docs: [The Twelve-Factor App — Config](https://12factor.net/config)
+- [ ] [**The brief and the report**](../../content/week-11/day-2/the-brief-and-the-report.md) — 25 min · docs: [How we built our multi-agent research system](https://www.anthropic.com/engineering/multi-agent-research-system)
 
 ---
 
 ## What you need to know
 
-### Configuration comes from the environment
+### What crosses is a string
 
-Week 5's rule, now load-bearing. The same image runs in development and production, and
-**the only difference is the environment it is given.**
+When one agent asks another, two strings move: the brief going out, the report coming
+back. Nothing else does.
 
-```python
-class Settings(BaseModel):
-    api_key: str
-    model: str = "claude-sonnet-5-5"
-    environment: str = "development"
-    max_question_length: int = 500
-```
-
-Validate it at startup, not at first use. A service that starts happily and fails on the
-first real request has wasted a deploy and a rollback.
-
-**Fail loudly and say what to set:**
-
-```python
-raise RuntimeError(
-    "ANTHROPIC_API_KEY is not set. Copy .env.example to .env and fill it in."
-)
-```
-
-### Never log a secret
-
-```python
-def redacted(settings):
-    return {**settings.model_dump(), "api_key": mask(settings.api_key)}
-```
-
-Logging the config at startup is genuinely useful — it is how you find out that
-production is pointing at the wrong model. Logging your key alongside it puts the key in
-every log aggregator you use, forever. Redact once, in one place, and use that function
-everywhere.
-
-### Health checks
-
-```python
-@app.get("/health")
-def health():
-    return {"status": "ok", "version": VERSION, "uptime_seconds": uptime()}
-```
-
-A platform calls this every few seconds to decide whether to send you traffic. So:
-
-- **it must be cheap.** No model calls, no database queries. A health check that costs
-  money is a health check that bankrupts you at 3am.
-- **it must be honest.** If a dependency you need is missing, say so and return a 503.
-  A service that reports healthy while broken is worse than one that reports nothing.
-
-Two checks is a common split: `/health` for "am I running" (cheap, always) and
-`/ready` for "can I actually serve" (checks dependencies).
-
-### The start command
+The orchestrator may have read the user's whole request, three earlier reports and a
+correction. The worker gets what is in the brief. Ask a model to delegate without
+telling it this and it writes:
 
 ```
-uvicorn app:app --host 0.0.0.0 --port $PORT
+look up Lisbon
 ```
 
-`0.0.0.0` rather than `127.0.0.1`, because in a container the request arrives from
-outside it — this is the single most common reason a deploy "works locally" and returns
-nothing in production.
+Look up *what* about Lisbon? In what form? Is anything already known? The worker will
+guess, and it will guess confidently.
 
-`$PORT` from the environment, because the platform chooses it.
-
-### A Dockerfile
-
-```dockerfile
-FROM python:3.12-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
-```
-
-Copy `requirements.txt` **before** the rest and install from it. Docker caches each
-step, so this way a code change does not reinstall every dependency — it turns a
-two-minute build into a five-second one, and it is the single most useful Docker fact
-there is.
-
-### `.env.example`
-
-The names, no values:
+### A brief has three parts
 
 ```
-ANTHROPIC_API_KEY=
-MODEL=claude-sonnet-5-5
-ENVIRONMENT=development
+Goal: Find the population of Lisbon.
+
+What is known:
+- The user wants a total for two cities
+- Lagos is already done: 15400000
+
+Return: The number, digits only.
 ```
 
-`.env` is gitignored; `.env.example` is committed. Somebody cloning your project now
-knows exactly what they need without you handing over anything.
+- **Goal** — one task, stated so it could be handed to a stranger.
+- **What is known** — so the worker does not redo it, or contradict it.
+- **Return** — the form of the answer. Without it you get a paragraph when you needed
+  a number.
+
+Write it the way you would brief a contractor who has never seen the project, because
+that is exactly what the worker is.
+
+### What a handoff saves
+
+The researcher made three model calls and read two tool results to produce one line.
+All of that stayed in *its* context. The orchestrator's conversation grew by one line.
+
+That is the real argument for a worker: **a long, messy piece of work is kept out of
+the conversation that has to stay clear.** You can count it — the tokens the worker
+used, minus the tokens it sent back.
+
+### What a handoff loses
+
+The same thing, seen from the other side. The researcher tried Porto, the lookup
+failed, and its report said *"Lisbon: 545000."*
+
+Nobody upstream will ever know there was a failure. Nothing crashed. The final answer
+will simply be missing a city.
+
+This is where multi-agent systems actually fail, and it is much harder to see than an
+exception. So you check: which tool results did the worker see that are not in its
+report?
 
 ---
 
@@ -116,36 +78,19 @@ knows exactly what they need without you handing over anything.
 pytest week-11/day-2 -v
 ```
 
-### 1. `config.py`
-
-| Thing | Does |
-|---|---|
-| `Settings` | `api_key: str`, `model` (default `claude-sonnet-5-5`), `environment` (default `development`), `max_question_length` (1–5000, default 500), `request_timeout` (1–120, default 30) |
-| `load_settings(env=None)` | build from a mapping, defaulting to the real environment |
-| `mask(secret)` | `"sk-ant-abc123xyz"` → `"sk-a...3xyz"`; anything under 8 characters → `"****"` |
-| `redacted(settings)` | the settings as a dict, with `api_key` masked |
-| `is_production(settings)` | `True` when `environment` is `production` |
-
-`load_settings` raises `RuntimeError` naming the variable when the key is missing or
-empty, and rejects an `environment` that is not `development`, `staging` or `production`.
-
-### 2. `health.py`
+### `brief.py`
 
 | Function | Returns |
 |---|---|
-| `uptime_seconds(started_at, now)` | whole seconds |
-| `health_payload(started_at, now, version)` | `{"status": "ok", "version", "uptime_seconds"}` |
-| `readiness(checks)` | `{"ready": bool, "checks": {...}, "failing": [...]}` |
+| `build_brief(goal, known, return_format)` | the three-part text above. `known` is a list; empty gives `- nothing yet`. `ValueError` for an empty goal or return format |
+| `missing_parts(brief)` | which of `Goal`, `What is known`, `Return` do not start a line followed by a colon — in that order, any capitals |
+| `estimate_tokens(text)` | `len(text) // 4` |
+| `crossed(brief, report)` | tokens that crossed the handoff, both directions |
+| `kept_out(result, report)` | the worker's input and output tokens, minus the report. Never below zero |
+| `lost(result, report)` | the tool results in `result["tool_calls"]` that do not appear in the report |
 
-`checks` is a dict of name to a zero-argument function returning a bool. A check that
-**raises** counts as failing, not as a crash — a readiness probe that throws tells the
-platform nothing.
-
-### 3. `Dockerfile` and `.env.example`
-
-Write both. The tests check that the Dockerfile installs requirements before copying the
-code, binds `0.0.0.0`, and uses `$PORT`; and that `.env.example` names every variable and
-contains no values.
+`missing_parts` is for checking a brief a **model** wrote. Tomorrow's orchestrator
+writes its own.
 
 ---
 
@@ -159,8 +104,10 @@ git add -A && git commit -m "week 11 day 2" && git push
 
 ## Predict-then-run
 
-Set `ANTHROPIC_API_KEY` to something, then print `redacted(load_settings())`.
+Take a worker result where `lost` returns something. Now change the worker's system
+prompt to *"Report every lookup you attempted, including the ones that failed."* and
+run it again with a real key.
 
-Now imagine that line runs on every startup and the output goes to a log service your
-whole company can read. Is there anything in it you would mind? That question, asked
-once per new field, is most of what secret hygiene is.
+Did `lost` go to zero? And what happened to `kept_out`? Those two numbers pull against
+each other, and choosing where to sit between them is most of what designing a handoff
+is.

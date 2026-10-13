@@ -1,11 +1,9 @@
-# Project 3 — The Deployed Assistant
+# Week 11 Milestone — One Agent or a Team, Measured
 
-> A document assistant behind an API on the public internet, behind a key, traced,
-> guarded, and with an evaluation that blocks a bad deploy on every push.
+> The same six questions answered by one agent and by a team, with the pass rate and
+> the cost of each, and a recommendation you can defend.
 
-**This is the one that gets clicked.** Of your three projects it is the only one an
-interviewer can try without cloning anything, and the link in your README needs to be
-live on the day they read it.
+Last week you estimated. This week the numbers are real, and they are yours.
 
 ---
 
@@ -13,128 +11,74 @@ live on the day they read it.
 
 | File | Holds |
 |---|---|
-| `pipeline.py` | `Assistant` — retrieval, generation, tracing |
-| `app.py` | The FastAPI service |
-| `evaluate.py` | The eval gate. Exits non-zero on failure. |
-| `Dockerfile` · `.env.example` | Deployment |
-| `gate.yml` | The workflow that runs the tests and the gate on every push |
-| `PROJECT_README.md` | What a stranger reads |
-| `DEPLOYMENT.md` | How you deployed it and what you would do differently |
+| `designs.py` | The single agent, and the team |
+| `compare.py` | Scoring, the two summaries, and the comparison |
+| `REPORT.md` | **The deliverable** |
 
-Given to you: `chunking.py`, `loading.py`, `store.py`, `golden.py`, `tracer.py`,
-`logs.py`, `guards.py`, and the corpus. Six weeks of your own answers, handed back so
-this week is about assembling and shipping.
+Given to you: `worker.py` and `team.py` — your own answers from Monday and Wednesday —
+and `tasks.py`, six questions with the figure a correct answer must contain.
 
 ---
 
-## `pipeline.py`
+## `designs.py`
 
-**`Assistant(corpus_dir, chunker=None, k=3, min_score=0.01)`**
-
-| Member | Does |
+| Function | Returns |
 |---|---|
-| `build()` | load, chunk, index — returns itself |
-| `chunk_count` | how many chunks |
-| `sources` | the document names, sorted |
-| `answer(client, question, request_id, clock)` | the full result |
+| `run_single(client, question)` | `run_agent`'s result, for **one** agent holding both tools |
+| `build_team(researcher_client, analyst_client)` | `[researcher, analyst]` |
+| `run_as_team(orchestrator_client, question, workers)` | `run_team`'s result |
 
-`answer` returns:
+The researcher holds `lookup_population` and nothing else. The analyst holds
+`calculate` and nothing else. If either could do the other's job you would have built
+one agent twice.
 
-```python
-{
-    "answer": str,
-    "sources": list[str],
-    "refused": bool,
-    "request_id": str,
-    "trace": dict,
-    "duration_ms": int,
-}
-```
+Each worker needs a description of ten words or more — it is all the orchestrator has
+to choose from — and a system prompt of its own.
 
-It must open a span for `retrieve` and one for `generate`, refuse **without calling the
-model** when nothing scores, and cite its sources.
+## `compare.py`
 
-The retrieved text goes to the model inside `fence(text, "context")` from `guards.py`,
-so that a document cannot close the fence and write its own instructions.
-
-## `app.py`
-
-| Endpoint | Does |
+| Function | Returns |
 |---|---|
-| `GET /health` | `{"status", "version", "uptime_seconds"}` — cheap |
-| `GET /ready` | `{"ready", "checks", "failing"}` — checks the corpus is indexed |
-| `GET /sources` | the document names |
-| `POST /ask` | answers, with a `request_id` in the response |
+| `passed(text, expected)` | `True` when the expected figure is in the text, ignoring commas and capitals |
+| `summarise(runs)` | `{"tasks", "pass_rate", "calls_per_task"}` from `[{"passed", "model_calls"}, ...]` |
+| `compare(single, team)` | `{"quality_gain", "cost_ratio"}` |
+| `recommend(comparison, min_gain=0.10)` | `"team"` only when the quality gain is at least `min_gain`; otherwise `"single-agent"` |
 
-Plus `create_app(assistant, client, settings)`, so the tests can build one without a
-model or a key.
+`pass_rate` and `quality_gain` to 2 decimal places, `calls_per_task` and `cost_ratio`
+to 1. The quality gain is the team's pass rate minus the single agent's. The cost ratio
+is the team's calls per task divided by the single agent's.
 
-`POST /ask` must:
-
-- answer only a request carrying `Authorization: Bearer <settings["service_key"]>`, and
-  give everything else a **401**. `/health` and `/ready` stay open
-- reject a question over the configured length with a **413**
-- return **429** when the daily budget is spent
-- put the `request_id` in the response body **and** the `X-Request-ID` header
-- never return a traceback
-
-## `evaluate.py`
-
-Runs the golden set, prints the summary, and **exits non-zero when the gate fails**.
-That exit code is what a deploy pipeline reads.
-
-```
-$ python3 week-11/milestone/evaluate.py
-hit_rate 0.850 >= 0.800 PASS
-refusal_rate 0.150 <= 0.200 PASS
-GATE PASSED
-```
-
-## `gate.yml`
-
-A GitHub Actions workflow that runs on every push, installs `requirements.txt`, runs
-`pytest week-11/milestone`, and then runs `evaluate.py`. Write it here so the tests can
-read it, then copy it to where GitHub looks:
-
-```bash
-mkdir -p .github/workflows
-cp week-11/milestone/gate.yml .github/workflows/gate.yml
-```
-
-Push, open the **Actions** tab of your repository, and watch it run. A red cross there
-is the gate doing its job.
-
-## `.env.example`
-
-Names every variable, with no values in it. There are now two secrets:
-`ANTHROPIC_API_KEY`, which you use to call the model, and `SERVICE_API_KEY`, which your
-callers use to call you. They are different keys and must never be the same string.
+**The dearer design has to buy something you can measure.** That is the whole of
+`recommend`.
 
 ---
 
-## `PROJECT_README.md`
+## Then run it for real
 
-The five sections from week 4, plus two that matter now:
+The tests use scripted models. Your report cannot.
 
-| Section | What goes in it |
-|---|---|
-| `## What it is` | One sentence |
-| `## Try it` | **The live URL**, and a `curl` that works — with a placeholder where the key goes, never the key |
-| `## How it works` | Retrieval, then generation. Three or four sentences. |
-| `## Running it yourself` | Commands that work from a fresh clone |
-| `## How I know it works` | The eval numbers. This is the section that gets you asked good questions. |
-| `## What I would do next` | Honest and brief |
+With a key, run both designs over all six tasks, **three times each**, and record for
+every run whether it passed and how many model calls it made. For the team, keep the
+delegations too — you will need the briefs.
 
-An interviewer needs a key to try it. Say in `## Try it` how to get one, and send it with
-your application. A key printed in a public README is not a key.
+Six tasks is a small set. One task is 17 points of pass rate. Say so in the report, and
+do not claim a difference smaller than that.
 
-## `DEPLOYMENT.md`
+## `REPORT.md`
 
 | Section | What goes in it |
 |---|---|
-| `## Where it runs` | Platform, and why that one |
-| `## Configuration` | Every variable and what happens without it |
-| `## What I would change` | For real traffic. Be specific. |
+| `## What I built` | The two designs, concretely. Who holds which tool. |
+| `## The numbers` | Pass rate and calls per task for each, the gain and the ratio, and how many runs they came from. |
+| `## What crossed the handoff` | The briefs your orchestrator wrote, what you changed, and one thing a worker saw that never came back. |
+| `## Where a team would win` | Be fair to it. Name the task, and the reason. |
+| `## My recommendation` | And the measurement that would change it. |
+
+At least 350 words, at least four numbers, and it must talk about the **brief**.
+
+> *"One agent, and here is the number that says so"* is a complete and senior answer.
+> So is *"a team, because the agent that reads the web must not hold the tool that
+> sends"*. What is not an answer is *"a team, because it is more scalable"*.
 
 ---
 
@@ -142,36 +86,12 @@ your application. A key printed in a public README is not a key.
 
 ```bash
 pytest week-11/milestone -v
-python3 week-11/milestone/evaluate.py
 ```
-
----
-
-## Then deploy it, and check it as a stranger
-
-- [ ] Open the live URL on your phone
-- [ ] Paste the `curl` from your README into a fresh terminal
-- [ ] Ask it something the corpus does not cover, and check it refuses
-- [ ] Call `/ask` with no key, and check you get a 401
-- [ ] Open the Actions tab and check the last push is green
-- [ ] Look at `/docs` and see whether it explains itself
-- [ ] Ask somebody who is not on this course to try it, and watch without helping
-
-That last one finds more than the other four together.
 
 ---
 
 ## Ship it
 
 ```bash
-git add -A && git commit -m "project 3: deployed assistant" && git push
+git add -A && git commit -m "week 11 milestone: one agent or a team" && git push
 ```
-
-Pin it on your GitHub profile, next to Project 2.
-
----
-
-## Friday
-
-The defence starts with the live URL open on your instructor's machine. If it is down,
-that is the defence.

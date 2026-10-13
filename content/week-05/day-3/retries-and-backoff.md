@@ -151,7 +151,7 @@ except requests.exceptions.RequestException as error:
 Silent retries make a program that is "just slow sometimes" and nobody knows why. One
 line of logging turns that into a diagnosable fact.
 
-Week 11 replaces the `print` with structured logging. The instinct — **make the retry
+Week 12 replaces the `print` with structured logging. The instinct — **make the retry
 visible** — is the same.
 
 ---

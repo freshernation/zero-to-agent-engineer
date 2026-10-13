@@ -1,85 +1,92 @@
-"""Week 13, Day 3 - outreach.
+"""Week 13, Day 3 - explaining it out loud.
 
 Run me:  pytest week-13/day-3 -v
+
+These check your answers cover the ground and are the right length. Whether they
+sound like a person is Friday's job.
 """
 
 import re
 
 import pytest
+from concepts import CONCEPTS
 
-HEADINGS = ["The list", "Sent", "Replies", "What I would change"]
-
-
-def body(source):
-    return re.sub(r"<!--.*?-->", "", source("OUTREACH.md"), flags=re.S)
+MIN_WORDS = 60
+MAX_WORDS = 140
 
 
-def section(source, heading):
-    text = body(source)
-    assert f"## {heading}" in text, f"OUTREACH.md has no '{heading}' section."
-    return text.split(f"## {heading}", 1)[1].split("\n## ")[0]
+def answer_for(source, concept_id):
+    text = re.sub(r"<!--.*?-->", "", source("ANSWERS.md"), flags=re.S)
+    marker = f"## {concept_id}"
+    assert marker in text, f"ANSWERS.md has no '{marker}' section."
+    return text.split(marker, 1)[1].split("\n## ")[0].strip()
 
 
-class TestTheList:
-    def test_ten_names(self, source):
-        rows = [
-            line for line in section(source, "The list").splitlines()
-            if line.strip().startswith("|") and "---" not in line
-            and "Name" not in line and line.split("|")[1].strip()
-        ]
-        assert len(rows) >= 10, (
-            f"{len(rows)} names. Most people stop at four and the list is closer "
-            "to twenty - write everyone down before judging any of them."
+class TestEveryConceptIsAnswered:
+    @pytest.mark.parametrize("concept", CONCEPTS, ids=lambda c: c["id"])
+    def test_answered(self, source, concept):
+        answer = answer_for(source, concept["id"])
+        assert answer, f"No answer for '{concept['question']}'"
+
+
+class TestLength:
+    @pytest.mark.parametrize("concept", CONCEPTS, ids=lambda c: c["id"])
+    def test_about_thirty_seconds(self, source, concept):
+        answer = answer_for(source, concept["id"])
+        words = len(answer.split())
+        assert words >= MIN_WORDS, (
+            f"'{concept['id']}' is {words} words. Under {MIN_WORDS} is a "
+            "definition rather than an explanation - there is no room for the "
+            "concrete detail that proves you have done it."
         )
-
-    def test_every_row_has_a_specific_ask(self, source):
-        self.test_ten_names(source)  # nothing to check until the list exists
-        rows = [
-            line for line in section(source, "The list").splitlines()
-            if line.strip().startswith("|") and "---" not in line
-            and "Name" not in line and line.split("|")[1].strip()
-        ]
-        vague = [
-            row for row in rows
-            if len(row.split("|")[4].strip().split()) < 4
-        ]
-        assert not vague, (
-            f"{len(vague)} rows have no real ask in them. 'Let me know if you "
-            "hear of anything' gets forgotten by lunchtime because there is "
-            "nothing to do with it."
+        assert words <= MAX_WORDS, (
+            f"'{concept['id']}' is {words} words. Over {MAX_WORDS} is more than "
+            "thirty seconds, and talking too long reads as not knowing what "
+            "matters."
         )
 
 
-class TestSent:
-    def test_at_least_five(self, source):
-        text = section(source, "Sent")
-        entries = [
-            line for line in text.splitlines()
-            if line.strip().startswith(("-", "*", "|", "1.", "2.", "3.", "4.", "5."))
-            and len(line.split()) >= 4
+class TestCoverage:
+    @pytest.mark.parametrize("concept", CONCEPTS, ids=lambda c: c["id"])
+    def test_mentions_the_load_bearing_ideas(self, source, concept):
+        answer = answer_for(source, concept["id"]).lower()
+        missing = [
+            " / ".join(options)
+            for options in concept["must_mention"]
+            if not any(option.lower() in answer for option in options)
         ]
-        assert len(entries) >= 5, (
-            f"{len(entries)} sent. Five today - this is the channel your own "
-            "numbers said converts best."
+        assert not missing, (
+            f"'{concept['id']}' never mentions: {', '.join(missing)}.\n\n"
+            f"Question: {concept['question']}\n\n"
+            "These are not magic words - they are what somebody who understands "
+            "the idea inevitably says. An answer without them is usually a "
+            "definition that has been read rather than an explanation that is "
+            "owned."
         )
 
 
-class TestReflection:
-    @pytest.mark.parametrize("heading", ["Replies", "What I would change"])
-    def test_written(self, source, heading):
-        assert len(section(source, heading).split()) >= 40, (
-            f"'{heading}' is too short."
-        )
-
-    def test_counts_the_silences(self, source):
-        text = section(source, "Replies").lower()
-        assert any(
-            word in text for word in ("no reply", "silence", "nothing", "not heard",
-                                      "no response", "yet")
-        ), (
-            "Record the silences too. A reply rate you cannot calculate is a "
-            "channel you cannot judge."
+class TestWrittenLikeSpeech:
+    @pytest.mark.parametrize("concept", CONCEPTS, ids=lambda c: c["id"])
+    def test_no_bullet_lists(self, source, concept):
+        answer = answer_for(source, concept["id"])
+        assert answer, f"No answer for '{concept['id']}' yet."
+        bullets = [ln for ln in answer.splitlines() if ln.strip().startswith(("-", "*"))]
+        assert len(bullets) <= 1, (
+            f"'{concept['id']}' is a bulleted list. You cannot say bullets out "
+            "loud - write down what you would actually say."
         )
 
     def test_instructions_removed(self, source):
-        assert "<!--" not in source("OUTREACH.md")
+        assert "<!--" not in source("ANSWERS.md")
+
+
+class TestBank:
+    def test_twelve_concepts(self):
+        assert len(CONCEPTS) == 12
+
+    def test_by_id(self, load):
+        assert load("concepts.py").by_id("rag")["question"].startswith("What is RAG")
+        assert load("concepts.py").by_id("nonsense") is None
+
+    def test_questions(self, load):
+        assert len(load("concepts.py").questions()) == 12

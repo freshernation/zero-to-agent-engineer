@@ -17,7 +17,7 @@ published as standalone pages — the diagrams are self-contained SVG files in e
 Weeks 1–4 anchor on [docs.python.org/3.14](https://docs.python.org/3.14/). Later weeks
 anchor on the official documentation for the tool in question — pytest, requests,
 pydantic, Anthropic, LangChain, LangGraph, CrewAI, FastAPI — because Python's own
-documentation does not cover those. Week 12 has no official source and says so.
+documentation does not cover those. Week 13 has no official source and says so.
 
 ---
 
@@ -121,16 +121,26 @@ documentation does not cover those. Week 12 has no official source and says so.
 
 **Day 4** · [Multi-agent design trade-offs](week-10/day-4/multi-agent-tradeoffs.md)
 
-## Week 11 — Put it where people can reach it
+## Week 11 — Several agents, by hand
 
-**Day 1** · [FastAPI basics](week-11/day-1/fastapi-basics.md)
+**Day 1** · [An agent as a tool](week-11/day-1/agent-as-a-tool.md)
 
-**Day 2** · [Twelve-factor config and deployment](week-11/day-2/config-and-deployment.md)
+**Day 2** · [The brief and the report](week-11/day-2/the-brief-and-the-report.md)
 
-**Day 3** · [Structured logging and tracing](week-11/day-3/logging-and-tracing.md)
+**Day 3** · [Orchestrator and workers](week-11/day-3/orchestrator-and-workers.md)
 
-**Day 4** · [LLM evaluation and guardrails](week-11/day-4/evaluation-and-guardrails.md)
+**Day 4** · [Parallel workers and permissions](week-11/day-4/parallel-workers-and-permissions.md)
 
-## Week 12 — The interview is the deliverable
+## Week 12 — Put it where people can reach it
 
-**Day 1** · [Résumés for career changers](week-12/day-1/resumes-for-career-changers.md)
+**Day 1** · [FastAPI basics](week-12/day-1/fastapi-basics.md)
+
+**Day 2** · [Twelve-factor config and deployment](week-12/day-2/config-and-deployment.md)
+
+**Day 3** · [Structured logging and tracing](week-12/day-3/logging-and-tracing.md)
+
+**Day 4** · [LLM evaluation and guardrails](week-12/day-4/evaluation-and-guardrails.md)
+
+## Week 13 — The interview is the deliverable
+
+**Day 1** · [Résumés for career changers](week-13/day-1/resumes-for-career-changers.md)

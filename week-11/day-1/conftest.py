@@ -1,4 +1,12 @@
-"""Let this folder's own modules be imported by name, and find the corpus."""
+"""Make this folder's own modules importable by name - and make sure they are
+THIS folder's.
+
+Several days ship a file called toolkit.py. Python caches modules by name, so
+whichever one is imported first would otherwise be handed to every later day,
+which produces genuinely baffling failures (a tool that exists, reported
+missing). Before each test, any cached module of a local name that came from a
+different folder is evicted.
+"""
 
 import sys
 from pathlib import Path
@@ -22,8 +30,3 @@ def _prefer_this_folders_modules():
         if not origin.startswith(str(_here)):
             sys.modules.pop(name, None)
     yield
-
-
-@pytest.fixture
-def corpus_dir():
-    return str(_here.parent / "corpus")

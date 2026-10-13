@@ -1,6 +1,6 @@
 """Quiz yourself, out loud, in a random order.
 
-    python3 week-12/day-3/quiz.py
+    python3 week-13/day-3/quiz.py
 
 Say the answer to the wall before pressing Enter. Then read what your answer was
 supposed to contain. Being able to recognise a good answer is not the same as

@@ -1,10 +1,11 @@
-# Week 12 — The interview is the deliverable
+# Week 12 — Put it where people can reach it
 
 > **Destination**
-> Tell the story of three projects under pressure, and pass a screen.
+> An agent behind an API on the public internet, that you can see inside when it
+> misbehaves, with an evaluation that runs before every deploy.
 
-You are done building. This week the code stops changing and the only thing that
-improves is you.
+An agent on your laptop is a hobby. This week it becomes something you can send someone
+a link to — which is what makes it a portfolio piece rather than a repository.
 
 ---
 
@@ -12,44 +13,50 @@ improves is you.
 
 | Day | Folder | What you'll be able to do |
 |---|---|---|
-| Mon | `day-1/` | A résumé and a GitHub profile that survive ninety seconds |
-| Tue | `day-2/` | Write correct Python, fast, while somebody watches |
-| Wed | `day-3/` | Explain RAG, agents and evals out loud, with no code |
-| Thu | `day-4/` | Design a system on a whiteboard without freezing |
-| Fri | `milestone/` | Ten recorded mocks, scored, next to your week-4 baseline |
+| Mon | `day-1/` | Put a service behind HTTP, with validated requests and a key |
+| Tue | `day-2/` | Configure it, check its health, and deploy it |
+| Wed | `day-3/` | See what happened inside a request, after the fact |
+| Thu | `day-4/` | Gate a deploy on an evaluation, cap what it can spend, and attack it |
+| Fri | `milestone/` | **Project 3** — deployed, traced, evaluated |
 
 ---
 
-## The five gates, one last time
+## What changes
 
-| Gate | This week |
+Everything so far ran when you ran it. From today it runs when **somebody else** does,
+which brings six problems you have not had:
+
+| Problem | Answer |
 |---|---|
-| **1 — Fundamentals** | Tuesday's timed drills |
-| **2 — Project deep-dive** | Monday's stories, every day's practice |
-| **3 — Concepts, verbal** | Wednesday |
-| **4 — Practical build/debug** | your three projects already prove it |
-| **5 — System design** | Thursday |
+| You are not watching | logs and traces |
+| The input is not yours | validation at the boundary |
+| Anybody can call it | a key |
+| The text can give orders | a fence, and attacks you measure |
+| It costs money per request | caps, and a number you can see |
+| A bad deploy affects real people | an evaluation that blocks it, on every push |
 
-Gate 2 is still the one that decides it. Everything you built exists to be talked about,
-and this week is when talking about it gets good.
-
----
-
-## The honest thing about this week
-
-It will feel like a waste of time for about two days. You will want to add a feature.
-
-Do not. A person who can build and cannot explain gets rejected in round one, and their
-repository is never opened. The gap between what you can do and what you can convey is,
-right now, the largest single thing standing between you and an offer — and it is the
-cheapest to close.
+None of those is difficult. All of them are the difference between a demo and a service,
+and all of them come up in interviews as *"how would you know if it broke?"*
 
 ---
 
-## Your week-4 recording
+## Project 3
 
-You made one in week 4. It was bad; everyone's is. On Friday you watch it next to your
-tenth one from this week.
+The interview centrepiece: a deployed agentic app with retrieval, tracing, and an eval
+suite that runs before deployment.
 
-That comparison does more for a career-changer's nerve than any amount of encouragement,
-because it is evidence rather than reassurance. Make sure your instructor still has it.
+Of the three projects this is the one that gets clicked. Make it work on a phone, make
+the first screen explain itself, and make sure the link in your README is live on the
+day somebody reads it.
+
+---
+
+## The honest note about deploying
+
+Deployment platforms change, their free tiers change, and any specific instructions here
+would be wrong within a year. What does not change is what a deployable service needs:
+configuration from the environment, a health check, a documented start command, and no
+secrets in the repository.
+
+Everything this week builds those. The `Dockerfile` you write is a worked
+example, and your instructor will pick the platform.

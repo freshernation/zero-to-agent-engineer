@@ -224,7 +224,7 @@ trace.append({
 When your agent gives a wrong answer, the question is never "what did it say" — it is
 **"which step went wrong?"** A trace answers that in seconds; a final string does not.
 
-Every observability product in this space — LangSmith, which you meet in week 11 — is a
+Every observability product in this space — LangSmith, which you meet in week 12 — is a
 prettier version of this list. Build the list yourself now and the product becomes
 obvious later.
 

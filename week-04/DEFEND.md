@@ -85,7 +85,7 @@ Afterwards, three things and nothing more:
 2. One habit to fix (filler words, burying the answer, no structure, no numbers)
 3. A score out of 5 on: correctness, structure, specificity, confidence
 
-**Save the recording.** Name it `mock-01-<name>-week04`. In week 12 you play it back
+**Save the recording.** Name it `mock-01-<name>-week04`. In week 13 you play it back
 next to their tenth one, and that comparison does more for their confidence than
 anything you can say to them.
 

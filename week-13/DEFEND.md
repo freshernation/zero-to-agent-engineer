@@ -1,83 +1,80 @@
-# Week 13 — Friday: the last mock
+# Week 13 — Friday: the tapes
 
-No defence. One full-length interview at real difficulty, then the plan, then it ends.
+No defence this week in the usual sense. Friday is two things: the last two mocks, and
+watching week 4.
 
 ---
 
-## The mock (60 min)
+## Mocks 9 and 10 (60 min)
 
-**Unannounced content.** Do not tell them which gates or in what order. Every mock so far
-had a topic and no real interview does.
+Run them yourself, back to back, recorded. Gate 2 for the last one — the full project
+story — because that is the round that decides it and it is the tape they should end
+the week on.
 
-A workable shape, mixed deliberately:
+**Do not soften the tenth one because it is the last.** A generous final mock produces a
+tape that is not evidence of anything.
 
-| Minutes | Round |
+Score both on the same four dimensions and add them to their log while it is fresh.
+
+---
+
+## The tapes (30 min)
+
+Play the week-4 recording first, in full. Then the tenth.
+
+Say almost nothing. Let them watch.
+
+Afterwards, three questions and no advice:
+
+1. *"What is the biggest difference?"*
+2. *"What would you tell the person in the first video?"*
+3. *"What is still there in both?"*
+
+That third question is the useful one — the habit that survived twelve weeks is the one
+worth naming, and they will name it themselves better than you could.
+
+> This half hour does more for a career changer's nerve than any amount of
+> encouragement, because it is evidence rather than reassurance. Do not skip it and do
+> not shorten it.
+
+---
+
+## What to check in their scores
+
+| Look for | Because |
 |---|---|
-| 0–5 | *"Tell me about yourself"* — cold |
-| 5–20 | Gate 2: full project deep-dive, interrupting twice |
-| 20–35 | Gate 1: one timed problem, watched |
-| 35–45 | Gate 3: three concept questions, one they have not prepared |
-| 45–58 | Gate 5: a design prompt they have not seen |
-| 58–60 | *"Do you have any questions for me?"* |
+| Nothing below 3 anywhere | A log where everything is a 4 was not honest |
+| All five gates covered | People practise the round they enjoy |
+| The trend, not the total | Improvement inside the week is the real signal |
+| Weakest dimension named | It is almost always confidence, and it is fixable |
 
-**Include one question they cannot answer.** On purpose. What you are grading is whether
-they say so cleanly and move on, or bluff for thirty seconds. That is the last thing this
-course can teach them and it is worth more than another correct answer.
-
-**Do not go easy because it is the final one.** A generous last mock produces a number
-that is not evidence of anything, and they will carry it into a real interview and be
-surprised.
-
-Score it, add it to the log as mock 11, and give them the four numbers before they leave.
+If confidence is the weakest — it usually is — the fix is not more material. It is
+taking a position out loud. Give them the sentence: **"it depends" is only useful if you
+then say what it depends on and choose.**
 
 ---
 
-## The plan (20 min)
+## Then: the applications conversation (15 min)
 
-Read `NEXT.md` together.
+Not next week. Today, before they leave.
 
-Three things to push on:
-
-1. **Does every commitment have a day?** "Keep applying" is not a plan. If a line has no
-   day attached, make them add one in the room.
-2. **Is the contingency real?** Most people write one line under "what if nothing lands"
-   and it is the section they will actually need. Make them write what they would
-   *change*, not that they would keep going.
-3. **Is the last section honest?** The failure mode after a course ends is starting a
-   fourth project instead of applying. If they have not named that, name it for them.
-
----
-
-## The last ten minutes
-
-Say the numbers out loud, because they will not:
-
-- Thirteen weeks ago they did not know what a variable was
-- Three projects, one deployed, one with a measured evaluation
-- A write-up that explains an agent loop from the inside — which almost nobody applying
-  alongside them can produce
-- Eleven recordings, from 1.25 to somewhere near 4
-
-Then the honest part, which they also need:
-
-> **This is the beginning of the hard bit, not the end of it.** Applications are slower
-> and more discouraging than the course was, and the difference between the people who
-> get hired and the people who do not is mostly how long they keep going. You have the
-> artifacts. Now it is arithmetic and patience.
-
-And then stop. Do not extend the course. It is complete; let it be complete.
+- **Where to apply.** AI-adjacent roles convert best at this stage: automation and
+  integration engineering, solutions or forward-deployed engineering, internal tooling
+  at a company already using LLMs, junior backend with an AI slant. Say this plainly
+  again — it is the same honest target from week 1 and they should hear it once more
+  now that they have the artifacts.
+- **How many.** Volume matters more than perfection. Ten good applications beat two
+  perfect ones, and the tenth is better than the first for the same reason the tenth
+  mock was.
+- **The referral question.** Ask both students who they already know who works anywhere
+  near software. Most people underestimate this list by about ten.
 
 ---
 
-## Instructor: afterwards
+## Instructor: what next week is
 
-Two things worth doing for yourself.
+Week 14 is buffer and applications. It exists because every course needs it and most
+pretend they do not. Its content is decided today by two things: the weakest dimension
+in their scores, and whatever the end-of-build checklist still has unticked.
 
-**Clear the patch list one last time**, and then read the whole of `instructor/` as a
-stranger would. Everything you had to explain live over thirteen weeks should now be in
-the material. Cohort two is where the work you did here pays back.
-
-**Ask both students, in writing, a fortnight after they finish:** what got them the
-first interview, and what the interview actually asked. That is the only real feedback
-signal this course has, and it is worth more for the next cohort than anything you
-observed yourself.
+Tell them that on Friday, so they do not arrive on Monday expecting new material.

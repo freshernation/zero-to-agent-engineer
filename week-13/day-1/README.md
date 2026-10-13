@@ -1,64 +1,100 @@
-# Day 1 — The gap
+# Day 1 — The artifacts
 
-> **By the end of today** the weakest thing in your mock scores has a plan and an hour
-> of practice behind it.
+> **By the end of today** your résumé and GitHub survive a ninety-second read, and you
+> can tell each project's story in two minutes.
+
+---
+
+## Read / watch first
+
+- [ ] [**Résumés for career changers**](../../content/week-13/day-1/resumes-for-career-changers.md) — 20 min · source: your own project READMEs, and [GitHub — About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
 
 ---
 
 ## What you need to know
 
-### One thing, not everything
+### Ninety seconds
 
-Week 12 gave you four numbers per mock and an average per gate. Today you take the
-**lowest one** and work on it. Not the others.
+That is roughly how long a first read gets. Not because people are lazy — because there
+are two hundred of you and one of them.
 
-The temptation is to do a bit of everything, which produces a bit of nothing. A single
-dimension moved from 2.9 to 3.6 changes more interviews than four dimensions moved by a
-tenth.
+So the top third of page one does the work. For a career changer that means **projects
+above education**, always. Your three projects are the evidence; a bootcamp or a degree
+in something else is context.
 
-### It is usually confidence
+### One line per project, and it says what it does
 
-Across most people the four dimensions do not improve evenly. Correctness moves first,
-because it is knowledge. Specificity moves next, because it is a habit — put numbers in.
-Structure follows. **Confidence lags**, because it is the only one that is not really
-about the material.
-
-If confidence is your lowest, the fix is not more revision. It is taking a position out
-loud:
-
-> *"It depends" is only useful if you then say what it depends on, and choose.*
-
-### How to practise a dimension
-
-Pick the dimension, then find the drill that isolates it:
-
-| Weakest | The drill |
+| Weak | Strong |
 |---|---|
-| **Correctness** | Redo the two drills from `DRILL_LOG.md` that took longest. Timed. |
-| **Structure** | Answer five concept questions in exactly three sentences each. Answer first, then why, then the example. |
-| **Specificity** | Take five answers you gave in week 12 and rewrite each with a number in it. |
-| **Confidence** | Answer five questions where you take a position and defend it, with somebody arguing back. |
+| "Built an AI agent using Python and LangChain" | "Agent that answers questions from a document set, hand-written tool loop then ported to LangGraph — 0.85 retrieval hit rate, deployed" |
 
-An hour, recorded. Then compare it with the week-12 tape on the same dimension.
+The second one has a number, a decision, and something checkable in it. The first could
+have been written by somebody who watched a tutorial, and the reader knows that.
+
+### The GitHub profile
+
+The first three pinned repositories are your portfolio. Everything else is noise.
+
+For each one:
+
+- a README that opens with **what it is**, in one sentence
+- commands that work from a cold clone
+- a live link if there is one
+- commits that read like somebody building something, not one commit called "stuff"
+
+An interviewer who opens a repository and cannot tell what it does in fifteen seconds
+closes it. That is not unfair; it is the same fifteen seconds you would give.
+
+### The project story
+
+Two minutes, four beats, in this order:
+
+1. **What it does** — one sentence, no technology
+2. **The interesting decision** — and the alternative you rejected
+3. **What went wrong** — a specific bug, named
+4. **What you would do next** — one thing, with a reason
+
+Beat 3 is the one people skip and the one that lands. Everybody's project worked in the
+demo; only somebody who built it can tell you exactly how it broke.
+
+**Rehearse the story, not the words.** A memorised paragraph collapses at the first
+interruption, and you will be interrupted.
 
 ---
 
 ## Exercises
 
-### `GAP.md`
-
-| Section | What goes in it |
-|---|---|
-| `## The number` | The weakest dimension and its score. Say how you know. |
-| `## Why it is weakest` | Your own diagnosis, not a general one. |
-| `## What I did about it` | Today's hour. What you actually practised and how it went. |
-| `## The evidence` | What is different in today's recording versus week 12's. |
-
-At least 250 words and at least two numbers.
-
 ```bash
 pytest week-13/day-1 -v
 ```
+
+### 1. `story.py`
+
+| Function | Returns |
+|---|---|
+| `PROJECTS` | your three, each with `name`, `one_line`, `decision`, `alternative`, `broke`, `next_step` |
+| `one_liner(project)` | the résumé line |
+| `story(project)` | the four beats as a numbered string |
+| `check(project)` | `{"ok": bool, "problems": [...]}` |
+
+`check` complains when: the one-liner has no number in it, any beat is under eight
+words, or `broke` contains no specific error or symptom.
+
+### 2. `RESUME.md`
+
+Your actual résumé, in Markdown. Sections: `## Projects` (three, one line each with a
+number), `## Skills`, `## Experience`, `## Education`.
+
+**Projects first.** There is a test for the order, and it is the single most important
+formatting decision on the page.
+
+### 3. `GITHUB.md`
+
+An audit of your own profile. For each of the three: the repo name, whether it is
+pinned, whether the README opens with what it is, whether the commands work from a cold
+clone, and the live link if there is one.
+
+Fill it in by **actually checking**, not from memory.
 
 ---
 
@@ -68,4 +104,11 @@ pytest week-13/day-1 -v
 git add -A && git commit -m "week 13 day 1" && git push
 ```
 
-Tomorrow the applications start going out. Bring a list of ten places.
+---
+
+## Predict-then-run
+
+Hand your résumé to someone who is not on this course. Give them ninety seconds. Take it
+back and ask what you build.
+
+Whatever they say is what your résumé says, regardless of what is written on it.

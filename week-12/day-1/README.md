@@ -1,64 +1,145 @@
-# Day 1 — The artifacts
+# Day 1 — Behind an API
 
-> **By the end of today** your résumé and GitHub survive a ninety-second read, and you
-> can tell each project's story in two minutes.
+> **By the end of today** your agent answers HTTP requests instead of terminal input,
+> and only from callers who hold a key.
 
 ---
 
 ## Read / watch first
 
-- [ ] [**Résumés for career changers**](../../content/week-12/day-1/resumes-for-career-changers.md) — 20 min · source: your own project READMEs, and [GitHub — About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
+- [ ] [**FastAPI basics**](../../content/week-12/day-1/fastapi-basics.md) — 30 min · docs: [FastAPI — First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 
 ---
 
 ## What you need to know
 
-### Ninety seconds
+### The smallest service
 
-That is roughly how long a first read gets. Not because people are lazy — because there
-are two hundred of you and one of them.
+```python
+from fastapi import FastAPI
 
-So the top third of page one does the work. For a career changer that means **projects
-above education**, always. Your three projects are the evidence; a bootcamp or a degree
-in something else is context.
+app = FastAPI()
 
-### One line per project, and it says what it does
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+```
 
-| Weak | Strong |
-|---|---|
-| "Built an AI agent using Python and LangChain" | "Agent that answers questions from a document set, hand-written tool loop then ported to LangGraph — 0.85 retrieval hit rate, deployed" |
+```bash
+uvicorn app:app --reload
+```
 
-The second one has a number, a decision, and something checkable in it. The first could
-have been written by somebody who watched a tutorial, and the reader knows that.
+`app:app` means *the object called `app` in the module called `app`*. Then
+`http://127.0.0.1:8000/health` in a browser, and `/docs` for documentation FastAPI
+generated from your code.
 
-### The GitHub profile
+### Requests are Pydantic models
 
-The first three pinned repositories are your portfolio. Everything else is noise.
+```python
+from pydantic import BaseModel, Field
 
-For each one:
+class AskRequest(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+    k: int = Field(default=3, ge=1, le=10)
 
-- a README that opens with **what it is**, in one sentence
-- commands that work from a cold clone
-- a live link if there is one
-- commits that read like somebody building something, not one commit called "stuff"
+@app.post("/ask")
+def ask(request: AskRequest):
+    return {"answer": answer_question(request.question, request.k)}
+```
 
-An interviewer who opens a repository and cannot tell what it does in fifteen seconds
-closes it. That is not unfair; it is the same fifteen seconds you would give.
+Week 5's models, now doing three jobs at once: they validate the request, they document
+the endpoint, and they reject bad input **before your code runs**. A request missing
+`question` gets a 422 with a message naming the field, and you wrote no code for that.
 
-### The project story
+`max_length=500` is not tidiness. Without it somebody posts a megabyte and you pay to
+have a model read it.
 
-Two minutes, four beats, in this order:
+### Responses are models too
 
-1. **What it does** — one sentence, no technology
-2. **The interesting decision** — and the alternative you rejected
-3. **What went wrong** — a specific bug, named
-4. **What you would do next** — one thing, with a reason
+```python
+class AskResponse(BaseModel):
+    answer: str
+    sources: list[str]
+    refused: bool
 
-Beat 3 is the one people skip and the one that lands. Everybody's project worked in the
-demo; only somebody who built it can tell you exactly how it broke.
+@app.post("/ask", response_model=AskResponse)
+def ask(request: AskRequest) -> AskResponse:
+    ...
+```
 
-**Rehearse the story, not the words.** A memorised paragraph collapses at the first
-interruption, and you will be interrupted.
+Declaring the response means it is documented, and that a field you forget to fill is an
+error rather than a missing key somebody discovers in production.
+
+### Status codes, deliberately
+
+```python
+from fastapi import HTTPException
+
+if not question_is_answerable:
+    raise HTTPException(status_code=404, detail="No documents matched")
+```
+
+Week 5 in reverse: then you read status codes, now you choose them. The same table
+applies — 4xx is the caller's problem, 5xx is yours — and choosing correctly is what
+lets a caller write sensible error handling.
+
+### Dependency injection, again
+
+```python
+def get_agent():
+    return AGENT
+
+@app.post("/ask")
+def ask(request: AskRequest, agent = Depends(get_agent)):
+    ...
+```
+
+`Depends` is week 6's `client` parameter with framework support. The endpoint says what
+it needs; something else decides what to give it — the real one in production, a fake
+in tests. Same idea, third time.
+
+### Who is calling
+
+A service on the internet is called by everybody, and every call to `/ask` costs you
+money. So the caller sends a key, and a request without the right one is refused before
+anything else happens.
+
+```python
+import secrets
+from fastapi import Depends, Header, HTTPException
+
+def check_key(authorization: str = Header(default="")):
+    expected = f"Bearer {API_KEY}"
+    if not secrets.compare_digest(authorization.encode(), expected.encode()):
+        raise HTTPException(status_code=401, detail="Missing or wrong API key.")
+
+@app.post("/ask", dependencies=[Depends(check_key)])
+def ask(request: AskRequest):
+    ...
+```
+
+- **The key travels in a header**, `Authorization: Bearer <key>`. Never in the URL:
+  URLs end up in logs, browser history and screenshots.
+- **`secrets.compare_digest`, not `==`.** `==` stops at the first character that
+  differs, so how long it takes says how much of the key was right.
+- **401, and nothing more.** The reply does not say whether the key was missing, wrong
+  or nearly right.
+- **`/health` stays open.** The platform that calls it has no key.
+
+One shared key says "somebody I gave the key to". It does not say who. Accounts, logins
+and a key per caller are a different job, and outside this week.
+
+### Testing it without a server
+
+```python
+from fastapi.testclient import TestClient
+
+client = TestClient(app)
+response = client.post("/ask", json={"question": "when are claims due"})
+assert response.status_code == 200
+```
+
+No server, no port, no network. This is how every test today works.
 
 ---
 
@@ -68,33 +149,39 @@ interruption, and you will be interrupted.
 pytest week-12/day-1 -v
 ```
 
-### 1. `story.py`
+### 1. `models.py`
+
+| Model | Fields |
+|---|---|
+| `AskRequest` | `question: str` (1–500 chars), `k: int` (1–10, default 3) |
+| `AskResponse` | `answer: str`, `sources: list[str]`, `refused: bool` |
+| `HealthResponse` | `status: str`, `documents: int` |
+
+### 2. `service.py`
+
+| Endpoint | Does |
+|---|---|
+| `GET /health` | `{"status": "ok", "documents": n}` |
+| `POST /ask` | answers a question |
+| `GET /sources` | the document names |
+
+Plus:
 
 | Function | Returns |
 |---|---|
-| `PROJECTS` | your three, each with `name`, `one_line`, `decision`, `alternative`, `broke`, `next_step` |
-| `one_liner(project)` | the résumé line |
-| `story(project)` | the four beats as a numbered string |
-| `check(project)` | `{"ok": bool, "problems": [...]}` |
+| `create_app(answerer, api_key=None)` | the `FastAPI` app, using the answerer given to it |
+| `default_answerer(question, k)` | a stub answer, so the app runs with nothing else |
 
-`check` complains when: the one-liner has no number in it, any beat is under eight
-words, or `broke` contains no specific error or symptom.
+`create_app` takes the answerer as an argument — dependency injection, third time. It is
+what lets the tests run without a model.
 
-### 2. `RESUME.md`
+Bad input gets a **422** and you write no code for it. An empty question is bad input.
+`k` of 99 is bad input.
 
-Your actual résumé, in Markdown. Sections: `## Projects` (three, one line each with a
-number), `## Skills`, `## Experience`, `## Education`.
-
-**Projects first.** There is a test for the order, and it is the single most important
-formatting decision on the page.
-
-### 3. `GITHUB.md`
-
-An audit of your own profile. For each of the three: the repo name, whether it is
-pinned, whether the README opens with what it is, whether the commands work from a cold
-clone, and the live link if there is one.
-
-Fill it in by **actually checking**, not from memory.
+When `create_app` is given an `api_key`, `POST /ask` answers only a request carrying
+`Authorization: Bearer <that key>`, and everything else gets a **401** without the
+answerer being called. `GET /health` answers either way. With no `api_key` there is no
+check — fine on your laptop, never on the internet.
 
 ---
 
@@ -108,7 +195,10 @@ git add -A && git commit -m "week 12 day 1" && git push
 
 ## Predict-then-run
 
-Hand your résumé to someone who is not on this course. Give them ninety seconds. Take it
-back and ask what you build.
+Start your service and open `http://127.0.0.1:8000/docs`.
 
-Whatever they say is what your résumé says, regardless of what is written on it.
+Everything on that page came from your Pydantic models and type hints. Now change
+`max_length` to 50 and reload.
+
+That page is also the fastest way to show somebody your project works — worth knowing on
+the day an interviewer asks you to demo something.

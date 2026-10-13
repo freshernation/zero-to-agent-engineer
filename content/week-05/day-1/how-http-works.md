@@ -81,8 +81,8 @@ scheme    host    port   path      query string
 |---|---|---|
 | `GET` | fetch something. Changes nothing | this week, constantly |
 | `POST` | create something | week 6, sending prompts |
-| `PUT` / `PATCH` | update something | week 11 |
-| `DELETE` | remove something | week 11 |
+| `PUT` / `PATCH` | update something | week 12 |
+| `DELETE` | remove something | week 12 |
 
 `GET` is **safe** — calling it ten times has the same effect as calling it once. That
 property is what makes retries reasonable, and it is why Wednesday's backoff lesson

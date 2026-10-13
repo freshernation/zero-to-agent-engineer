@@ -118,7 +118,7 @@ pytest week-05/day-1 -v
 
 Every function takes `base_url` as its first argument. Do not hard-code the address —
 that is what makes the same code work against the practice server today and a real API
-in week 11.
+in week 12.
 
 ### 1. `fetch.py`
 

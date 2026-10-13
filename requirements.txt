@@ -17,6 +17,6 @@ langchain-anthropic>=1.0
 # Week 10 - the contrast
 crewai>=1.0
 
-# Week 11 - shipping it
+# Week 12 - shipping it
 fastapi>=0.115
 uvicorn>=0.30

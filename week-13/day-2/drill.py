@@ -1,7 +1,7 @@
 """Run one drill, timed.
 
-    python3 week-12/day-2/drill.py            list them
-    python3 week-12/day-2/drill.py two_sum    run one
+    python3 week-13/day-2/drill.py            list them
+    python3 week-13/day-2/drill.py two_sum    run one
 
 Talk out loud while the timer runs. That is the part being practised.
 """
@@ -25,7 +25,7 @@ def main():
         print("Drills:\n")
         for name, minutes in TARGETS.items():
             print(f"  {name:<20} {minutes} min")
-        print("\n  python3 week-12/day-2/drill.py <name>")
+        print("\n  python3 week-13/day-2/drill.py <name>")
         return 0
 
     name = sys.argv[1]

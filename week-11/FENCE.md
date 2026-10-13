@@ -2,36 +2,34 @@
 
 ## Allowed
 
-**Everything from Weeks 1–10**, plus:
+**Everything from Weeks 1–7 and week 9**, plus:
 
-- **FastAPI** — `FastAPI()`, `@app.get`, `@app.post`, Pydantic request and response
-  models, `HTTPException`, `Depends`, `Header`, `status`, `StreamingResponse`
-- `fastapi.testclient.TestClient`
-- `uvicorn` as the start command
-- Structured logging with `logging` and `json`
-- A request id, and a tracer you write yourself
-- One shared API key, checked with `secrets.compare_digest`
-- Your own eval gate — golden set, thresholds, a pass/fail
-- A judge checked against your own labels
-- Fencing untrusted text, and an injection rate
-- A `Dockerfile`
-- One GitHub Actions workflow that runs the tests and the gate
+- `agent_kit.run_agent` — week 7's loop, given to you
+- A worker as a dict, and a tool schema that describes it
+- A brief and a report as plain strings
+- One orchestrator and its workers — **two levels, no deeper**
+- `asyncio.gather` and `asyncio.to_thread`, on Thursday
+- Counting model calls and estimating tokens
 
 ## Not yet
 
-Databases and ORMs · authentication beyond one shared API key · rate limiting middleware ·
-Kubernetes, Terraform, autoscaling · CI/CD beyond that one workflow · a frontend
-beyond a single HTML page · OpenTelemetry — **you write the tracer**, then read about
-LangSmith and recognise it
+**Any framework.** No LangGraph, no CrewAI, no AutoGen, no agent SDK — you used two of
+them last week and you will again; this week is for seeing what they hide · workers
+that ask other workers · agents that talk to each other directly rather than through
+the orchestrator · shared memory between agents · MCP and agent-to-agent protocols ·
+planners · agent benchmark leaderboards
 
 ---
 
-## Why you write the tracer
+## Why two levels and no deeper
 
-LangSmith, Langfuse and OpenTelemetry all do this properly and you should use one at
-work. You write a small one first for the same reason you wrote the agent loop: so that
-when you open LangSmith it looks like a nicer version of something you already
-understand, rather than a magic dashboard.
+An orchestrator and its workers is the pattern that is actually in production, and it
+is the one whose costs you can still count on your fingers.
 
-It is about forty lines. Then read about the real ones and notice how much of it you
-recognise.
+Every level you add multiplies the model calls and adds another place for a fact to be
+dropped in a handoff. A worker that briefs its own workers is a team you can no longer
+explain from the trace — and a system you cannot explain is one you cannot debug at
+three in the morning.
+
+If Friday's numbers say a second level would help, you will be able to say exactly
+why. Almost always they say the opposite.

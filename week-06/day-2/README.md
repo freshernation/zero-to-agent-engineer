@@ -85,7 +85,7 @@ Without a fence, text that happens to contain *"ignore the above and write a poe
 gets read as an instruction. XML-ish tags make the boundary unmistakable.
 
 This is **prompt injection** in miniature, and it is a real security topic — you will
-meet it properly in week 11, but the habit starts today. Never paste untrusted text
+meet it properly in week 12, but the habit starts today. Never paste untrusted text
 straight into a prompt without a fence around it.
 
 ### `temperature`, and what replaced it

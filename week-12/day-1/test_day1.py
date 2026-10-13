@@ -1,162 +1,189 @@
-"""Week 12, Day 1 - the artifacts.
+"""Week 12, Day 1 - behind an API.
 
 Run me:  pytest week-12/day-1 -v
 
-These tests check that the words are there. Whether they are any good is what
-Friday is for - and what an interviewer decides in ninety seconds.
+TestClient runs the app in-process. No server, no port, no network.
 """
 
-import re
-
 import pytest
+from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
-BEATS = ("one_line", "decision", "alternative", "broke", "next_step")
+
+def fake_answerer(question, k):
+    return {
+        "answer": f"answered {question} with k={k}",
+        "sources": ["expenses.md"],
+        "refused": False,
+    }
 
 
-class TestProjects:
-    def test_three_of_them(self, load):
-        assert len(load("story.py").PROJECTS) == 3
+def refusing_answerer(question, k):
+    return {"answer": "I don't know.", "sources": [], "refused": True}
 
-    @pytest.mark.parametrize("index", [0, 1, 2])
-    def test_every_field_is_present(self, load, index):
-        project = load("story.py").PROJECTS[index]
-        assert project["name"]
-        for field in BEATS:
-            assert project.get(field), f"{project['name']} has no {field}."
 
-    @pytest.mark.parametrize("index", [0, 1, 2])
-    def test_the_one_liner_has_a_number(self, load, index):
-        project = load("story.py").PROJECTS[index]
-        assert re.search(r"\d", project["one_line"]), (
-            f"'{project['one_line']}' has no number in it. A line with a figure "
-            "in it could only have been written by somebody who built the thing."
+@pytest.fixture
+def client(load):
+    return TestClient(load("service.py").create_app(fake_answerer))
+
+
+class TestModels:
+    def test_ask_request_defaults(self, load):
+        request = load("models.py").AskRequest(question="hi")
+        assert request.k == 3
+
+    @pytest.mark.parametrize("kwargs", [
+        {"question": ""},
+        {"question": "x" * 501},
+        {"question": "hi", "k": 0},
+        {"question": "hi", "k": 11},
+    ])
+    def test_ask_request_rejects(self, load, kwargs):
+        with pytest.raises(ValidationError):
+            load("models.py").AskRequest(**kwargs)
+
+    def test_ask_response(self, load):
+        response = load("models.py").AskResponse(
+            answer="a", sources=["x.md"], refused=False
         )
+        assert response.sources == ["x.md"]
 
-    @pytest.mark.parametrize("index", [0, 1, 2])
-    def test_the_broke_beat_is_specific(self, load, index):
-        project = load("story.py").PROJECTS[index]
-        assert len(project["broke"].split()) >= 10, (
-            "The 'what went wrong' beat is the one that lands, and it is the one "
-            "people skip. Name the actual error or symptom."
-        )
-
-    def test_projects_are_different(self, load):
-        names = [p["name"] for p in load("story.py").PROJECTS]
-        assert len(set(names)) == 3
+    def test_health_response(self, load):
+        assert load("models.py").HealthResponse(status="ok", documents=6).documents == 6
 
 
-class TestOneLiner:
-    def test_returns_a_string(self, load):
-        mod = load("story.py")
-        line = mod.one_liner(mod.PROJECTS[0])
-        assert isinstance(line, str) and len(line.split()) >= 8
+class TestHealth:
+    def test_returns_ok(self, client):
+        response = client.get("/health")
+        assert response.status_code == 200
+        assert response.json()["status"] == "ok"
 
-    def test_mentions_the_project(self, load):
-        mod = load("story.py")
-        project = mod.PROJECTS[0]
-        assert project["name"] in mod.one_liner(project)
+    def test_reports_a_document_count(self, client):
+        assert isinstance(client.get("/health").json()["documents"], int)
 
 
-class TestStory:
-    def test_four_beats(self, load):
-        mod = load("story.py")
-        told = mod.story(mod.PROJECTS[0])
-        assert told.count("\n") >= 3, "Four beats, one per line at least."
+class TestAsk:
+    def test_answers(self, client):
+        response = client.post("/ask", json={"question": "when are claims due"})
+        assert response.status_code == 200
+        body = response.json()
+        assert "when are claims due" in body["answer"]
+        assert body["refused"] is False
 
-    def test_the_beats_are_in_order(self, load):
-        mod = load("story.py")
-        project = mod.PROJECTS[0]
-        told = mod.story(project)
-        positions = [told.find(project[beat][:20]) for beat in
-                     ("one_line", "decision", "broke", "next_step")]
-        assert all(p >= 0 for p in positions), "A beat is missing from the story."
-        assert positions == sorted(positions), (
-            "The beats are out of order. What it does, the decision, what broke, "
-            "what next - the order is the whole structure."
-        )
+    def test_uses_the_k_it_was_given(self, client):
+        body = client.post("/ask", json={"question": "hi", "k": 7}).json()
+        assert "k=7" in body["answer"]
 
+    def test_default_k(self, client):
+        assert "k=3" in client.post("/ask", json={"question": "hi"}).json()["answer"]
 
-class TestCheck:
-    def test_a_good_project_passes(self, load):
-        mod = load("story.py")
-        for project in mod.PROJECTS:
-            result = mod.check(project)
-            assert result["ok"] is True, (
-                f"{project['name']}: {result['problems']}"
-            )
-
-    def test_catches_a_missing_number(self, load):
-        mod = load("story.py")
-        bad = {**mod.PROJECTS[0], "one_line": "built an agent with python and langchain"}
-        result = mod.check(bad)
-        assert result["ok"] is False
-        assert any("number" in p.lower() for p in result["problems"])
-
-    def test_catches_a_thin_beat(self, load):
-        mod = load("story.py")
-        bad = {**mod.PROJECTS[0], "decision": "used langgraph"}
-        assert mod.check(bad)["ok"] is False
-
-    def test_catches_a_vague_failure(self, load):
-        mod = load("story.py")
-        bad = {**mod.PROJECTS[0], "broke": "some bugs"}
-        assert mod.check(bad)["ok"] is False
-
-
-class TestResume:
-    HEADINGS = ["Projects", "Skills", "Experience", "Education"]
-
-    @pytest.mark.parametrize("heading", HEADINGS)
-    def test_has_the_section(self, source, heading):
-        text = source("RESUME.md")
-        assert f"## {heading}" in text, f"RESUME.md has no '{heading}' section."
-        body = text.split(f"## {heading}", 1)[1].split("\n## ")[0]
-        assert body.strip(), f"The '{heading}' section is empty."
-
-    def test_projects_come_first(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("RESUME.md"), flags=re.S)
-        assert "[Your name]" not in text, "Write the résumé first."
-        positions = {h: text.find(f"## {h}") for h in self.HEADINGS}
-        assert positions["Projects"] == min(positions.values()), (
-            "Projects are not the first section. For a career changer they are "
-            "the evidence and everything else is context - this is the single "
-            "most important formatting decision on the page."
-        )
-
-    def test_projects_section_has_three_lines_with_numbers(self, source):
-        section = source("RESUME.md").split("## Projects", 1)[1].split("\n## ")[0]
-        lines = [ln for ln in section.splitlines() if ln.strip().startswith(("-", "*"))]
-        assert len(lines) >= 3, f"Found {len(lines)} project lines, expected 3."
-        with_numbers = [ln for ln in lines if re.search(r"\d", ln)]
-        assert len(with_numbers) >= 3, (
-            "Every project line needs a number in it."
-        )
-
-    def test_is_written(self, source):
-        text = source("RESUME.md")
-        body = re.sub(r"<!--.*?-->", "", text, flags=re.S)
-        assert "[Your name]" not in body, "Put your actual name at the top."
-        assert len(body.split()) >= 120
-
-
-class TestGithubAudit:
-    def test_covers_three_projects(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("GITHUB.md"), flags=re.S)
-        assert text.count("## Project") >= 3
-        filled = [
-            line for line in text.splitlines()
-            if "Repository:" in line and line.split("Repository:", 1)[1].strip()
+    def test_returns_sources(self, client):
+        assert client.post("/ask", json={"question": "hi"}).json()["sources"] == [
+            "expenses.md"
         ]
-        assert len(filled) >= 3, "Fill in the repository for each project."
 
-    def test_is_filled_in(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("GITHUB.md"), flags=re.S)
-        for label in ("Repository:", "Pinned:", "Live link:"):
-            filled = [
-                line for line in text.splitlines()
-                if label in line and line.split(label, 1)[1].strip()
-            ]
-            assert len(filled) >= 3, (
-                f"'{label}' is blank for at least one project. Check it for real "
-                "rather than from memory - that is the whole exercise."
-            )
+    def test_a_refusal_comes_through(self, load):
+        client = TestClient(load("service.py").create_app(refusing_answerer))
+        body = client.post("/ask", json={"question": "hi"}).json()
+        assert body["refused"] is True
+
+
+class TestValidation:
+    @pytest.mark.parametrize("payload", [
+        {},
+        {"question": ""},
+        {"question": "x" * 501},
+        {"question": "hi", "k": 0},
+        {"question": "hi", "k": 99},
+        {"question": 5},
+    ])
+    def test_bad_input_is_rejected_before_your_code_runs(self, client, payload):
+        response = client.post("/ask", json=payload)
+        assert response.status_code == 422, (
+            f"{payload} got {response.status_code}. FastAPI rejects anything the "
+            "model refuses, and you write no code for it - that is the whole "
+            "point of declaring the request as a model."
+        )
+
+    def test_the_error_names_the_field(self, client):
+        detail = client.post("/ask", json={}).json()["detail"]
+        assert any("question" in str(item) for item in detail)
+
+
+KEY = "test-key-123"
+
+
+class TestApiKey:
+    @pytest.fixture
+    def locked(self, load):
+        return TestClient(load("service.py").create_app(fake_answerer, api_key=KEY))
+
+    def test_no_key_is_refused(self, locked):
+        response = locked.post("/ask", json={"question": "hi"})
+        assert response.status_code == 401, (
+            f"Got {response.status_code} with no key. Every call to /ask costs "
+            "money - a caller without the key gets a 401."
+        )
+
+    @pytest.mark.parametrize("header", ["Bearer wrong", KEY, f"Bearer {KEY}x", ""])
+    def test_wrong_key_is_refused(self, locked, header):
+        response = locked.post(
+            "/ask", json={"question": "hi"}, headers={"Authorization": header}
+        )
+        assert response.status_code == 401, (
+            f"'{header}' was accepted. Only 'Bearer <the key>' gets in."
+        )
+
+    def test_right_key_answers(self, locked):
+        response = locked.post(
+            "/ask", json={"question": "hi"},
+            headers={"Authorization": f"Bearer {KEY}"},
+        )
+        assert response.status_code == 200
+        assert "hi" in response.json()["answer"]
+
+    def test_the_answerer_is_not_called_without_a_key(self, load):
+        calls = []
+
+        def counting(question, k):
+            calls.append(question)
+            return fake_answerer(question, k)
+
+        client = TestClient(load("service.py").create_app(counting, api_key=KEY))
+        client.post("/ask", json={"question": "hi"})
+        assert calls == [], (
+            "The answerer ran for a caller with no key. Refuse first - the "
+            "answerer is the part that costs money."
+        )
+
+    def test_the_refusal_does_not_reveal_the_key(self, locked):
+        assert KEY not in locked.post("/ask", json={"question": "hi"}).text
+
+    def test_health_stays_open(self, locked):
+        assert locked.get("/health").status_code == 200, (
+            "The platform calls /health every few seconds, and it has no key."
+        )
+
+
+class TestSources:
+    def test_lists_documents(self, client):
+        response = client.get("/sources")
+        assert response.status_code == 200
+        assert isinstance(response.json(), (list, dict))
+
+
+class TestInjection:
+    def test_the_answerer_is_injected(self, load):
+        """Two apps, two answerers, no global state."""
+        mod = load("service.py")
+        first = TestClient(mod.create_app(fake_answerer))
+        second = TestClient(mod.create_app(refusing_answerer))
+        assert first.post("/ask", json={"question": "hi"}).json()["refused"] is False
+        assert second.post("/ask", json={"question": "hi"}).json()["refused"] is True
+
+    def test_default_answerer_works_alone(self, load):
+        """The app has to run with nothing else wired up."""
+        client = TestClient(load("service.py").create_app(
+            load("service.py").default_answerer
+        ))
+        assert client.post("/ask", json={"question": "hi"}).status_code == 200

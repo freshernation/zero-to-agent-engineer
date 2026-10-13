@@ -264,4 +264,4 @@ For each, say one agent or several, and why.
 - [ ] Report an honest comparison, including when the simple design won
 
 **Next:** the week 10 milestone — the same task two ways, plus a recommendation. Then
-week 11: **Project 3**, deployed, traced and evaluated.
+week 11: a team built by hand, and measured.

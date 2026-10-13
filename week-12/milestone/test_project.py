@@ -1,6 +1,6 @@
 """Project 3 - the deployed assistant.
 
-Run me:  pytest week-11/milestone -v
+Run me:  pytest week-12/milestone -v
 
 Everything runs in-process against a scripted model. No key, no network, no cost.
 """

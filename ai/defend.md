@@ -6,7 +6,7 @@
 ---
 
 You are running a **code defence** on a beginner's weekly milestone. I am in
-**Week [N]** of a 13-week course.
+**Week [N]** of a 14-week course.
 
 Here is the task specification:
 [PASTE THE MILESTONE README]

@@ -1,82 +1,88 @@
-# Day 2 — Applications
+# Day 2 — Writing Python while somebody watches
 
-> **By the end of today** ten applications are out and you can tell which channel is
-> working.
+> **By the end of today** you can solve a small problem correctly, out loud, in under
+> ten minutes.
 
 ---
 
 ## What you need to know
 
-### Volume, then learning
+### The screen is not about cleverness
 
-Ten good applications beat two perfect ones, for the same reason the tenth mock was
-better than the first. You improve by doing it, and you cannot improve a thing you do
-twice.
+A junior coding screen is checking three things, and none of them is whether you know a
+trick:
 
-But volume without a record teaches nothing. Track them from the first one, because the
-question that matters — *which channel actually converts?* — cannot be answered
-retrospectively from memory.
+1. Can you turn a problem into steps
+2. Do you handle the empty case, the one-item case, and the tie
+3. Do you keep talking
 
-### The channels, roughly in order of how well they work
+Week 1's decomposition, week 3's edge cases, and a skill you have not practised.
 
-| Channel | Reality |
-|---|---|
-| **Referral** | By far the best. A name attached to your application changes who reads it. |
-| **Direct** | Applying on the company's own site. Slower, but it reaches a human. |
-| **Board** | Volume play. Low response rate, and that is fine if you treat it as volume. |
-| **Agency** | Variable. Some are excellent; most will send your CV everywhere without asking. |
+### Talk the whole time
 
-Most people spend all their effort on the channel that converts worst, because it is the
-one that does not involve talking to anybody. Tomorrow is about the one that does.
+Silence reads as being stuck even when you are thinking. Narrate:
 
-### The application itself
+> *"Right — I need the most common word. So: split it, count them, find the maximum.
+> Ties, I'll take the alphabetically first. Let me start with the counting..."*
 
-**Tailor one paragraph, not the whole thing.** Your résumé is already good. What changes
-per application is a short note saying why *this* company — one specific thing, from
-their job posting or their engineering blog.
+That sentence has already told the interviewer you can decompose, that you spotted the
+tie case, and where you are going. It costs ten seconds.
 
-**Link the deployed project.** It is the only one they can try without cloning
-anything, and a link that works is worth more than a paragraph of description.
+### Say the edge cases before you are asked
 
-**Do not apologise for the career change.** Nobody is owed an explanation. "Career
-changer with three shipped projects, one deployed" is a fact, not a confession. The
-phrase to avoid entirely is "although I don't have a computer science degree".
+Empty input. One item. All the same. A tie. Saying *"what should this do with an empty
+list?"* out loud is worth more than the solution, because it is the thing juniors
+reliably do not do.
 
-### Follow up once
+### Write the obvious version first
 
-If nothing has happened after ten working days, one short message. Once. Then let it go
-and put the effort into the next application — chasing is not the same as applying, and
-it feels productive while not being.
+The clear loop, then say *"there's a comprehension version of this if you'd prefer"*.
+Starting with the clever one and getting stuck is much worse than starting plainly and
+finishing.
+
+### If you are stuck
+
+Say what you have tried and what you would try next. An interviewer will help a
+candidate who is thinking out loud. Nobody can help silence.
 
 ---
 
-## Exercises
+## The drills
+
+Ten problems in `drills.py`. Each has a **target time**. Do them the way you would in an
+interview:
+
+- start a timer
+- **talk out loud**, alone, to the wall
+- no AI, no searching
+- when the timer ends, stop and note where you got to
 
 ```bash
-pytest week-13/day-2 -v
+python3 week-13/day-2/drill.py            # list them
+python3 week-13/day-2/drill.py two_sum    # run one, timed
+pytest week-13/day-2 -v                   # grade them all
 ```
 
-### 1. `applications.py`
+| # | Function | Target |
+|---|---|---|
+| 1 | `two_sum(numbers, target)` | 6 min |
+| 2 | `most_common_word(text)` | 6 min |
+| 3 | `group_by(records, key)` | 5 min |
+| 4 | `top_n_by(records, key, n)` | 5 min |
+| 5 | `running_total(numbers)` | 4 min |
+| 6 | `chunk(items, size)` | 5 min |
+| 7 | `first_duplicate(items)` | 5 min |
+| 8 | `invert(mapping)` | 5 min |
+| 9 | `is_balanced(text)` | 8 min |
+| 10 | `flatten(nested)` | 7 min |
 
-| Thing | Is |
-|---|---|
-| `APPLICATIONS` | at least ten, each with `company`, `role`, `source`, `applied` (ISO date), `status` |
-| `count_by_status(apps)` | `{status: count}` |
-| `response_rate(apps)` | fraction that got past `applied`, to 2dp |
-| `by_source(apps)` | `{source: count}` |
-| `response_rate_by_source(apps)` | `{source: rate}` |
-| `best_source(apps)` | the source with the highest response rate; ties go alphabetically |
-| `needs_follow_up(apps, today, days=10)` | still `applied` after `days` working days — company names, in order |
+Every one is week 1–4 material. If any feels impossible, that is the most useful thing
+you will learn today — go back to that week for an hour rather than pushing on.
 
-`source` is one of `referral`, `direct`, `board`, `agency`. `status` is one of
-`applied`, `screening`, `interview`, `offer`, `rejected`, `ghosted`.
+### After each drill
 
-"Got past applied" means anything except `applied` and `ghosted`.
-
-### 2. `APPLICATIONS.md`
-
-The same list in readable form, plus a `## What I am learning` section — at least 100
-words on what the numbers are telling you after ten.
+Write one line in `DRILL_LOG.md`: which one, how long it actually took, and what slowed
+you down. By Friday that log tells you exactly which two to practise again.
 
 ---
 
@@ -86,5 +92,11 @@ words on what the numbers are telling you after ten.
 git add -A && git commit -m "week 13 day 2" && git push
 ```
 
-Tomorrow: the channel that actually works. Bring a list of everyone you know who works
-anywhere near software. It is longer than you think.
+---
+
+## Predict-then-run
+
+Do `two_sum` twice: once in silence, once narrating out loud to an empty room.
+
+Time both. Most people are slower out loud the first time and faster by the third — and
+in the interview you do not get a silent option.

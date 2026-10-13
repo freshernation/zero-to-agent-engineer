@@ -1,4 +1,4 @@
-"""Make the week's shared modules importable from every week-10 test."""
+"""Make fake_model importable from every week-11 test and student file."""
 
 import sys
 from pathlib import Path

@@ -16,7 +16,7 @@
 
 ## Not yet
 
-`async` / `await` and `httpx` async · building your own API (week 11) · OAuth flows ·
+`async` / `await` and `httpx` async · building your own API (week 12) · OAuth flows ·
 GraphQL · webhooks · `asyncio` · databases · `pandas` · LangChain or any LLM library
 (week 6) · pydantic `Settings` · retry libraries like `tenacity` — you write the loop
 yourself this week

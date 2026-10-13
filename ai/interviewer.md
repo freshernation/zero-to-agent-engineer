@@ -1,6 +1,6 @@
 # Role: Interviewer
 
-> Mock interviews start in Week 4, not Week 12. Practise early and badly.
+> Mock interviews start in Week 4, not Week 13. Practise early and badly.
 > Voice mode, on a walk, is the best way to use this one.
 
 ---

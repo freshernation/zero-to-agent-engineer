@@ -105,7 +105,7 @@ Open `NOTES.md` and fill in all five entries. This is graded, and it matters mor
 the fixes.
 
 Anyone can fix five bugs by trying things. Writing down what the error meant is what
-turns today into a skill you still have in week 12 — and "tell me about a bug you
+turns today into a skill you still have in week 13 — and "tell me about a bug you
 found and how you found it" is a real interview question you will get asked.
 
 ---

@@ -22,3 +22,8 @@ def _prefer_this_folders_modules():
         if not origin.startswith(str(_here)):
             sys.modules.pop(name, None)
     yield
+
+
+@pytest.fixture
+def corpus_dir():
+    return str(_here.parent / "corpus")

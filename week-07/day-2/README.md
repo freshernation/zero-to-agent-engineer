@@ -115,7 +115,7 @@ trace.append({
 })
 ```
 
-A trace is what week 11's observability tooling is showing you. Building one by hand
+A trace is what week 12's observability tooling is showing you. Building one by hand
 now means LangSmith will look like a nicer view of something you already have.
 
 ---

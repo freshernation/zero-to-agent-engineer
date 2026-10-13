@@ -1,4 +1,4 @@
-"""Week 13, Day 4 - keeping the repo warm.
+"""Week 13, Day 4 - designing on a whiteboard.
 
 Run me:  pytest week-13/day-4 -v
 """
@@ -6,74 +6,139 @@ Run me:  pytest week-13/day-4 -v
 import re
 
 import pytest
+from design_bank import PROMPTS
 
-HEADINGS = ["What I changed", "Before and after", "What it cost", "The habit"]
+SECTIONS = [
+    "The question I'd ask",
+    "The shape",
+    "Components",
+    "What goes wrong",
+    "How I'd know",
+]
 
 
-def shipped(source, heading=None):
-    text = re.sub(r"<!--.*?-->", "", source("SHIPPED.md"), flags=re.S)
-    if heading is None:
-        return text
-    assert f"## {heading}" in text, f"SHIPPED.md has no '{heading}' section."
-    return text.split(f"## {heading}", 1)[1].split("\n## ")[0]
+def body(source):
+    return re.sub(r"<!--.*?-->", "", source("DESIGNS.md"), flags=re.S)
 
 
-class TestChangelog:
-    def test_has_a_dated_entry(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("CHANGELOG.md"), flags=re.S)
-        dates = re.findall(r"^## (\d{4}-\d{2}-\d{2})", text, flags=re.M)
-        assert dates, (
-            "No dated entry. A repository whose last commit is the day the "
-            "course ended says 'this was homework'."
+def answered_ids(source):
+    return [p["id"] for p in PROMPTS if f"## {p['id']}" in body(source)]
+
+
+def two_answered(source):
+    """The ids to check. Fails loudly rather than looping over nothing."""
+    answered = answered_ids(source)
+    assert len(answered) >= 2, (
+        f"Found {len(answered)} answered prompt(s) in DESIGNS.md ({answered}). "
+        "Answer two, using the prompt's id from design_bank.py as the heading."
+    )
+    return answered[:2]
+
+
+def section_of(source, prompt_id, heading):
+    text = body(source).split(f"## {prompt_id}", 1)[1].split("\n## ")[0]
+    assert f"### {heading}" in text, (
+        f"'{prompt_id}' has no '### {heading}' section."
+    )
+    return text.split(f"### {heading}", 1)[1].split("\n### ")[0].strip()
+
+
+class TestTwoAnswered:
+    def test_exactly_two(self, source):
+        answered = answered_ids(source)
+        assert len(answered) >= 2, (
+            f"Found {len(answered)} answered ({answered}). Answer two of the "
+            "three prompts, using the prompt's id as the heading."
         )
 
-    def test_the_entry_is_written(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("CHANGELOG.md"), flags=re.S)
-        entries = re.split(r"^## \d{4}-\d{2}-\d{2}", text, flags=re.M)[1:]
-        assert entries, "No entry body."
-        assert len(entries[0].split()) >= 25, (
-            "The entry is too short. What changed, what it did to the number, "
-            "and why - three sentences."
+    def test_the_placeholders_are_gone(self, source):
+        assert "<first prompt id>" not in body(source), (
+            "Replace the placeholder headings with real prompt ids from "
+            "design_bank.py."
         )
 
-    def test_the_entry_has_a_number(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("CHANGELOG.md"), flags=re.S)
-        entries = re.split(r"^## \d{4}-\d{2}-\d{2}", text, flags=re.M)[1:]
-        assert re.search(r"\d", entries[0]), (
-            "No number in the entry. Even 'unchanged' needs the figure it did "
-            "not change from - and an honest 'tried X, no difference, reverted' "
-            "reads better than a claim with nothing behind it."
-        )
 
-    def test_placeholder_gone(self, source):
-        assert "YYYY-MM-DD" not in source("CHANGELOG.md")
+class TestStructure:
+    @pytest.mark.parametrize("heading", SECTIONS)
+    def test_every_answer_has_every_section(self, source, heading):
+        for prompt_id in two_answered(source):
+            content = section_of(source, prompt_id, heading)
+            assert content, f"'{prompt_id}' has an empty '{heading}'."
+
+    def test_length(self, source):
+        for prompt_id in two_answered(source):
+            text = body(source).split(f"## {prompt_id}", 1)[1].split("\n## ")[0]
+            words = len(text.split())
+            assert 250 <= words <= 600, (
+                f"'{prompt_id}' is {words} words. Between 250 and 600 - under is "
+                "a sketch, over is more than anybody will listen to."
+            )
 
 
-class TestShipped:
-    @pytest.mark.parametrize("heading", HEADINGS)
-    def test_section_is_written(self, source, heading):
-        assert len(shipped(source, heading).split()) >= 30, (
-            f"'{heading}' is too short."
-        )
+class TestTheSectionsThatSeparate:
+    def test_three_failure_modes(self, source):
+        for prompt_id in two_answered(source):
+            content = section_of(source, prompt_id, "What goes wrong")
+            items = [
+                line for line in content.splitlines()
+                if line.strip().startswith(("-", "*", "1.", "2.", "3."))
+            ]
+            assert len(items) >= 3, (
+                f"'{prompt_id}' names {len(items)} failure modes. Three, "
+                "specifically. This is the section almost nobody volunteers and "
+                "the one that separates candidates."
+            )
 
-    def test_before_and_after_has_two_numbers(self, source):
-        section = shipped(source, "Before and after")
-        numbers = re.findall(r"\d+\.?\d*", section)
-        assert len(numbers) >= 2, (
-            "Both numbers. Running the eval before and after is what turns a "
-            "change into evidence."
-        )
+    def test_the_metric_gates_something(self, source):
+        for prompt_id in two_answered(source):
+            content = section_of(source, prompt_id, "How I'd know").lower()
+            assert any(
+                word in content
+                for word in ("gate", "block", "deploy", "before", "threshold")
+            ), (
+                f"'{prompt_id}' names a metric but nothing it decides. A number "
+                "nobody acts on is a number nobody looks at."
+            )
 
-    def test_the_habit_is_specific(self, source):
-        section = shipped(source, "The habit").lower()
-        assert any(
-            word in section
-            for word in ("week", "weekly", "monday", "tuesday", "wednesday",
-                         "thursday", "friday", "saturday", "sunday", "every")
-        ), (
-            "Say when. 'I'll keep improving it' is not a habit; 'one commit "
-            "every Sunday evening' is."
-        )
+    def test_the_shape_is_one_sentence(self, source):
+        for prompt_id in two_answered(source):
+            content = section_of(source, prompt_id, "The shape")
+            assert len(content.split()) <= 60, (
+                f"'{prompt_id}' takes {len(content.split())} words to say the "
+                "shape. One sentence - it is the sentence you lead with."
+            )
 
-    def test_instructions_removed(self, source):
-        assert "<!--" not in source("SHIPPED.md")
+    def test_asks_a_question(self, source):
+        for prompt_id in two_answered(source):
+            content = section_of(source, prompt_id, "The question I'd ask")
+            assert "?" in content, (
+                f"'{prompt_id}' has no actual question in it. One question, and "
+                "why it matters."
+            )
+
+
+class TestCoverage:
+    def test_covers_what_matters(self, source):
+        from design_bank import by_id
+
+        for prompt_id in two_answered(source):
+            text = body(source).split(f"## {prompt_id}", 1)[1].split("\n## ")[0].lower()
+            prompt = by_id(prompt_id)
+            missing = [
+                " / ".join(options)
+                for options in prompt["must_cover"]
+                if not any(option.lower() in text for option in options)
+            ]
+            assert not missing, (
+                f"'{prompt_id}' never mentions: {'; '.join(missing)}.\n"
+                "These are what somebody who has built one inevitably says."
+            )
+
+
+class TestBank:
+    def test_three_prompts(self):
+        assert len(PROMPTS) == 3
+
+    def test_by_id(self, load):
+        assert load("design_bank.py").by_id("support_bot")["prompt"]
+        assert load("design_bank.py").by_id("nope") is None

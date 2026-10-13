@@ -1,88 +1,151 @@
-# Day 2 — Writing Python while somebody watches
+# Day 2 — Configuration, health, and deploying
 
-> **By the end of today** you can solve a small problem correctly, out loud, in under
-> ten minutes.
+> **By the end of today** your service can be configured from outside, says whether it
+> is healthy, and has everything a platform needs to run it.
+
+---
+
+## Read / watch first
+
+- [ ] [**Twelve-factor config and deployment**](../../content/week-12/day-2/config-and-deployment.md) — 25 min · docs: [The Twelve-Factor App — Config](https://12factor.net/config)
 
 ---
 
 ## What you need to know
 
-### The screen is not about cleverness
+### Configuration comes from the environment
 
-A junior coding screen is checking three things, and none of them is whether you know a
-trick:
+Week 5's rule, now load-bearing. The same image runs in development and production, and
+**the only difference is the environment it is given.**
 
-1. Can you turn a problem into steps
-2. Do you handle the empty case, the one-item case, and the tie
-3. Do you keep talking
+```python
+class Settings(BaseModel):
+    api_key: str
+    model: str = "claude-sonnet-5-5"
+    environment: str = "development"
+    max_question_length: int = 500
+```
 
-Week 1's decomposition, week 3's edge cases, and a skill you have not practised.
+Validate it at startup, not at first use. A service that starts happily and fails on the
+first real request has wasted a deploy and a rollback.
 
-### Talk the whole time
+**Fail loudly and say what to set:**
 
-Silence reads as being stuck even when you are thinking. Narrate:
+```python
+raise RuntimeError(
+    "ANTHROPIC_API_KEY is not set. Copy .env.example to .env and fill it in."
+)
+```
 
-> *"Right — I need the most common word. So: split it, count them, find the maximum.
-> Ties, I'll take the alphabetically first. Let me start with the counting..."*
+### Never log a secret
 
-That sentence has already told the interviewer you can decompose, that you spotted the
-tie case, and where you are going. It costs ten seconds.
+```python
+def redacted(settings):
+    return {**settings.model_dump(), "api_key": mask(settings.api_key)}
+```
 
-### Say the edge cases before you are asked
+Logging the config at startup is genuinely useful — it is how you find out that
+production is pointing at the wrong model. Logging your key alongside it puts the key in
+every log aggregator you use, forever. Redact once, in one place, and use that function
+everywhere.
 
-Empty input. One item. All the same. A tie. Saying *"what should this do with an empty
-list?"* out loud is worth more than the solution, because it is the thing juniors
-reliably do not do.
+### Health checks
 
-### Write the obvious version first
+```python
+@app.get("/health")
+def health():
+    return {"status": "ok", "version": VERSION, "uptime_seconds": uptime()}
+```
 
-The clear loop, then say *"there's a comprehension version of this if you'd prefer"*.
-Starting with the clever one and getting stuck is much worse than starting plainly and
-finishing.
+A platform calls this every few seconds to decide whether to send you traffic. So:
 
-### If you are stuck
+- **it must be cheap.** No model calls, no database queries. A health check that costs
+  money is a health check that bankrupts you at 3am.
+- **it must be honest.** If a dependency you need is missing, say so and return a 503.
+  A service that reports healthy while broken is worse than one that reports nothing.
 
-Say what you have tried and what you would try next. An interviewer will help a
-candidate who is thinking out loud. Nobody can help silence.
+Two checks is a common split: `/health` for "am I running" (cheap, always) and
+`/ready` for "can I actually serve" (checks dependencies).
+
+### The start command
+
+```
+uvicorn app:app --host 0.0.0.0 --port $PORT
+```
+
+`0.0.0.0` rather than `127.0.0.1`, because in a container the request arrives from
+outside it — this is the single most common reason a deploy "works locally" and returns
+nothing in production.
+
+`$PORT` from the environment, because the platform chooses it.
+
+### A Dockerfile
+
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+```
+
+Copy `requirements.txt` **before** the rest and install from it. Docker caches each
+step, so this way a code change does not reinstall every dependency — it turns a
+two-minute build into a five-second one, and it is the single most useful Docker fact
+there is.
+
+### `.env.example`
+
+The names, no values:
+
+```
+ANTHROPIC_API_KEY=
+MODEL=claude-sonnet-5-5
+ENVIRONMENT=development
+```
+
+`.env` is gitignored; `.env.example` is committed. Somebody cloning your project now
+knows exactly what they need without you handing over anything.
 
 ---
 
-## The drills
-
-Ten problems in `drills.py`. Each has a **target time**. Do them the way you would in an
-interview:
-
-- start a timer
-- **talk out loud**, alone, to the wall
-- no AI, no searching
-- when the timer ends, stop and note where you got to
+## Exercises
 
 ```bash
-python3 week-12/day-2/drill.py            # list them
-python3 week-12/day-2/drill.py two_sum    # run one, timed
-pytest week-12/day-2 -v                   # grade them all
+pytest week-12/day-2 -v
 ```
 
-| # | Function | Target |
-|---|---|---|
-| 1 | `two_sum(numbers, target)` | 6 min |
-| 2 | `most_common_word(text)` | 6 min |
-| 3 | `group_by(records, key)` | 5 min |
-| 4 | `top_n_by(records, key, n)` | 5 min |
-| 5 | `running_total(numbers)` | 4 min |
-| 6 | `chunk(items, size)` | 5 min |
-| 7 | `first_duplicate(items)` | 5 min |
-| 8 | `invert(mapping)` | 5 min |
-| 9 | `is_balanced(text)` | 8 min |
-| 10 | `flatten(nested)` | 7 min |
+### 1. `config.py`
 
-Every one is week 1–4 material. If any feels impossible, that is the most useful thing
-you will learn today — go back to that week for an hour rather than pushing on.
+| Thing | Does |
+|---|---|
+| `Settings` | `api_key: str`, `model` (default `claude-sonnet-5-5`), `environment` (default `development`), `max_question_length` (1–5000, default 500), `request_timeout` (1–120, default 30) |
+| `load_settings(env=None)` | build from a mapping, defaulting to the real environment |
+| `mask(secret)` | `"sk-ant-abc123xyz"` → `"sk-a...3xyz"`; anything under 8 characters → `"****"` |
+| `redacted(settings)` | the settings as a dict, with `api_key` masked |
+| `is_production(settings)` | `True` when `environment` is `production` |
 
-### After each drill
+`load_settings` raises `RuntimeError` naming the variable when the key is missing or
+empty, and rejects an `environment` that is not `development`, `staging` or `production`.
 
-Write one line in `DRILL_LOG.md`: which one, how long it actually took, and what slowed
-you down. By Friday that log tells you exactly which two to practise again.
+### 2. `health.py`
+
+| Function | Returns |
+|---|---|
+| `uptime_seconds(started_at, now)` | whole seconds |
+| `health_payload(started_at, now, version)` | `{"status": "ok", "version", "uptime_seconds"}` |
+| `readiness(checks)` | `{"ready": bool, "checks": {...}, "failing": [...]}` |
+
+`checks` is a dict of name to a zero-argument function returning a bool. A check that
+**raises** counts as failing, not as a crash — a readiness probe that throws tells the
+platform nothing.
+
+### 3. `Dockerfile` and `.env.example`
+
+Write both. The tests check that the Dockerfile installs requirements before copying the
+code, binds `0.0.0.0`, and uses `$PORT`; and that `.env.example` names every variable and
+contains no values.
 
 ---
 
@@ -96,7 +159,8 @@ git add -A && git commit -m "week 12 day 2" && git push
 
 ## Predict-then-run
 
-Do `two_sum` twice: once in silence, once narrating out loud to an empty room.
+Set `ANTHROPIC_API_KEY` to something, then print `redacted(load_settings())`.
 
-Time both. Most people are slower out loud the first time and faster by the third — and
-in the interview you do not get a silent option.
+Now imagine that line runs on every startup and the output goes to a log service your
+whole company can read. Is there anything in it you would mind? That question, asked
+once per new field, is most of what secret hygiene is.

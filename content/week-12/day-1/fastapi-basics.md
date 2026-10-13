@@ -1,6 +1,6 @@
 # FastAPI basics
 
-*Week 11 · Day 1 · about 30 minutes*
+*Week 12 · Day 1 · about 30 minutes*
 
 > By the end of this your agent answers HTTP requests instead of terminal input.
 

@@ -101,5 +101,5 @@ the 1 is the thing that ends an interview.
 > ask which lines move. Almost everyone can narrate code they did not really write.
 > Almost nobody can modify it. If you have leaned on the AI this week more than the
 > rules allowed, Friday is where that becomes visible — and it is much better that it
-> becomes visible in week 1, in a room with two people in it, than in week 13 in front
+> becomes visible in week 1, in a room with two people in it, than in week 14 in front
 > of someone with a job to give away.

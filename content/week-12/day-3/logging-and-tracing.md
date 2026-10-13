@@ -1,6 +1,6 @@
 # Structured logging and tracing
 
-*Week 11 · Day 3 · about 25 minutes*
+*Week 12 · Day 3 · about 25 minutes*
 
 > By the end of this you can answer "what happened at 3pm yesterday" from the logs alone.
 

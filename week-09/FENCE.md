@@ -16,7 +16,7 @@
 Chroma, FAISS, Pinecone, pgvector or any other vector database · `langchain`'s
 `RecursiveCharacterTextSplitter` — **you write the splitter** · reranking models ·
 GraphRAG · hybrid BM25 + vector search · fine-tuned embeddings · RAGAS and other eval
-frameworks · LangSmith (week 11)
+frameworks · LangSmith (week 12)
 
 ---
 

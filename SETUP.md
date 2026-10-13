@@ -66,7 +66,7 @@ autocomplete that finishes your thoughts is actively harmful for the next four w
 ## 4. Get your own copy of the course
 
 You are not cloning the course repo. You are making **your own repo from it**, because
-by week thirteen it is your portfolio — thirteen weeks of commits with your name on
+by week fourteen it is your portfolio — fourteen weeks of commits with your name on
 them, and the first thing an interviewer will open.
 
 1. Sign in to GitHub (create a free account if you do not have one — use a username you

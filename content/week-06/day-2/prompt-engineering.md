@@ -157,7 +157,7 @@ Asking for the answer inside tags is also useful — it makes extraction trivial
 the model somewhere obvious to stop.
 
 **This is prompt injection in miniature**, and it is a real security topic. You will meet
-it properly in week 11. The habit starts today: **never paste untrusted text straight
+it properly in week 12. The habit starts today: **never paste untrusted text straight
 into a prompt without a fence around it.**
 
 Fencing is a habit, not a cure. It raises the bar; it does not make injection

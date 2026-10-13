@@ -1,189 +1,169 @@
-"""Week 11, Day 1 - behind an API.
+"""Week 11, Day 1 - a worker is a function.
 
 Run me:  pytest week-11/day-1 -v
-
-TestClient runs the app in-process. No server, no port, no network.
 """
 
 import pytest
-from fastapi.testclient import TestClient
-from pydantic import ValidationError
+from agent_kit import CALCULATE_SCHEMA, LOOKUP_SCHEMA, calculate, lookup_population
+from fake_model import FakeClient, text_reply, tool_reply
+
+DESCRIPTION = (
+    "Finds population figures for cities. Give it the cities and say what "
+    "form you want the numbers in."
+)
+SYSTEM = "You look up population figures. Report the number and the city."
 
 
-def fake_answerer(question, k):
-    return {
-        "answer": f"answered {question} with k={k}",
-        "sources": ["expenses.md"],
-        "refused": False,
-    }
+def researcher(load, client):
+    return load("worker.py").make_worker(
+        "researcher", DESCRIPTION, SYSTEM,
+        [LOOKUP_SCHEMA], {"lookup_population": lookup_population}, client,
+    )
 
 
-def refusing_answerer(question, k):
-    return {"answer": "I don't know.", "sources": [], "refused": True}
+class TestMakeWorker:
+    def test_holds_what_it_was_given(self, load):
+        client = FakeClient()
+        worker = researcher(load, client)
+        assert worker["name"] == "researcher"
+        assert worker["description"] == DESCRIPTION
+        assert worker["system"] == SYSTEM
+        assert worker["schemas"] == [LOOKUP_SCHEMA]
+        assert worker["client"] is client
+        assert set(worker["tools"]) == {"lookup_population"}
 
 
-@pytest.fixture
-def client(load):
-    return TestClient(load("service.py").create_app(fake_answerer))
+class TestWorkerSchema:
+    def test_named_after_the_worker(self, load):
+        schema = load("worker.py").worker_schema(researcher(load, FakeClient()))
+        assert schema["name"] == "ask_researcher"
 
-
-class TestModels:
-    def test_ask_request_defaults(self, load):
-        request = load("models.py").AskRequest(question="hi")
-        assert request.k == 3
-
-    @pytest.mark.parametrize("kwargs", [
-        {"question": ""},
-        {"question": "x" * 501},
-        {"question": "hi", "k": 0},
-        {"question": "hi", "k": 11},
-    ])
-    def test_ask_request_rejects(self, load, kwargs):
-        with pytest.raises(ValidationError):
-            load("models.py").AskRequest(**kwargs)
-
-    def test_ask_response(self, load):
-        response = load("models.py").AskResponse(
-            answer="a", sources=["x.md"], refused=False
-        )
-        assert response.sources == ["x.md"]
-
-    def test_health_response(self, load):
-        assert load("models.py").HealthResponse(status="ok", documents=6).documents == 6
-
-
-class TestHealth:
-    def test_returns_ok(self, client):
-        response = client.get("/health")
-        assert response.status_code == 200
-        assert response.json()["status"] == "ok"
-
-    def test_reports_a_document_count(self, client):
-        assert isinstance(client.get("/health").json()["documents"], int)
-
-
-class TestAsk:
-    def test_answers(self, client):
-        response = client.post("/ask", json={"question": "when are claims due"})
-        assert response.status_code == 200
-        body = response.json()
-        assert "when are claims due" in body["answer"]
-        assert body["refused"] is False
-
-    def test_uses_the_k_it_was_given(self, client):
-        body = client.post("/ask", json={"question": "hi", "k": 7}).json()
-        assert "k=7" in body["answer"]
-
-    def test_default_k(self, client):
-        assert "k=3" in client.post("/ask", json={"question": "hi"}).json()["answer"]
-
-    def test_returns_sources(self, client):
-        assert client.post("/ask", json={"question": "hi"}).json()["sources"] == [
-            "expenses.md"
-        ]
-
-    def test_a_refusal_comes_through(self, load):
-        client = TestClient(load("service.py").create_app(refusing_answerer))
-        body = client.post("/ask", json={"question": "hi"}).json()
-        assert body["refused"] is True
-
-
-class TestValidation:
-    @pytest.mark.parametrize("payload", [
-        {},
-        {"question": ""},
-        {"question": "x" * 501},
-        {"question": "hi", "k": 0},
-        {"question": "hi", "k": 99},
-        {"question": 5},
-    ])
-    def test_bad_input_is_rejected_before_your_code_runs(self, client, payload):
-        response = client.post("/ask", json=payload)
-        assert response.status_code == 422, (
-            f"{payload} got {response.status_code}. FastAPI rejects anything the "
-            "model refuses, and you write no code for it - that is the whole "
-            "point of declaring the request as a model."
+    def test_the_description_is_the_workers(self, load):
+        schema = load("worker.py").worker_schema(researcher(load, FakeClient()))
+        assert schema["description"] == DESCRIPTION, (
+            "The orchestrator decides who to ask from this text alone. It is "
+            "the worker's description, unchanged."
         )
 
-    def test_the_error_names_the_field(self, client):
-        detail = client.post("/ask", json={}).json()["detail"]
-        assert any("question" in str(item) for item in detail)
+    def test_takes_one_required_brief(self, load):
+        schema = load("worker.py").worker_schema(researcher(load, FakeClient()))
+        inputs = schema["input_schema"]
+        assert inputs["type"] == "object"
+        assert list(inputs["properties"]) == ["brief"]
+        assert inputs["properties"]["brief"]["type"] == "string"
+        assert inputs["required"] == ["brief"]
 
-
-KEY = "test-key-123"
-
-
-class TestApiKey:
-    @pytest.fixture
-    def locked(self, load):
-        return TestClient(load("service.py").create_app(fake_answerer, api_key=KEY))
-
-    def test_no_key_is_refused(self, locked):
-        response = locked.post("/ask", json={"question": "hi"})
-        assert response.status_code == 401, (
-            f"Got {response.status_code} with no key. Every call to /ask costs "
-            "money - a caller without the key gets a 401."
-        )
-
-    @pytest.mark.parametrize("header", ["Bearer wrong", KEY, f"Bearer {KEY}x", ""])
-    def test_wrong_key_is_refused(self, locked, header):
-        response = locked.post(
-            "/ask", json={"question": "hi"}, headers={"Authorization": header}
-        )
-        assert response.status_code == 401, (
-            f"'{header}' was accepted. Only 'Bearer <the key>' gets in."
-        )
-
-    def test_right_key_answers(self, locked):
-        response = locked.post(
-            "/ask", json={"question": "hi"},
-            headers={"Authorization": f"Bearer {KEY}"},
-        )
-        assert response.status_code == 200
-        assert "hi" in response.json()["answer"]
-
-    def test_the_answerer_is_not_called_without_a_key(self, load):
-        calls = []
-
-        def counting(question, k):
-            calls.append(question)
-            return fake_answerer(question, k)
-
-        client = TestClient(load("service.py").create_app(counting, api_key=KEY))
-        client.post("/ask", json={"question": "hi"})
-        assert calls == [], (
-            "The answerer ran for a caller with no key. Refuse first - the "
-            "answerer is the part that costs money."
-        )
-
-    def test_the_refusal_does_not_reveal_the_key(self, locked):
-        assert KEY not in locked.post("/ask", json={"question": "hi"}).text
-
-    def test_health_stays_open(self, locked):
-        assert locked.get("/health").status_code == 200, (
-            "The platform calls /health every few seconds, and it has no key."
+    def test_the_brief_is_described(self, load):
+        schema = load("worker.py").worker_schema(researcher(load, FakeClient()))
+        words = schema["input_schema"]["properties"]["brief"]["description"].split()
+        assert len(words) >= 8, (
+            "Describe the brief in a sentence. The model writing it has to be "
+            "told the worker sees nothing else."
         )
 
 
-class TestSources:
-    def test_lists_documents(self, client):
-        response = client.get("/sources")
-        assert response.status_code == 200
-        assert isinstance(response.json(), (list, dict))
+class TestRunWorker:
+    def test_returns_the_answer(self, load):
+        client = FakeClient([text_reply("Lisbon has 545000 people.")])
+        result = load("worker.py").run_worker(researcher(load, client), "Lisbon?")
+        assert result["text"] == "Lisbon has 545000 people."
+        assert result["stopped"] == "answered"
+        assert result["worker"] == "researcher"
+
+    def test_the_brief_is_all_it_gets(self, load):
+        client = FakeClient([text_reply("ok")])
+        load("worker.py").run_worker(researcher(load, client), "Population of Lisbon.")
+        assert client.last_call["messages"] == [
+            {"role": "user", "content": "Population of Lisbon."}
+        ], (
+            "The worker's conversation is one message: the brief. Nothing the "
+            "orchestrator saw comes with it."
+        )
+
+    def test_uses_its_own_system_prompt(self, load):
+        client = FakeClient([text_reply("ok")])
+        load("worker.py").run_worker(researcher(load, client), "x")
+        assert client.last_call["system"] == SYSTEM
+
+    def test_is_offered_only_its_own_tools(self, load):
+        client = FakeClient([text_reply("ok")])
+        load("worker.py").run_worker(researcher(load, client), "x")
+        assert [t["name"] for t in client.last_call["tools"]] == ["lookup_population"]
+
+    def test_can_use_its_tools(self, load):
+        client = FakeClient([
+            tool_reply("lookup_population", {"city": "Lisbon"}, id="t1"),
+            text_reply("545000"),
+        ])
+        result = load("worker.py").run_worker(researcher(load, client), "Lisbon?")
+        assert result["tool_calls"][0]["result"] == "545000"
+        assert result["steps"] == 2
+
+    def test_cannot_use_a_tool_it_was_not_given(self, load):
+        client = FakeClient([
+            tool_reply("calculate", {"expression": "1+1"}, id="t1"),
+            text_reply("I could not do that."),
+        ])
+        result = load("worker.py").run_worker(researcher(load, client), "1+1?")
+        assert result["tool_calls"][0]["result"] == "Unknown tool: calculate", (
+            "The researcher ran a tool that is not in its table. A worker's "
+            "tools are the ones it was made with, and no others."
+        )
+
+    def test_starts_from_nothing_every_time(self, load):
+        client = FakeClient([text_reply("first"), text_reply("second")])
+        worker = researcher(load, client)
+        mod = load("worker.py")
+        mod.run_worker(worker, "Population of Lisbon.")
+        mod.run_worker(worker, "And the one before?")
+        assert len(client.calls[1]["messages"]) == 1, (
+            "The second brief arrived with the first conversation attached. A "
+            "worker remembers nothing between briefs - which is why the brief "
+            "has to carry everything."
+        )
+
+    def test_max_steps_is_passed_on(self, load):
+        client = FakeClient(tool_reply("lookup_population", {"city": "Lisbon"}))
+        result = load("worker.py").run_worker(
+            researcher(load, client), "Lisbon?", max_steps=2
+        )
+        assert result["stopped"] == "cap"
+        assert client.call_count == 2
 
 
-class TestInjection:
-    def test_the_answerer_is_injected(self, load):
-        """Two apps, two answerers, no global state."""
-        mod = load("service.py")
-        first = TestClient(mod.create_app(fake_answerer))
-        second = TestClient(mod.create_app(refusing_answerer))
-        assert first.post("/ask", json={"question": "hi"}).json()["refused"] is False
-        assert second.post("/ask", json={"question": "hi"}).json()["refused"] is True
+class TestReport:
+    def test_an_answer_goes_back_as_it_is(self, load):
+        result = {"worker": "researcher", "stopped": "answered", "text": "545000"}
+        assert load("worker.py").report(result) == "545000"
 
-    def test_default_answerer_works_alone(self, load):
-        """The app has to run with nothing else wired up."""
-        client = TestClient(load("service.py").create_app(
-            load("service.py").default_answerer
-        ))
-        assert client.post("/ask", json={"question": "hi"}).status_code == 200
+    def test_a_worker_that_did_not_finish_says_so(self, load):
+        result = {
+            "worker": "researcher",
+            "stopped": "cap",
+            "text": "Stopped after 6 steps without finishing.",
+        }
+        assert load("worker.py").report(result) == (
+            "Worker researcher did not finish: "
+            "Stopped after 6 steps without finishing."
+        ), (
+            "Whoever asked has to be able to tell a finished answer from a "
+            "worker that ran out of steps. Otherwise the cap message gets "
+            "treated as the answer."
+        )
+
+
+class TestTwoWorkers:
+    def test_each_has_its_own_model_and_tools(self, load):
+        mod = load("worker.py")
+        first = FakeClient([text_reply("545000")])
+        second = FakeClient([text_reply("6")])
+        research = researcher(load, first)
+        analyst = mod.make_worker(
+            "analyst", "Does arithmetic.", "You do arithmetic.",
+            [CALCULATE_SCHEMA], {"calculate": calculate}, second,
+        )
+        mod.run_worker(research, "Lisbon?")
+        mod.run_worker(analyst, "How many digits in 545000?")
+        assert first.call_count == 1 and second.call_count == 1
+        assert second.last_call["system"] == "You do arithmetic."
+        assert mod.worker_schema(analyst)["name"] == "ask_analyst"

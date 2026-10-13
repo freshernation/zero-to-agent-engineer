@@ -6,7 +6,7 @@ engineers know, and every one of them is out.
 - LeetCode hard, dynamic programming, graph algorithms
 - Metaclasses, multiple inheritance, descriptors
 - Design-pattern catalogues
-- Django and Flask — FastAPI only, and only in week 11
+- Django and Flask — FastAPI only, and only in week 12
 - numpy, pandas, and the data-science stack
 - Training or fine-tuning models; PyTorch; transformer maths
 - Kubernetes, Terraform, cloud certifications

@@ -241,7 +241,7 @@ print("yes")
 ## Write it down
 
 Fixing five bugs by trying things teaches you almost nothing. Writing down what each
-error *meant* is what turns today into a skill you still have in week 12.
+error *meant* is what turns today into a skill you still have in week 13.
 
 For every bug you fix this week, record three lines:
 

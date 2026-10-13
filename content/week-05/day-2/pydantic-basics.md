@@ -201,7 +201,7 @@ argument as validating in `__init__` in week 4, with far less code.
 `min_length=1` on a name catches the empty string, which passes a plain `str` check and
 is almost never what you want.
 
-You can add documentation too, which shows up in tooling and in week 11's API:
+You can add documentation too, which shows up in tooling and in week 12's API:
 
 ```python
 price: float = Field(gt=0, description="Price in GBP, excluding tax")

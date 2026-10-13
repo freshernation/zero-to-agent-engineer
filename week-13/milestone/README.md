@@ -1,42 +1,79 @@
-# Week 13 Milestone — The Plan
+# Week 13 Milestone — Ten Mocks, Scored
 
-> One full-length mock at real difficulty, and a written plan for what happens after
-> Friday.
-
----
-
-## Friday: the unannounced mock
-
-Sixty minutes, no warning about content, at genuine interview difficulty. All five gates
-in one sitting, the way a real onsite works.
-
-You will not be told which gates or in what order. That is the point — every mock so far
-had a topic, and no real interview does.
-
-Record it. Score it. Add it to the log as mock 11.
+> Ten recorded interviews, scored on one rubric, next to the one you did in week 4.
 
 ---
 
-## `NEXT.md`
+## The files
 
-The plan for the weeks after this one. It is the last thing you write and the only one
-that matters after Friday.
+| File | Holds |
+|---|---|
+| `scores.py` | `BASELINE` (week 4) and `MOCKS` (this week), plus the arithmetic |
+| `MOCK_LOG.md` | One entry per mock — what was asked, what went wrong |
+| `PROGRESS.md` | **The comparison.** Week 4 against week 13. |
+
+---
+
+## The ten
+
+Across all five gates, at least one each, spread through the week. Your instructor runs
+some; use `ai/interviewer.md` for the rest.
+
+**Record every one.** Name them `mock-NN-<name>-week13`.
+
+Score each on four dimensions, 1 to 5:
+
+| Dimension | 5 | 1 |
+|---|---|---|
+| **Correctness** | right, and knows the edges | wrong, or would not run |
+| **Structure** | answer first, then the detail | rambles, buries it |
+| **Specificity** | numbers, names, real examples | "it was quite fast" |
+| **Confidence** | plain, unhedged, takes a position | hedges everything, trails off |
+
+Be hard on yourself. An inflated log is worse than none, because it hides the two things
+you would otherwise have fixed.
+
+## `scores.py`
+
+| Thing | Is |
+|---|---|
+| `BASELINE` | your week-4 mock's four scores |
+| `MOCKS` | the ten, each with `number`, `gate`, and the four dimensions |
+| `mean_of(mock)` | the average of the four, 2dp |
+| `overall(mocks)` | the average across all of them, 2dp |
+| `by_gate(mocks)` | `{gate: mean}` |
+| `weakest_dimension(mocks)` | the lowest-scoring of the four, across all mocks |
+| `improvement(baseline, mocks)` | overall minus the baseline mean, 2dp |
+| `trend(mocks)` | `(first_five_mean, last_five_mean)` |
+
+## `MOCK_LOG.md`
+
+One `## Mock NN` section each, with:
+
+- **Gate** and who ran it
+- **The question that went worst**, quoted
+- **What a better answer was** — bullets you could have said, not a script
+- **One habit to fix**
+
+## `PROGRESS.md`
 
 | Section | What goes in it |
 |---|---|
-| `## Where I am` | Applications out, responses, interviews booked. Numbers. |
-| `## The weekly rhythm` | What you do every week, with days attached |
-| `## What I am still weakest at` | From mock 11, not from memory |
-| `## What I do if nothing lands in six weeks` | The honest contingency |
-| `## What I am not going to do` | The things you will be tempted by |
+| `## The baseline` | What week 4 was actually like. Be honest; nobody's was good. |
+| `## What the numbers say` | Baseline, overall, the improvement, the trend. Real figures. |
+| `## What actually changed` | Not the score — the behaviour. What do you do differently now? |
+| `## What is still weak` | The weakest dimension and your plan for it |
 
-At least 400 words, at least four numbers, and every commitment in the rhythm section
-needs a **day of the week** attached. "Keep applying" is not a plan; "five applications
-every Tuesday morning" is.
+At least 350 words, with at least four numbers.
 
-The last section matters more than it looks. The failure mode after a course ends is
-starting a fourth project instead of applying, because building is comfortable and
-rejection is not. Write down that you will not, now, while you can still see it clearly.
+---
+
+## Friday: watch the tapes
+
+The last thirty minutes of the week. Play your week-4 mock, then your tenth.
+
+Nobody enjoys the first one. That is the point — it is evidence rather than
+reassurance, and evidence is what actually changes how you walk into a room.
 
 ---
 
@@ -51,18 +88,5 @@ pytest week-13/milestone -v
 ## Ship it
 
 ```bash
-git add -A && git commit -m "week 13: the plan" && git push
+git add -A && git commit -m "week 13: ten mocks, scored" && git push
 ```
-
----
-
-## And then
-
-That is the course.
-
-You started thirteen weeks ago not knowing what a variable was. You have three projects,
-one of them deployed and measured, a write-up that explains an agent loop from the inside,
-and eleven recordings of yourself getting better at being asked about it.
-
-The boat that crosses the river fastest is the one you get into and start rowing. You are
-in it.

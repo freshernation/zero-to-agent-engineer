@@ -1,166 +1,216 @@
-"""Week 13, Day 2 - applications.
+"""Week 13, Day 2 - the drills.
 
 Run me:  pytest week-13/day-2 -v
-"""
+Or one:  pytest week-13/day-2 -k two_sum -v
 
-import re
+The edge cases are half the marks. They are half the marks in a real screen too.
+"""
 
 import pytest
 
-SOURCES = {"referral", "direct", "board", "agency"}
-STATUSES = {"applied", "screening", "interview", "offer", "rejected", "ghosted"}
 
-SAMPLE = [
-    {"company": "Alpha", "role": "AI Engineer", "source": "referral",
-     "applied": "2026-01-05", "status": "interview"},
-    {"company": "Beta", "role": "Backend", "source": "board",
-     "applied": "2026-01-05", "status": "applied"},
-    {"company": "Gamma", "role": "Solutions", "source": "board",
-     "applied": "2026-01-06", "status": "rejected"},
-    {"company": "Delta", "role": "Automation", "source": "direct",
-     "applied": "2026-01-20", "status": "applied"},
-]
+class TestTwoSum:
+    def test_finds_a_pair(self, load):
+        assert load("drills.py").two_sum([2, 7, 11, 15], 9) == (0, 1)
 
+    def test_a_later_pair(self, load):
+        assert load("drills.py").two_sum([3, 2, 4], 6) == (1, 2)
 
-class TestTheList:
-    def test_at_least_ten(self, load):
-        assert len(load("applications.py").APPLICATIONS) >= 10, (
-            "Ten good applications beat two perfect ones, for the same reason "
-            "the tenth mock was better than the first."
+    def test_no_pair(self, load):
+        two_sum = load("drills.py").two_sum
+        assert two_sum([2, 7, 11, 15], 9) == (0, 1)  # must work at all first
+        assert two_sum([1, 2, 3], 99) is None
+
+    def test_empty(self, load):
+        two_sum = load("drills.py").two_sum
+        assert two_sum([2, 7, 11, 15], 9) == (0, 1)  # must work at all first
+        assert two_sum([], 5) is None
+
+    def test_does_not_reuse_one_number(self, load):
+        two_sum = load("drills.py").two_sum
+        assert two_sum([3, 3], 6) == (0, 1)  # two 3s is fine
+        assert two_sum([3, 5], 6) is None, (
+            "3 + 3 = 6, but there is only one 3. Each number is used once."
         )
 
-    def test_every_field(self, load):
-        for app in load("applications.py").APPLICATIONS:
-            for field in ("company", "role", "source", "applied", "status"):
-                assert app.get(field), f"{app.get('company')} has no {field}."
+    def test_duplicates_are_fine(self, load):
+        assert load("drills.py").two_sum([3, 3], 6) == (0, 1)
 
-    def test_sources_are_known(self, load):
-        for app in load("applications.py").APPLICATIONS:
-            assert app["source"] in SOURCES, f"Unknown source {app['source']!r}."
+    def test_negatives(self, load):
+        assert load("drills.py").two_sum([-2, 5, 3], 1) == (0, 2)
 
-    def test_statuses_are_known(self, load):
-        for app in load("applications.py").APPLICATIONS:
-            assert app["status"] in STATUSES, f"Unknown status {app['status']!r}."
 
-    def test_dates_are_iso(self, load):
-        for app in load("applications.py").APPLICATIONS:
-            assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", app["applied"]), (
-                f"{app['company']}'s date is {app['applied']!r} - use YYYY-MM-DD."
-            )
+class TestMostCommonWord:
+    def test_finds_it(self, load):
+        assert load("drills.py").most_common_word("the cat the dog") == "the"
 
-    def test_more_than_one_channel(self, load):
-        sources = {a["source"] for a in load("applications.py").APPLICATIONS}
-        assert len(sources) >= 2, (
-            "Every application went through one channel. Most people spend all "
-            "their effort on the one that converts worst, because it is the one "
-            "that does not involve talking to anybody."
+    def test_lowercases(self, load):
+        assert load("drills.py").most_common_word("The the THE cat") == "the"
+
+    def test_tie_goes_alphabetically_first(self, load):
+        assert load("drills.py").most_common_word("zebra apple") == "apple", (
+            "A tie is the case people forget. Say out loud what you will do "
+            "about it before you write the code."
+        )
+
+    def test_empty(self, load):
+        most_common_word = load("drills.py").most_common_word
+        assert most_common_word("a a b") == "a"  # must work at all first
+        assert most_common_word("") is None
+
+    def test_one_word(self, load):
+        assert load("drills.py").most_common_word("hello") == "hello"
+
+
+class TestGroupBy:
+    def test_groups(self, load):
+        records = [{"a": 1, "n": "x"}, {"a": 2, "n": "y"}, {"a": 1, "n": "z"}]
+        grouped = load("drills.py").group_by(records, "a")
+        assert set(grouped) == {1, 2}
+        assert [r["n"] for r in grouped[1]] == ["x", "z"]
+
+    def test_keeps_order(self, load):
+        records = [{"k": "b"}, {"k": "a"}, {"k": "b"}]
+        assert len(load("drills.py").group_by(records, "k")["b"]) == 2
+
+    def test_skips_records_missing_the_key(self, load):
+        records = [{"a": 1}, {"b": 2}]
+        assert set(load("drills.py").group_by(records, "a")) == {1}
+
+    def test_empty(self, load):
+        assert load("drills.py").group_by([], "a") == {}
+
+
+class TestTopNBy:
+    def test_sorts_descending(self, load):
+        records = [{"v": 3}, {"v": 9}, {"v": 5}]
+        assert [r["v"] for r in load("drills.py").top_n_by(records, "v", 2)] == [9, 5]
+
+    def test_n_larger_than_the_list(self, load):
+        assert len(load("drills.py").top_n_by([{"v": 1}], "v", 10)) == 1
+
+    def test_n_of_zero(self, load):
+        assert load("drills.py").top_n_by([{"v": 1}], "v", 0) == []
+
+    def test_empty(self, load):
+        assert load("drills.py").top_n_by([], "v", 3) == []
+
+
+class TestRunningTotal:
+    def test_accumulates(self, load):
+        assert load("drills.py").running_total([1, 2, 3]) == [1, 3, 6]
+
+    def test_negatives(self, load):
+        assert load("drills.py").running_total([5, -2, 1]) == [5, 3, 4]
+
+    def test_empty(self, load):
+        assert load("drills.py").running_total([]) == []
+
+    def test_one(self, load):
+        assert load("drills.py").running_total([7]) == [7]
+
+
+class TestChunk:
+    def test_even_split(self, load):
+        assert load("drills.py").chunk([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]
+
+    def test_ragged_last_piece(self, load):
+        assert load("drills.py").chunk([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]
+
+    def test_size_bigger_than_the_list(self, load):
+        assert load("drills.py").chunk([1, 2], 9) == [[1, 2]]
+
+    def test_empty(self, load):
+        assert load("drills.py").chunk([], 3) == []
+
+    @pytest.mark.parametrize("size", [0, -1])
+    def test_bad_size_raises(self, load, size):
+        with pytest.raises(ValueError) as caught:
+            load("drills.py").chunk([1, 2], size)
+        assert "Size must be positive" in str(caught.value)
+
+
+class TestFirstDuplicate:
+    def test_finds_it(self, load):
+        assert load("drills.py").first_duplicate([1, 2, 3, 2, 1]) == 2
+
+    def test_none(self, load):
+        first_duplicate = load("drills.py").first_duplicate
+        assert first_duplicate([1, 1]) == 1  # must work at all first
+        assert first_duplicate([1, 2, 3]) is None
+
+    def test_empty(self, load):
+        first_duplicate = load("drills.py").first_duplicate
+        assert first_duplicate([1, 1]) == 1  # must work at all first
+        assert first_duplicate([]) is None
+
+    def test_strings(self, load):
+        assert load("drills.py").first_duplicate(["a", "b", "a"]) == "a"
+
+    def test_the_first_repeat_wins_not_the_earliest_item(self, load):
+        assert load("drills.py").first_duplicate([3, 1, 2, 1, 3]) == 1, (
+            "1 repeats before 3 does. It is the first SECOND appearance."
         )
 
 
-class TestCounts:
-    def test_count_by_status(self, load):
-        counts = load("applications.py").count_by_status(SAMPLE)
-        assert counts["applied"] == 2
-        assert counts["interview"] == 1
-        assert counts["rejected"] == 1
+class TestInvert:
+    def test_simple(self, load):
+        assert load("drills.py").invert({"a": 1, "b": 2}) == {1: ["a"], 2: ["b"]}
 
-    def test_count_by_status_of_nothing(self, load):
-        assert load("applications.py").count_by_status([]) == {}
-
-    def test_by_source(self, load):
-        assert load("applications.py").by_source(SAMPLE) == {
-            "referral": 1, "board": 2, "direct": 1,
+    def test_collects_repeats(self, load):
+        assert load("drills.py").invert({"a": 1, "b": 2, "c": 1}) == {
+            1: ["a", "c"], 2: ["b"],
         }
 
-
-class TestResponseRate:
-    def test_rate(self, load):
-        """Alpha interviewing and Gamma rejected both count as responses."""
-        assert load("applications.py").response_rate(SAMPLE) == 0.5
-
-    def test_ghosted_does_not_count_as_a_response(self, load):
-        apps = SAMPLE + [{
-            "company": "Epsilon", "role": "x", "source": "board",
-            "applied": "2026-01-01", "status": "ghosted",
-        }]
-        assert load("applications.py").response_rate(apps) == 0.4
-
-    def test_rate_of_nothing(self, load):
-        assert load("applications.py").response_rate([]) == 0.0
-
-    def test_rate_by_source(self, load):
-        rates = load("applications.py").response_rate_by_source(SAMPLE)
-        assert rates["referral"] == 1.0
-        assert rates["board"] == 0.5
-        assert rates["direct"] == 0.0
-
-    def test_best_source(self, load):
-        assert load("applications.py").best_source(SAMPLE) == "referral"
-
-    def test_best_source_ties_alphabetically(self, load):
-        apps = [
-            {"company": "A", "role": "x", "source": "referral",
-             "applied": "2026-01-01", "status": "interview"},
-            {"company": "B", "role": "x", "source": "direct",
-             "applied": "2026-01-01", "status": "interview"},
-        ]
-        assert load("applications.py").best_source(apps) == "direct"
-
-    def test_best_source_of_nothing(self, load):
-        assert load("applications.py").best_source([]) is None
+    def test_empty(self, load):
+        assert load("drills.py").invert({}) == {}
 
 
-class TestFollowUp:
-    def test_finds_the_stale_ones(self, load):
-        stale = load("applications.py").needs_follow_up(SAMPLE, "2026-01-26")
-        assert "Beta" in stale, (
-            "Beta was applied on the 5th and is still 'applied' three weeks later."
+class TestIsBalanced:
+    @pytest.mark.parametrize("text", ["", "()", "a(b[c]d)e", "{[()]}", "no brackets"])
+    def test_balanced(self, load, text):
+        assert load("drills.py").is_balanced(text) is True
+
+    @pytest.mark.parametrize("text", ["(", ")", "(]", "a(b]c)", "([)]", "())("])
+    def test_not_balanced(self, load, text):
+        assert load("drills.py").is_balanced(text) is False
+
+    def test_wrong_order_is_not_balanced(self, load):
+        assert load("drills.py").is_balanced(")(") is False, (
+            "The counts match and the nesting does not. This is the case a "
+            "counter misses and a stack catches."
         )
 
-    def test_ignores_recent_ones(self, load):
-        stale = load("applications.py").needs_follow_up(SAMPLE, "2026-01-26")
-        assert "Delta" not in stale, (
-            "Delta went out on the 20th - four working days ago. Too soon."
-        )
 
-    def test_ignores_ones_that_moved(self, load):
-        stale = load("applications.py").needs_follow_up(SAMPLE, "2026-01-26")
-        assert "Alpha" not in stale and "Gamma" not in stale
+class TestFlatten:
+    def test_one_level(self, load):
+        assert load("drills.py").flatten([1, [2, 3], 4]) == [1, 2, 3, 4]
 
-    def test_counts_working_days(self, load):
-        """The 5th to the 19th is ten working days, not fourteen."""
-        apps = [{"company": "Beta", "role": "x", "source": "board",
-                 "applied": "2026-01-05", "status": "applied"}]
-        mod = load("applications.py")
-        assert mod.needs_follow_up(apps, "2026-01-19") == ["Beta"]
-        assert mod.needs_follow_up(apps, "2026-01-16") == []
+    def test_deeply_nested(self, load):
+        assert load("drills.py").flatten([1, [2, [3, [4]]], 5]) == [1, 2, 3, 4, 5]
 
-    def test_custom_window(self, load):
-        apps = [{"company": "Beta", "role": "x", "source": "board",
-                 "applied": "2026-01-05", "status": "applied"}]
-        assert load("applications.py").needs_follow_up(
-            apps, "2026-01-08", days=3
-        ) == ["Beta"]
+    def test_empty(self, load):
+        assert load("drills.py").flatten([]) == []
+
+    def test_empty_lists_inside(self, load):
+        assert load("drills.py").flatten([1, [], [2, []]]) == [1, 2]
+
+    def test_already_flat(self, load):
+        assert load("drills.py").flatten([1, 2, 3]) == [1, 2, 3]
 
 
-class TestDocument:
-    def test_has_a_table(self, source):
-        text = re.sub(r"<!--.*?-->", "", source("APPLICATIONS.md"), flags=re.S)
+class TestDrillLog:
+    def test_is_being_kept(self, source):
         rows = [
-            line for line in text.splitlines()
-            if line.strip().startswith("|") and "---" not in line
-            and "Company" not in line and line.split("|")[1].strip()
+            line for line in source("DRILL_LOG.md").splitlines()
+            if line.strip().startswith("|") and line.count("|") >= 4
         ]
-        assert len(rows) >= 10, f"{len(rows)} rows filled in, expected 10."
-
-    def test_what_i_am_learning(self, source):
-        text = source("APPLICATIONS.md")
-        assert "## What I am learning" in text
-        section = text.split("## What I am learning", 1)[1]
-        assert len(section.split()) >= 100, (
-            "The numbers only teach you something if you write down what they "
-            "say. Which channel is working, and what are you going to do about it?"
+        filled = [
+            row for row in rows
+            if row.split("|")[1].strip()
+            and "Drill" not in row and "---" not in row
+        ]
+        assert len(filled) >= 5, (
+            f"{len(filled)} rows filled in. Log every attempt - by Friday it "
+            "tells you exactly which two drills to practise again."
         )
-
-    def test_instructions_removed(self, source):
-        assert "<!--" not in source("APPLICATIONS.md")

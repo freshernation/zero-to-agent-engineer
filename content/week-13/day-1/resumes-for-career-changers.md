@@ -1,6 +1,6 @@
 # Résumés for career changers
 
-*Week 12 · Day 1 · about 20 minutes*
+*Week 13 · Day 1 · about 20 minutes*
 
 > By the end of this your résumé and GitHub survive a ninety-second read, and you can
 > tell each project's story in two minutes.
@@ -16,7 +16,7 @@ the source material.**
 | Source | What it gives you |
 |---|---|
 | Your three project READMEs | The raw material for every line below — week 4 taught you to write them |
-| `week-04/milestone/`, `week-07/milestone/`, `week-11/milestone/` | What each project actually proves |
+| `week-04/milestone/`, `week-07/milestone/`, `week-12/milestone/` | What each project actually proves |
 | [**GitHub — Managing your profile README**](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme) | Pinning repositories and the profile page |
 | [**GitHub — About READMEs**](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) | Where a README renders and how |
 | `ai/interviewer.md` | The course's interviewer role, for rehearsing the stories |
@@ -62,7 +62,7 @@ identical.
 
 ### What makes a line strong
 
-**A number.** `47 tests`, `0.85 hit rate`, `3.2× cost difference`, `1,541 tests passing`.
+**A number.** `47 tests`, `0.85 hit rate`, `3.2× cost difference`, `1,643 tests passing`.
 Numbers cannot be bluffed, and they are the fastest possible signal that you measured
 something.
 
@@ -82,7 +82,7 @@ would have used.
 |---|---|
 | **Expense Tracker** (week 4) | you can write Python, not assemble it |
 | **Agent From Scratch** (week 7) | you understand agents rather than importing them |
-| **Deployed Assistant** (week 11) | you can ship — the claim that closes offers |
+| **Deployed Assistant** (week 12) | you can ship — the claim that closes offers |
 
 **The middle one is your differentiator.** Everybody has used an agent framework. Almost
 nobody has written the loop, ported it, and can compare the two with line counts. Say
@@ -199,7 +199,7 @@ vague.
 The "no number" check is the one that catches most people. Write your line, run the
 check, and notice how often the honest answer is that you did not measure anything.
 
-If so, go and measure it. You have the harnesses from weeks 9 and 11 already.
+If so, go and measure it. You have the harnesses from weeks 9 and 12 already.
 
 ---
 
@@ -261,5 +261,5 @@ It is longer. That is fine — it is one of three lines in the section that gets
 - [ ] Rehearse the beats rather than the words
 - [ ] Check your own lines against explicit criteria
 
-**Next:** the rest of week 12 — ten recorded mock interviews, scored. It is the week
+**Next:** the rest of week 13 — ten recorded mock interviews, scored. It is the week
 people underestimate.

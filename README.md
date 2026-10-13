@@ -1,6 +1,6 @@
 # Zero to Agent Engineer
 
-Thirteen weeks from your first line of Python to a deployed, evaluated agent system.
+Fourteen weeks from your first line of Python to a deployed, evaluated agent system.
 
 You are here because you want a job. Everything in this repo is aimed at that and
 nothing else. If something looks missing, it was cut on purpose — see `CUT_LIST.md`.
@@ -37,7 +37,7 @@ From week 5 the AI may write code with you, and the rule that replaces it is:
 
 ---
 
-## The thirteen weeks
+## The fourteen weeks
 
 | Week | | Milestone |
 |---|---|---|
@@ -51,11 +51,12 @@ From week 5 the AI may write code with you, and the rule that replaces it is:
 | 8 | Frameworks, on your terms | Both agents side by side, plus the comparison |
 | 9 | Retrieval, and proving it | RAG with a measured before-and-after |
 | 10 | Multi-agent, and its cost | The same task two ways, plus a recommendation |
-| 11 | Put it where people can reach it | **Project 3** — deployed, traced, evaluated |
-| 12 | The interview is the deliverable | Ten recorded mocks, scored |
-| 13 | Buffer, and pressure | Applications out, and the plan |
+| 11 | Several agents, by hand | One agent against a team, measured, plus a recommendation |
+| 12 | Put it where people can reach it | **Project 3** — deployed, traced, evaluated |
+| 13 | The interview is the deliverable | Ten recorded mocks, scored |
+| 14 | Buffer, and pressure | Applications out, and the plan |
 
-Week 7 is the keystone. Week 12 is the one people underestimate.
+Week 7 is the keystone. Week 13 is the one people underestimate.
 
 ---
 
@@ -72,7 +73,7 @@ Tests are the grader. A green test means "this behaves correctly", not "this is 
 code" — the **editor** (`ai/editor.md`) judges the second thing, and your instructor
 judges both on Friday.
 
-**1,541 tests** across the course. Every one of them fails before you write anything.
+**1,643 tests** across the course. Every one of them fails before you write anything.
 
 ---
 
@@ -81,7 +82,7 @@ judges both on Friday.
 | Path | What it is |
 |---|---|
 | `SETUP.md` | Day zero. Do this before anything else. |
-| `week-01/` … `week-13/` | One folder per week: four days, a milestone, a fence, a defence |
+| `week-01/` … `week-14/` | One folder per week: four days, a milestone, a fence, a defence |
 | [`content/`](content/README.md) | The reading for every day — 66 articles, each opening with the official docs |
 | `ai/` | Your four AI roles — tutor, editor, interviewer, defend |
 | `logs/stuck-log.md` | Every time you get stuck. Non-negotiable. |

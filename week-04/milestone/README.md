@@ -145,5 +145,5 @@ Three-phase defence on this code, then **your first mock interview** — 30 minu
 gate-1 format, recorded.
 
 It will go badly. That is the point: that tape is the baseline you get played back
-against in week 12, and the gap between the two is where your confidence actually comes
+against in week 13, and the gap between the two is where your confidence actually comes
 from. Nobody has ever felt good about their first one.

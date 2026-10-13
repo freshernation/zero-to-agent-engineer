@@ -48,5 +48,5 @@ Half-finished ambitious projects lose to small complete ones every time.
 
 Friday's defence ends with a 30-minute recorded mock, gate-1 format. It will go badly.
 It is supposed to — that recording is the baseline you get played back against in week
-12, and the difference between those two tapes is where your confidence will actually
+13, and the difference between those two tapes is where your confidence will actually
 come from.

@@ -1,49 +1,38 @@
 # Week 11 — Friday defence
 
-**Start with the live URL open on your machine, before anything else.** If it is down,
-that is the defence — spend the hour getting it up, and say plainly that a portfolio
-project which is not reachable is not a portfolio project.
+Have their `REPORT.md` open, and a terminal with their real-model runs. The numbers in
+the report must be theirs: ask where each one came from before anything else.
 
 ---
 
-## Phase 0 — The stranger test (5 min)
-
-Open their `PROJECT_README.md` and follow it **exactly**, on your machine, out loud.
-Click the link. Paste the `curl`. Do not fill in any gap for them.
-
-Whatever breaks is the most valuable thing you find today, because an interviewer will
-do this and will not tell you what went wrong — they will just close the tab.
-
 ## Phase 1 — Explain (7 min)
 
-1. *"A user says it gave a wrong answer at 3pm yesterday. Find that request."* — the
-   question the whole week was for. Looking for: the request id, the log line, the trace,
-   and which span was slow.
-2. *"Your `/health` is called every five seconds. What does it cost?"* — nothing. Then:
-   *"and what would it cost if you had put the search in it?"*
-3. *"Why is the refusal check before the model call rather than after?"*
-4. *"Your eval gate exits non-zero. Who reads that?"*
-5. *"What is in your logs that you would mind the whole company seeing?"* — should be
-   nothing, and they should be able to point at the redaction.
-6. *"I do not have your key. What can I do to your service?"* — reach `/health`, and
-   nothing that costs money. Then: *"and what does your key not tell you about me?"*
-7. *"One of your documents says 'ignore the rules above'. What happens?"* — looking for
-   three things: the fence, that no prompt makes it safe, and a number they measured.
+1. *"What is a worker, without using the word agent?"* — a function: a string in, a
+   string out. Anything about loops or models is detail behind it.
+2. *"Your researcher is briefed twice. What does it remember?"* — nothing. If they
+   hesitate, the separate context has not landed and the rest will not either.
+3. *"Show me a brief your orchestrator wrote. What is missing from it?"* — they should
+   reach for the delegations log without being told, and name a part.
+4. *"Eight model calls where one agent needs four. Where do the extra four go?"* —
+   deciding to delegate, reading each report, each worker writing up. Structural, not
+   sloppy.
+5. *"Run the workers in parallel. What gets cheaper?"* — nothing. Faster, same calls.
+6. *"Give me a reason for a second agent that needs no measurement."* — permissions:
+   the agent that reads a stranger's text must not hold the tool that acts.
 
 ## Phase 2 — Mutate (8 min)
 
-### Mutation A — *"Add a `/ask/stream` endpoint that streams the answer."*
+### Mutation A — *"The researcher now reads web pages instead of a table."*
 
-Name the pieces before typing: `StreamingResponse`, the model's streaming call from week
-6, and — the interesting part — **what happens to the trace and the log line**, which
-currently happen after the answer is complete. There is no clean answer; watching them
-notice the problem is the point.
+Discussion first. Looking for: its tool results are now untrusted, so which tools may
+it hold, and what form must its report take. Then have them add `reads_untrusted` and
+run `violations`.
 
-### Mutation B — *"Traffic goes up ten times. What breaks first?"*
+### Mutation B — *"Add a third worker that checks the analyst's arithmetic."*
 
-Discussion. Looking for: the daily budget, then the per-process index being rebuilt on
-every restart, then the lack of per-caller rate limiting. A student who says "I would add
-caching" without saying what they would cache has not thought about it.
+Let them build it, then ask what it cost and how they would know it helped. The honest
+answer is another two or three calls per task and a number they have not measured. A
+student who says "it is more reliable" without a pass rate has not done the week.
 
 ## Phase 3 — Debug (7 min)
 
@@ -51,16 +40,14 @@ Seed one before they arrive.
 
 | Seed | Break | Probes |
 |---|---|---|
-| Easy | `/health` returns the wrong version | Reading a diff |
-| Medium | bind `127.0.0.1` in the Dockerfile | Works locally, dead in the container |
-| Medium | the budget records a refused spend | Only the third request over the limit shows it |
-| Hard | remove the redaction from one log call | Nothing fails. The key is in the logs. |
-| Hard | compare the key with `==` | Every test still passes. Do they know why it matters? |
-| Hard | add `continue-on-error: true` to the gate step | The push goes green with a failing gate |
-| Nasty | the eval gate compares `refusal_rate >=` instead of `<=` | The gate passes a system that refuses everything |
+| Easy | `report` returns the text even when the worker hit its cap | The orchestrator treats "Stopped after 6 steps" as an answer |
+| Medium | pass the user's question to the worker instead of the brief | Works on easy tasks. Do they notice the worker ignored the brief? |
+| Medium | remove the `try` around one parallel job | Fine until one worker fails, then every report is lost |
+| Hard | count a delegation only when the worker succeeds | The limit never triggers on a worker that keeps failing |
+| Nasty | give the orchestrator the `calculate` tool as well | Every test of the answer still passes. The analyst is never asked. |
 
-The **Nasty** one is the best of the course: a deploy gate that waves through the exact
-failure it exists to catch, and every test still green.
+The **Nasty** one is the lesson of the week in one line: the system still works, it is
+no longer the design anyone thinks it is, and only the per-agent call counts show it.
 
 ---
 
@@ -68,36 +55,29 @@ failure it exists to catch, and every test still green.
 
 | Phase | 5 | 3 | 1 |
 |---|---|---|---|
-| **Stranger** | Works from a cold read, first time | One small gap | Link dead, or commands do not run |
-| **Explain** | Traces a request end to end | Knows where to look | Cannot find one request |
-| **Mutate** | Spots the tracing problem in streaming | Builds the endpoint | Cannot see past the code |
-| **Debug** | Suspects the measurement | Finds it | Guesses |
-
-**A dead link is a fail regardless of the rest.**
+| **Explain** | Explains the handoff and its cost with their own numbers | Describes the code | Cannot say what crosses |
+| **Mutate** | Names the permission boundary unprompted | Builds the change | Adds agents with no way to judge them |
+| **Debug** | Goes to the delegations and the call counts | Finds it by reading code | Guesses |
+| **Report** | A recommendation with the measurement that would change it | Numbers, no condition | A preference |
 
 ---
 
 ## Retro (10 min)
 
-1. *"Which of the three projects would you show first, and why?"*
-2. *"What did you cut to get this deployed, and was it the right cut?"*
+1. *"Did the numbers say what you expected on Monday?"*
+2. *"What did your orchestrator leave out of its briefs before you fixed the prompt?"*
 3. *"What did I explain badly?"*
 
 ---
 
-## Instructor: this is the last build week
+## Instructor: framing week 12
 
-Say it plainly:
+Week 12 is Project 3 and the last build week. Say this:
 
-> **You are done building. Everything from here is about being hired.** Next week is
-> interviews — ten of them, recorded, scored. The week after is applications. The code
-> stops changing and the pressure goes up.
+> **Everything from here is about being hired.** Week 12 puts a system on the public
+> internet with tracing and evals, week 13 is interviews, week 14 is applications. The
+> code gets less interesting and the stakes get higher.
 
-Then, before they leave, check three things yourself and make a list:
-
-1. Both GitHub profiles have all three projects pinned
-2. Every README has a working link and commands that run
-3. Both live URLs are up
-
-Whatever is not true on that list is Monday's first hour. Week 12 is much less useful if
-the artifacts it points at are broken.
+Also worth flagging honestly: weeks 8–11 were the ones where a student could coast.
+Week 12 is not — there is a deployed artifact at the end of it, and either it is
+reachable or it is not.

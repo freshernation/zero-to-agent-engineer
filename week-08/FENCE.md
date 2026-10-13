@@ -18,7 +18,7 @@
 
 CrewAI, AutoGen (week 10) · LangGraph checkpointers and persistence (week 10) ·
 human-in-the-loop interrupts (week 10) · subgraphs (week 10) · embeddings and vector
-stores (week 9) · LangSmith (week 11) · `create_agent` — **you are porting your
+stores (week 9) · LangSmith (week 12) · `create_agent` — **you are porting your
 own, not calling the one-liner**
 
 ---

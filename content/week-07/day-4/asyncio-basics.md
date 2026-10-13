@@ -225,7 +225,7 @@ response = await client.messages.create(...)
 ```
 
 You do not need it this week — your loop is sequential by nature, since each call
-depends on the last. It matters in week 11, when your agent sits behind a web server and
+depends on the last. It matters in week 12, when your agent sits behind a web server and
 a synchronous call blocks an entire worker for the whole response.
 
 Know it exists. The shape barely changes.

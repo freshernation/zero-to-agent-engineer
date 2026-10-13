@@ -41,10 +41,12 @@ class TestJudge:
         client = FakeClient([text_reply(bad)])
         assert load("judge.py").judge(client, "q", "a", "r")["score"] == 0
 
-    def test_uses_temperature_zero(self, load):
+    def test_does_not_send_temperature(self, load):
         client = FakeClient([text_reply(GOOD_JUDGEMENT)])
         load("judge.py").judge(client, "q", "a", "r")
-        assert client.last_call.get("temperature") == 0
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )
 
     def test_mean_score(self, load):
         judgements = [{"score": 4}, {"score": 5}, {"score": 3}]

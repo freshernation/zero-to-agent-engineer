@@ -25,7 +25,7 @@ class TestSettings:
     def test_defaults(self, load):
         settings = load("config.py").load_settings(GOOD_ENV)
         assert settings.api_key == "sk-ant-abc123xyz"
-        assert settings.model == "claude-sonnet-4-5"
+        assert settings.model == "claude-sonnet-5-5"
         assert settings.environment == "development"
         assert settings.max_question_length == 500
         assert settings.request_timeout == 30
@@ -33,12 +33,12 @@ class TestSettings:
     def test_overrides(self, load):
         settings = load("config.py").load_settings({
             **GOOD_ENV,
-            "MODEL": "claude-opus-4-5",
+            "MODEL": "claude-opus-5-5",
             "ENVIRONMENT": "production",
             "MAX_QUESTION_LENGTH": "200",
             "REQUEST_TIMEOUT": "10",
         })
-        assert settings.model == "claude-opus-4-5"
+        assert settings.model == "claude-opus-5-5"
         assert settings.environment == "production"
         assert settings.max_question_length == 200
         assert settings.request_timeout == 10
@@ -87,7 +87,7 @@ class TestMasking:
             "The key is still in the output. This dict gets logged at startup "
             "and ends up in a log service your whole company can read."
         )
-        assert shown["model"] == "claude-sonnet-4-5", (
+        assert shown["model"] == "claude-sonnet-5-5", (
             "Everything except the key should still be there - that is what "
             "makes logging it useful."
         )

@@ -11,8 +11,8 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Streaming Messages**](https://docs.claude.com/en/docs/build-with-claude/streaming) | The event types and the full protocol |
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | The `stream` parameter |
+| [**Streaming Messages**](https://platform.claude.com/docs/en/build-with-claude/streaming) | The event types and the full protocol |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | The `stream` parameter |
 | [**anthropic-sdk-python — streaming helpers**](https://github.com/anthropics/anthropic-sdk-python#streaming-responses) | `text_stream` and `get_final_message()` |
 | [**`print()` (Python)**](https://docs.python.org/3.14/library/functions.html#print) | `end=` and `flush=` — week 1, still earning its keep |
 
@@ -39,7 +39,7 @@ there long enough to hit an HTTP timeout.
 
 ```python
 with client.messages.stream(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=1000,
     messages=messages,
 ) as stream:

@@ -37,8 +37,8 @@ class TestAsk:
 
     def test_passes_the_model(self, load):
         client = FakeClient([text_reply("ok")])
-        load("call.py").ask(client, "hi", model="claude-opus-4-5")
-        assert client.last_call["model"] == "claude-opus-4-5"
+        load("call.py").ask(client, "hi", model="claude-opus-5-5")
+        assert client.last_call["model"] == "claude-opus-5-5"
 
     def test_calls_the_model_once(self, load):
         client = FakeClient([text_reply("ok")])

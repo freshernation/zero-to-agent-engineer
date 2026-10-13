@@ -1,5 +1,5 @@
 # Settings   api_key: str
-#            model                 default "claude-sonnet-4-5"
+#            model                 default "claude-sonnet-5-5"
 #            environment           default "development"
 #            max_question_length   1-5000, default 500
 #            request_timeout       1-120, default 30

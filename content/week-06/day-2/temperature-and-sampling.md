@@ -11,24 +11,25 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | `temperature`, `top_p`, `stop_sequences` — and which models accept them |
-| [**Models overview**](https://docs.claude.com/en/docs/about-claude/models/overview) | Per-model parameter support |
-| [**Extended thinking**](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) | `effort`, which is what you tune now |
-| [**Reduce hallucinations**](https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | Why "deterministic" is not the same as "correct" |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | `temperature`, `top_p`, `stop_sequences` — and which models accept them |
+| [**Models overview**](https://platform.claude.com/docs/en/models/overview) | Per-model parameter support |
+| [**Extended thinking**](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) | `effort`, which is what you tune now |
+| [**Reduce hallucinations**](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | Why "deterministic" is not the same as "correct" |
 
 ---
 
 ## Read this before you write any code
 
-**On the current models — Claude Opus 5, Claude Sonnet 5 and the 4.7/4.8 family —
-`temperature`, `top_p` and `top_k` have been removed. Sending any of them returns a
-`400`.**
+**On the current models — Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 5.5 — you
+can no longer set `temperature`, `top_p` or `top_k`. Opus 5.5 rejects the parameters
+outright; Sonnet 5.5 and Haiku 5.5 reject any value other than the default. Either way
+the request returns a `400`.**
 
 They still work on Claude Opus 4.6, Claude Sonnet 4.6, and older models. So:
 
 - Plenty of tutorials, blog posts and course materials still show `temperature=0`. They
   are not wrong about the *concept*; they are out of date about the *parameter*.
-- If you copy `temperature=0` into a call to `claude-opus-5`, your request fails.
+- If you copy `temperature=0` into a call to `claude-opus-5-5`, your request fails.
 - The lever that replaced it is **`output_config.effort`**, covered at the end.
 
 Understanding sampling still matters — it is why a model gives different answers to the
@@ -125,7 +126,7 @@ Like temperature, `top_p` is removed on the current models.
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=500,
     stop_sequences=["\n\n", "END"],
     messages=[...],
@@ -152,18 +153,19 @@ On the current models, the parameter that trades cost against thoroughness is
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=16000,
     output_config={"effort": "low"},     # low | medium | high | xhigh | max
     messages=[...],
 )
 ```
 
-`high` is the default. Roughly:
+The default depends on the model: `medium` on Claude Opus 5.5 and Claude Haiku 5.5,
+`high` on Claude Sonnet 5.5. Set it explicitly rather than relying on it. Roughly:
 
 - **`low`** — simple tasks, classification, high-volume routes, subagents. Fewer, more
   consolidated steps and less preamble.
-- **`high`** — the default, and the sweet spot for most work.
+- **`medium` / `high`** — the defaults, and the sweet spot for most work.
 - **`xhigh` / `max`** — hard reasoning and long agentic tasks, where correctness matters
   more than the token bill.
 
@@ -198,7 +200,7 @@ regardless of which parameters exist:
 1. Why does the same prompt give different answers?
 2. Your classifier occasionally returns "Positive" instead of "positive". Is lowering
    the temperature the right fix?
-3. You copy `temperature=0` from a blog post into a `claude-opus-5` call. What happens?
+3. You copy `temperature=0` from a blog post into a `claude-opus-5-5` call. What happens?
 4. What is the difference between `stop_reason == "stop_sequence"` and
    `stop_reason == "max_tokens"`?
 
@@ -212,7 +214,7 @@ regardless of which parameters exist:
    values in the prompt, give few-shot examples that are consistently lowercase,
    normalise with `.lower()` when you parse, and validate with pydantic. Three of those
    four are in your control entirely.
-3. A `400` error. The parameter is removed on that model.
+3. A `400` error. That model does not accept the parameter.
 4. `"stop_sequence"` — the model produced one of your stop strings and the reply is
    complete as you defined it. `"max_tokens"` — the reply was **cut off** and is
    incomplete. Only one of those is a problem.
@@ -227,7 +229,7 @@ regardless of which parameters exist:
 - [ ] State that low temperature means consistent, not correct
 - [ ] Explain why `temperature=0` was never a determinism guarantee
 - [ ] Say what `top_p` is and why not to combine it with temperature
-- [ ] Know that these parameters are removed on current models and return a 400
+- [ ] Know that current models reject these parameters with a 400
 - [ ] Use `stop_sequences`, and check `stop_reason` afterwards
 - [ ] Use `output_config.effort` and pick a level for a given route
 - [ ] Design code and tests that tolerate variation

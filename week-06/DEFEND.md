@@ -14,7 +14,8 @@ preview of it.
 2. *"Walk me from `/note buy milk` to a `Note` object. Every step."* — prompt, call,
    extract the JSON substring, `json.loads`, `model_validate`, retry-or-return. Six
    stages; a strong answer names five.
-3. *"Why `temperature=0` for the note and not for the chat?"*
+3. *"Why can you not send `temperature=0` to make the note reliable, and what do you do
+   instead?"*
 4. *"Your `trim` drops turns in pairs. What goes wrong if it drops one at a time?"*
 5. *"A 20-turn conversation — how many times has the first message been sent?"* Twenty.
    If they say once, memory has not landed and week 7 will hurt.

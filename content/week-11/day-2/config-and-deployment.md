@@ -29,7 +29,7 @@ and the only difference is the environment it is given.**
 ```python
 class Settings(BaseModel):
     api_key: str
-    model: str = "claude-opus-5"
+    model: str = "claude-opus-5-5"
     environment: str = "development"
     max_question_length: int = 500
     log_level: str = "INFO"
@@ -44,7 +44,7 @@ def load_settings() -> Settings:
         )
     return Settings(
         api_key=api_key,
-        model=os.getenv("MODEL", "claude-opus-5"),
+        model=os.getenv("MODEL", "claude-opus-5-5"),
         environment=os.getenv("ENVIRONMENT", "development"),
         max_question_length=int(os.getenv("MAX_QUESTION_LENGTH", "500")),
     )

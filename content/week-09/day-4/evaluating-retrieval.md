@@ -11,8 +11,8 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Create strong empirical evaluations**](https://docs.claude.com/en/docs/test-and-evaluate/develop-tests) | How to build an eval set |
-| [**Define your success criteria**](https://docs.claude.com/en/docs/test-and-evaluate/define-success) | Choosing what to measure |
+| [**Create strong empirical evaluations**](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | How to build an eval set |
+| [**Define your success criteria**](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | Choosing what to measure |
 | [**pytest — parametrize**](https://docs.pytest.org/en/stable/how-to/parametrize.html) | Running a golden set as tests |
 | [**`statistics` (Python)**](https://docs.python.org/3.14/library/statistics.html) | `mean`, for summarising results |
 

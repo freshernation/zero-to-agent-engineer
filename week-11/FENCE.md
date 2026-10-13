@@ -11,11 +11,11 @@
 - Structured logging with `logging` and `json`
 - A request id, and a tracer you write yourself
 - Your own eval gate — golden set, thresholds, a pass/fail
-- A `Dockerfile` and a platform config file
+- A `Dockerfile`
 
 ## Not yet
 
-Databases and ORMs · authentication beyond a shared API key · rate limiting middleware ·
+Databases and ORMs · authentication of any kind · rate limiting middleware ·
 Kubernetes, Terraform, autoscaling · CI/CD pipelines beyond one script · a frontend
 beyond a single HTML page · OpenTelemetry — **you write the tracer**, then read about
 LangSmith and recognise it

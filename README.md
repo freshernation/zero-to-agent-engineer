@@ -72,7 +72,7 @@ Tests are the grader. A green test means "this behaves correctly", not "this is 
 code" — the **editor** (`ai/editor.md`) judges the second thing, and your instructor
 judges both on Friday.
 
-**1,497 tests** across the course. Every one of them fails before you write anything.
+**1,500 tests** across the course. Every one of them fails before you write anything.
 
 ---
 

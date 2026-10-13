@@ -10,9 +10,9 @@
 
 | Page | What it gives you |
 |---|---|
-| [**How to implement tool use**](https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use) | The loop, from the source |
+| [**How to implement tool use**](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) | The loop, from the source |
 | [**Building effective agents**](https://www.anthropic.com/engineering/building-effective-agents) | When an agent is the right answer, and when it is not |
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | `stop_reason` values |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | `stop_reason` values |
 | [**ReAct: Synergizing Reasoning and Acting**](https://arxiv.org/abs/2210.03629) | The 2022 paper this pattern comes from |
 
 > Read the "Building effective agents" post properly. Its central argument — that most

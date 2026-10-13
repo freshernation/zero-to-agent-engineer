@@ -11,10 +11,10 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Context windows**](https://docs.claude.com/en/docs/build-with-claude/context-windows) | How the window is consumed |
-| [**Token counting**](https://docs.claude.com/en/docs/build-with-claude/token-counting) | The `count_tokens` endpoint |
-| [**Models overview**](https://docs.claude.com/en/docs/about-claude/models/overview) | Window and output limits per model |
-| [**Pricing**](https://docs.claude.com/en/docs/about-claude/pricing) | Current rates |
+| [**Context windows**](https://platform.claude.com/docs/en/build-with-claude/context-windows) | How the window is consumed |
+| [**Token counting**](https://platform.claude.com/docs/en/build-with-claude/token-counting) | The `count_tokens` endpoint |
+| [**Models overview**](https://platform.claude.com/docs/en/models/overview) | Window and output limits per model |
+| [**Pricing**](https://platform.claude.com/docs/en/about-claude/pricing) | Current rates |
 
 ---
 
@@ -47,7 +47,7 @@ Use the ¾ rule for planning. Never use it for anything that matters.
 
 ```python
 count = client.messages.count_tokens(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     system="You are a helpful assistant.",
     messages=[{"role": "user", "content": long_text}],
 )
@@ -74,9 +74,9 @@ that comes back.
 
 | Model | Context window |
 |---|---|
-| Claude Opus 5 | 1M tokens |
-| Claude Sonnet 5 | 1M tokens |
-| Claude Haiku 4.5 | 200K tokens |
+| Claude Opus 5.5 | 1M tokens |
+| Claude Sonnet 5.5 | 1M tokens |
+| Claude Haiku 5.5 | 1M tokens |
 
 Everything competes for that space: the system prompt, every message in the history, and
 the room left for the reply.
@@ -97,13 +97,13 @@ carrying.
 
 ## Output limits are separate
 
-The context window is not the same as the **maximum output**. Claude Opus 5 and Sonnet 5
+The context window is not the same as the **maximum output**. Claude Opus 5.5 and Sonnet 5.5
 can produce up to 128K tokens in one response — but the SDK requires **streaming** for
 values that large, because a non-streaming request would hit an HTTP timeout waiting.
 
 ```python
 with client.messages.stream(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=64000,
     messages=[...],
 ) as stream:
@@ -122,8 +122,8 @@ print(response.usage.input_tokens)      # what you sent
 print(response.usage.output_tokens)     # what came back
 ```
 
-Two numbers, billed at different rates. On Claude Opus 5 that is **$5 per million input
-tokens and $25 per million output**.
+Two numbers, billed at different rates. On Claude Opus 5.5 that is **$4 per million input
+tokens and $20 per million output**.
 
 **Output costs five times input.** That ratio shapes design decisions more than anything
 else in this week:
@@ -143,9 +143,9 @@ tenth of the price. It is the single biggest cost lever in production LLM work.
 
 ```python
 PRICES = {
-    "claude-opus-5":   (5.00, 25.00),
-    "claude-sonnet-5": (2.00, 10.00),
-    "claude-haiku-4-5": (1.00, 5.00),
+    "claude-opus-5-5":   (4.00, 20.00),
+    "claude-sonnet-5-5": (2.00, 10.00),
+    "claude-haiku-5-5":  (0.10, 0.50),
 }
 
 def cost(response) -> float:
@@ -185,10 +185,10 @@ bill.
 ## Check yourself
 
 1. Roughly how many tokens is a 2,000-word document?
-2. You have a 190,000-token document and Claude Haiku 4.5 with a 200K window. You set
+2. You have a 990,000-token document and a model with a 1M window. You set
    `max_tokens=16000`. What happens?
 3. Which costs more: sending 10,000 tokens and receiving 100, or sending 100 and
-   receiving 2,000? (Claude Opus 5 rates.)
+   receiving 2,000? (Claude Opus 5.5 rates.)
 4. Why can you not use `tiktoken` to count these?
 
 <details>
@@ -196,12 +196,12 @@ bill.
 
 1. About **2,600** tokens, using the ¾ rule. For anything that matters, call
    `count_tokens`.
-2. It **fails**. 190,000 input + 16,000 requested output exceeds the 200K window. The
+2. It **fails**. 990,000 input + 16,000 requested output exceeds the 1M window. The
    window covers input *and* output together — a point people miss until it bites.
 3. ```
-   10,000 in  = $0.050   |    100 in   = $0.0005
-      100 out = $0.0025  |  2,000 out  = $0.050
-      total   = $0.0525  |     total   = $0.0505
+   10,000 in  = $0.040   |    100 in   = $0.0004
+      100 out = $0.0020  |  2,000 out  = $0.040
+      total   = $0.0420  |     total   = $0.0404
    ```
    Almost identical — which is the point. **A hundred times fewer input tokens cost
    about the same as twenty times fewer output tokens**, because output is five times

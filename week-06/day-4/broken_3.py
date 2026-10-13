@@ -18,7 +18,7 @@ reply = None
 for attempt in range(3):
     try:
         response = client.messages.create(
-            model="claude-sonnet-4-5",
+            model="claude-sonnet-5-5",
             max_tokens=100,
             messages=[{"role": "user", "content": "hi"}],
         )

@@ -6,7 +6,7 @@
   <text x="189" y="68" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e3a8a">what you send</text>
   <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">
     <text x="40" y="92"  fill="#0f172a">client.messages.create(</text>
-    <text x="40" y="110" fill="#0f172a">    model="claude-opus-5",</text>
+    <text x="40" y="110" fill="#0f172a">    model="claude-opus-5-5",</text>
     <text x="40" y="128" fill="#dc2626">    max_tokens=1000,</text>
     <text x="40" y="146" fill="#0f172a">    system="You are terse.",</text>
     <text x="40" y="164" fill="#0f172a">    messages=[</text>

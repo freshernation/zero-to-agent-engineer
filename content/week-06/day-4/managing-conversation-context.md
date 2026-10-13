@@ -11,10 +11,10 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Context windows**](https://docs.claude.com/en/docs/build-with-claude/context-windows) | What fills the window and how fast |
-| [**Token counting**](https://docs.claude.com/en/docs/build-with-claude/token-counting) | Measuring before you trim |
-| [**Prompt caching**](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) | The other half of the cost answer |
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | The rules a `messages` list must satisfy |
+| [**Context windows**](https://platform.claude.com/docs/en/build-with-claude/context-windows) | What fills the window and how fast |
+| [**Token counting**](https://platform.claude.com/docs/en/build-with-claude/token-counting) | Measuring before you trim |
+| [**Prompt caching**](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) | The other half of the cost answer |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | The rules a `messages` list must satisfy |
 
 ---
 

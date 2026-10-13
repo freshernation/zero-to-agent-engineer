@@ -16,7 +16,8 @@
 | [**Prebuilt `ToolNode`**](https://langchain-ai.github.io/langgraph/reference/agents/) | The node you are choosing to write yourself |
 | [**LangChain — Tools**](https://python.langchain.com/docs/concepts/tools/) | `@tool` and `.invoke()` |
 
-> `langgraph.prebuilt.create_react_agent` builds a working agent in four lines. **It is
+> `langchain.agents.create_agent` builds a working agent in four lines (older tutorials
+> call it `langgraph.prebuilt.create_react_agent`, its name before LangGraph 1.0). **It is
 > fenced off this week**, and the reason is not purity: a comparison between *your loop*
 > and *a function you called* teaches nothing. You will use it in your career, knowing
 > exactly what it does — which is a completely different thing.
@@ -114,7 +115,7 @@ tools, truncation, repeat detection. LangGraph has opinions about *flow*, not ab
 *safety*.
 
 > `langgraph.prebuilt.ToolNode` does this node for you. It is fenced this week for the
-> same reason as `create_react_agent` — write it once, then use theirs knowing what it
+> same reason as `create_agent` — write it once, then use theirs knowing what it
 > handles and what it does not.
 
 ---

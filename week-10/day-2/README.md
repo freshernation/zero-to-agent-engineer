@@ -38,6 +38,11 @@ there is nothing to pass.
 `interrupt_after` does the same on the other side of a node, for when you want to review
 what it produced rather than approve what it is about to do.
 
+> LangGraph also has an `interrupt()` function that you call from inside a node, and its
+> documentation now recommends that one for approval steps. `interrupt_before` is the
+> simpler mechanism and shows the same idea: save, stop, resume. Expect to meet
+> `interrupt()` in production code.
+
 ### Why this needs a checkpointer
 
 Without one there is nothing to come back to. A pause without persistence is a blocked

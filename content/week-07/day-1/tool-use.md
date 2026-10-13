@@ -11,9 +11,9 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Tool use overview**](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview) | The whole mechanism |
-| [**How to implement tool use**](https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use) | Schemas, results, the loop |
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | The `tools` parameter and `tool_use` blocks |
+| [**Tool use overview**](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) | The whole mechanism |
+| [**How to implement tool use**](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) | Schemas, results, the loop |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | The `tools` parameter and `tool_use` blocks |
 | [**JSON Schema — a specification**](https://json-schema.org/understanding-json-schema/) | The schema language itself |
 | [**`json` (Python)**](https://docs.python.org/3.14/library/json.html) | Parsing tool inputs — always parse, never string-match |
 
@@ -86,7 +86,7 @@ descriptions are prompts, and they deserve the same iteration.
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=1000,
     tools=[CALCULATE, GET_WEATHER],
     messages=[{"role": "user", "content": "What is 17 * 23?"}],
@@ -253,7 +253,7 @@ You will build this properly on Wednesday. Start with the instinct today.
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5", max_tokens=1000,
+    model="claude-opus-5-5", max_tokens=1000,
     tools=[CALCULATE],
     messages=[{"role": "user", "content": "What is 17 * 23?"}],
 )

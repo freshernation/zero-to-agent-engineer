@@ -9,7 +9,7 @@ only thing you build.
 
 ## Read / watch first
 
-- [ ] [**The agent loop / ReAct pattern**](../../content/week-07/day-2/agent-loop.md) — 25 min · docs: [Implement tool use](https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use)
+- [ ] [**The agent loop / ReAct pattern**](../../content/week-07/day-2/agent-loop.md) — 25 min · docs: [Implement tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools)
 
 ---
 

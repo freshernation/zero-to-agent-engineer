@@ -166,8 +166,8 @@ class TestNoShortcut:
     def test_did_not_call_the_prebuilt_agent(self, load, source):
         load("agent_graph.py").build_agent  # nothing to check until it exists
         code = source("agent_graph.py", code_only=True)
-        assert "create_react_agent" not in code, (
-            "create_react_agent builds this in four lines, and it is fenced off "
+        assert "create_react_agent" not in code and "create_agent(" not in code, (
+            "create_agent builds this in four lines, and it is fenced off "
             "for a reason: comparing your loop to a function you called teaches "
             "nothing. Wire the graph yourself out of the same pieces."
         )

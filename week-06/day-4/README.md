@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] [**Streaming responses**](../../content/week-06/day-4/streaming-responses.md) — 20 min · docs: [Streaming Messages](https://docs.claude.com/en/docs/build-with-claude/streaming)
-- [ ] [**Managing conversation context**](../../content/week-06/day-4/managing-conversation-context.md) — 15 min · docs: [Context windows](https://docs.claude.com/en/docs/build-with-claude/context-windows)
+- [ ] [**Streaming responses**](../../content/week-06/day-4/streaming-responses.md) — 20 min · docs: [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming)
+- [ ] [**Managing conversation context**](../../content/week-06/day-4/managing-conversation-context.md) — 15 min · docs: [Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows)
 
 ---
 

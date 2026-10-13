@@ -5,8 +5,8 @@
 **Everything from Weeks 1–5**, plus:
 
 - `anthropic` — `Anthropic()`, `client.messages.create(...)`, `client.messages.stream(...)`
-- Request fields — `model`, `max_tokens`, `system`, `messages`, `temperature`,
-  `stop_sequences`
+- Request fields — `model`, `max_tokens`, `system`, `messages`, `stop_sequences`,
+  `output_config` (for `effort`)
 - Response fields — `.content`, block `.type` and `.text`, `.stop_reason`,
   `.usage.input_tokens`, `.usage.output_tokens`, `.model`
 - `anthropic.APIError`, `anthropic.RateLimitError`, `anthropic.APIStatusError`

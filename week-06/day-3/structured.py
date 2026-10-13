@@ -11,4 +11,4 @@
 # attempts_taken(client, text, model_class, attempts=3)
 #     how many calls it took
 #
-# Use temperature=0. The retry prompt must not be identical to the first.
+# Do not send temperature - current models reject it. The retry prompt must not be identical to the first.

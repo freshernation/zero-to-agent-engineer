@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] [**The Anthropic Messages API**](../../content/week-06/day-1/anthropic-messages-api.md) — 25 min · docs: [Messages API reference](https://docs.claude.com/en/api/messages)
-- [ ] [**Tokens and context windows**](../../content/week-06/day-1/tokens-and-context-windows.md) — 15 min · docs: [Context windows](https://docs.claude.com/en/docs/build-with-claude/context-windows)
+- [ ] [**The Anthropic Messages API**](../../content/week-06/day-1/anthropic-messages-api.md) — 25 min · docs: [Messages API reference](https://platform.claude.com/docs/en/api/messages)
+- [ ] [**Tokens and context windows**](../../content/week-06/day-1/tokens-and-context-windows.md) — 15 min · docs: [Context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows)
 
 ---
 
@@ -18,7 +18,7 @@
 
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1000,
     messages=[{"role": "user", "content": "What is a token?"}],
 )
@@ -118,7 +118,7 @@ Every function takes `client` first. The tests pass in a `FakeClient`.
 
 | Function | Returns |
 |---|---|
-| `ask(client, question, model="claude-sonnet-4-5", max_tokens=1000)` | the reply text |
+| `ask(client, question, model="claude-sonnet-5-5", max_tokens=1000)` | the reply text |
 | `extract_text(response)` | every text block joined, ignoring any other kind |
 | `was_truncated(response)` | `True` if `stop_reason` is `max_tokens` |
 | `ask_safely(client, question, max_tokens=1000)` | the reply, or `None` if it was truncated |

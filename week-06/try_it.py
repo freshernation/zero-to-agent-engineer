@@ -24,7 +24,7 @@ def main():
 
     client = anthropic.Anthropic()
     response = client.messages.create(
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-5-5",
         max_tokens=200,
         system="You are brief. Two sentences at most.",
         messages=[{"role": "user", "content": "What is a token, in plain English?"}],

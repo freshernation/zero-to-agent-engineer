@@ -11,14 +11,14 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Messages API reference**](https://docs.claude.com/en/api/messages) | Every request and response field |
-| [**Get started**](https://docs.claude.com/en/docs/get-started) | Your first call, end to end |
-| [**Models overview**](https://docs.claude.com/en/docs/about-claude/models/overview) | Which models exist, and their limits |
-| [**Errors**](https://docs.claude.com/en/api/errors) | The status codes and exception types |
+| [**Messages API reference**](https://platform.claude.com/docs/en/api/messages) | Every request and response field |
+| [**Get started**](https://platform.claude.com/docs/en/get-started) | Your first call, end to end |
+| [**Models overview**](https://platform.claude.com/docs/en/models/overview) | Which models exist, and their limits |
+| [**Errors**](https://platform.claude.com/docs/en/api/errors) | The status codes and exception types |
 | [**anthropic-sdk-python**](https://github.com/anthropics/anthropic-sdk-python) | The library itself |
 
 > The Anthropic API is not part of Python, so the authority here is
-> **docs.claude.com**. Everything you learned in week 5 still applies underneath — this
+> **platform.claude.com/docs**. Everything you learned in week 5 still applies underneath — this
 > is an HTTP API with a Python SDK wrapped around it, and when something goes wrong you
 > will be reading status codes again.
 
@@ -32,7 +32,7 @@ import anthropic
 client = anthropic.Anthropic()      # reads ANTHROPIC_API_KEY from the environment
 
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=1000,
     messages=[{"role": "user", "content": "What is a token?"}],
 )
@@ -68,12 +68,14 @@ again costs more than the tokens you saved.
 
 | Model | ID | Context | Input $/1M | Output $/1M |
 |---|---|---|---|---|
-| Claude Opus 5 | `claude-opus-5` | 1M | $5.00 | $25.00 |
-| Claude Sonnet 5 | `claude-sonnet-5` | 1M | $2.00 | $10.00 |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | 200K | $1.00 | $5.00 |
+| Claude Opus 5.5 | `claude-opus-5-5` | 1M | $4.00 | $20.00 |
+| Claude Sonnet 5.5 | `claude-sonnet-5-5` | 1M | $2.00 | $10.00 |
+| Claude Haiku 5.5 | `claude-haiku-5-5` | 1M | $0.10 | $0.50 |
+
+Haiku's price is for prompts up to 100K tokens; beyond that it is $0.50 and $2.50.
 
 Use the exact ID strings — they are complete as written. Do **not** append a date suffix
-like `claude-opus-5-20260101`; that is a pattern from older model names and it will fail.
+like `claude-opus-5-5-20260101`; that is a pattern from older model names and it will fail.
 
 Default to **Opus** while you are learning: the difference in output quality is larger
 than the difference in price at the volumes you are working with. Reach for Sonnet on
@@ -258,7 +260,7 @@ It is also week 3's scope lesson — *a function should take what it needs as pa
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=10,
     messages=[{"role": "user", "content": "Explain HTTP in detail."}],
 )

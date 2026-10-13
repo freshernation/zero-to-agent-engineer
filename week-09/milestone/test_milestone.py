@@ -83,10 +83,12 @@ class TestAnswer:
         assert "cite" in system_prompt or "[" in system_prompt
         assert "only" in system_prompt
 
-    def test_uses_temperature_zero(self, system):
+    def test_does_not_send_temperature(self, system):
         client = FakeClient([text_reply("ok")])
         system.answer(client, "when must expense claims be submitted")
-        assert client.last_call.get("temperature") == 0
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )
 
 
 class TestHarness:

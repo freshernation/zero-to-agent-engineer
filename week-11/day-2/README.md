@@ -21,7 +21,7 @@ Week 5's rule, now load-bearing. The same image runs in development and producti
 ```python
 class Settings(BaseModel):
     api_key: str
-    model: str = "claude-sonnet-4-5"
+    model: str = "claude-sonnet-5-5"
     environment: str = "development"
     max_question_length: int = 500
 ```
@@ -101,7 +101,7 @@ The names, no values:
 
 ```
 ANTHROPIC_API_KEY=
-MODEL=claude-sonnet-4-5
+MODEL=claude-sonnet-5-5
 ENVIRONMENT=development
 ```
 
@@ -120,7 +120,7 @@ pytest week-11/day-2 -v
 
 | Thing | Does |
 |---|---|
-| `Settings` | `api_key: str`, `model` (default `claude-sonnet-4-5`), `environment` (default `development`), `max_question_length` (1–5000, default 500), `request_timeout` (1–120, default 30) |
+| `Settings` | `api_key: str`, `model` (default `claude-sonnet-5-5`), `environment` (default `development`), `max_question_length` (1–5000, default 500), `request_timeout` (1–120, default 30) |
 | `load_settings(env=None)` | build from a mapping, defaulting to the real environment |
 | `mask(secret)` | `"sk-ant-abc123xyz"` → `"sk-a...3xyz"`; anything under 8 characters → `"****"` |
 | `redacted(settings)` | the settings as a dict, with `api_key` masked |

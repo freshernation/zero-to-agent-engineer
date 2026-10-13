@@ -132,11 +132,13 @@ class TestExtractOne:
             "only validation says no."
         )
 
-    def test_uses_temperature_zero(self, load):
+    def test_does_not_send_temperature(self, load):
         Contact = load("models.py").Contact
         client = FakeClient([text_reply(GOOD)])
         load("structured.py").extract_one(client, "x", Contact)
-        assert client.last_call.get("temperature") == 0
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )
 
 
 class TestExtractWithRetry:

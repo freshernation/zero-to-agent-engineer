@@ -56,5 +56,5 @@ would be wrong within a year. What does not change is what a deployable service 
 configuration from the environment, a health check, a documented start command, and no
 secrets in the repository.
 
-Everything this week builds those. The `Dockerfile` and `render.yaml` you write are a
-worked example, and your instructor will pick the platform.
+Everything this week builds those. The `Dockerfile` you write is a worked
+example, and your instructor will pick the platform.

@@ -11,7 +11,7 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Handling tool errors**](https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use#handling-tool-errors) | `is_error` and what to send back |
+| [**Handling tool errors**](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) | `is_error` and what to send back |
 | [**Building effective agents**](https://www.anthropic.com/engineering/building-effective-agents) | The guardrails section |
 | [**`json.dumps` — `sort_keys`**](https://docs.python.org/3.14/library/json.html#json.dumps) | Building a stable call signature |
 | [**Built-in Exceptions**](https://docs.python.org/3.14/library/exceptions.html) | `KeyError`, `TypeError` — the two you will catch |

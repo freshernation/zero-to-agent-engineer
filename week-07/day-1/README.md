@@ -10,7 +10,7 @@ you put that in a `while`.
 
 ## Read / watch first
 
-- [ ] [**Tool use / function calling**](../../content/week-07/day-1/tool-use.md) — 30 min · docs: [Tool use overview](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview)
+- [ ] [**Tool use / function calling**](../../content/week-07/day-1/tool-use.md) — 30 min · docs: [Tool use overview](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)
 
 ---
 

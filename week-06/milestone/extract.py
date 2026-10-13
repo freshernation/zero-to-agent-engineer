@@ -4,4 +4,4 @@
 # build_note_system()                    system prompt naming every field
 # extract_note(client, text, attempts=2) a validated Note, or None
 #
-# Retry once, telling the model what was wrong. temperature=0.
+# Retry once, telling the model what was wrong. Do not send temperature.

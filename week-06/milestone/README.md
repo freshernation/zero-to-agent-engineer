@@ -49,7 +49,7 @@ is — the fake one by default, the real one if a key is present.
 | `build_note_system()` | a system prompt naming every field |
 | `extract_note(client, text, attempts=2)` | a validated `Note`, or `None` |
 
-Retry once, telling the model what was wrong. `temperature=0`.
+Retry once, telling the model what was wrong. Do not send `temperature`.
 
 ## `assistant.py`
 
@@ -116,7 +116,7 @@ immediately.
 - [ ] `chat.py` and `extract.py` contain no `print()` and no `input()`
 - [ ] `assistant.py` contains no `anthropic` import except where it builds the client
 - [ ] Every model call has a `max_tokens`
-- [ ] Anything parsed uses `temperature=0`
+- [ ] Anything parsed is validated, and no call sends `temperature`
 - [ ] No key anywhere in the source
 - [ ] `/quit` on a fresh session prints `$0.000000`, not a crash
 

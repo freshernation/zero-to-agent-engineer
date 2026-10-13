@@ -12,7 +12,7 @@ anything external, and it is why your week-7 agent will be testable at all.
 
     client = FakeClient([text_reply("Hello there")])
     response = client.messages.create(
-        model="claude-sonnet-4-5", max_tokens=100,
+        model="claude-sonnet-5-5", max_tokens=100,
         messages=[{"role": "user", "content": "Hi"}],
     )
     response.content[0].text        # "Hello there"
@@ -62,7 +62,7 @@ class Message:
     """What messages.create() hands back."""
 
     def __init__(self, content, stop_reason="end_turn", usage=None,
-                 model="claude-sonnet-4-5"):
+                 model="claude-sonnet-5-5"):
         self.content = content
         self.stop_reason = stop_reason
         self.usage = usage or Usage(10, 20)

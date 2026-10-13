@@ -14,7 +14,7 @@ def run(client, question, max_iterations=3):
 
     for step in range(max_iterations):
         response = client.messages.create(
-            model="claude-sonnet-4-5",
+            model="claude-sonnet-5-5",
             max_tokens=1000,
             tools=all_schemas(),
             messages=messages,

@@ -11,7 +11,7 @@ code can rely on.
 
 ## Read / watch first
 
-- [ ] [**Structured output from LLMs**](../../content/week-06/day-3/structured-output.md) — 25 min · docs: [Structured outputs](https://docs.claude.com/en/docs/build-with-claude/structured-outputs)
+- [ ] [**Structured output from LLMs**](../../content/week-06/day-3/structured-output.md) — 25 min · docs: [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
 ---
 
@@ -93,9 +93,11 @@ return None
 Feeding the error back is the whole trick. A model that gets told *"`price` must be a
 number, you sent `'twelve dollars'`"* usually fixes it on the second go.
 
-### Use `temperature=0`
+### Do not reach for `temperature`
 
-Anything you are going to parse wants the boring answer. Creativity is for prose.
+Older tutorials set `temperature=0` on anything parsed. The current models reject the
+parameter. What makes parsed output reliable is the prompt, the validation and the retry
+you have just written.
 
 ### The honest limits
 

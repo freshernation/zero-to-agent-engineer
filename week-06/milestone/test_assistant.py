@@ -138,10 +138,12 @@ class TestExtractNote:
         client = FakeClient([text_reply("nope")] * 2)
         assert load("extract.py").extract_note(client, "x", attempts=2) is None
 
-    def test_uses_temperature_zero(self, load):
+    def test_does_not_send_temperature(self, load):
         client = FakeClient([text_reply(NOTE_JSON)])
         load("extract.py").extract_note(client, "x")
-        assert client.last_call.get("temperature") == 0
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )
 
 
 class TestAssistantCli:

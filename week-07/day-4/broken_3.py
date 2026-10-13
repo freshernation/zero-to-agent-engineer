@@ -22,7 +22,7 @@ client = FakeClient([
 messages = [{"role": "user", "content": "two things"}]
 
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1000,
     tools=all_schemas(),
     messages=messages,
@@ -41,7 +41,7 @@ for block in tool_uses(response):
 messages.append({"role": "user", "content": results})
 
 client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-5-5",
     max_tokens=1000,
     tools=all_schemas(),
     messages=messages,

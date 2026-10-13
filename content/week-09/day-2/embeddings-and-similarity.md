@@ -11,7 +11,7 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Embeddings — Anthropic docs**](https://docs.claude.com/en/docs/build-with-claude/embeddings) | What an embedding is and where to get one |
+| [**Embeddings — Anthropic docs**](https://platform.claude.com/docs/en/build-with-claude/embeddings) | What an embedding is and where to get one |
 | [**`math` (Python)**](https://docs.python.org/3.14/library/math.html) | `sqrt` and `log`, which TF-IDF and cosine need |
 | [**`collections.Counter`**](https://docs.python.org/3.14/library/collections.html#collections.Counter) | Counting words — the counting pattern from week 2, built in |
 | [**LangChain — vector stores**](https://python.langchain.com/docs/concepts/vectorstores/) | The interface every real store implements |

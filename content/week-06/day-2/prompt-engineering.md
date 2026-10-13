@@ -11,11 +11,11 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Prompt engineering overview**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview) | The whole guide |
-| [**Be clear and direct**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct) | The single highest-return technique |
-| [**Use examples (multishot)**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/multishot-prompting) | Few-shot prompting |
-| [**Use XML tags**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) | Fencing data away from instructions |
-| [**System prompts**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/system-prompts) | What belongs in `system` |
+| [**Prompt engineering overview**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) | The whole guide |
+| [**Be clear and direct**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#be-clear-and-direct) | The single highest-return technique |
+| [**Use examples (multishot)**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#use-examples-effectively) | Few-shot prompting |
+| [**Use XML tags**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#structure-prompts-with-xml-tags) | Fencing data away from instructions |
+| [**System prompts**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role) | What belongs in `system` |
 
 ---
 
@@ -23,7 +23,7 @@
 
 ```python
 client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=500,
     system="You are a terse assistant. Answer in one sentence. Never apologise.",
     messages=[{"role": "user", "content": "What is HTTP?"}],
@@ -179,9 +179,9 @@ answer inside <answer> tags.
 Then extract only the `<answer>` part. You pay for the thinking tokens and you get a
 noticeably better answer on anything non-trivial.
 
-> Current Claude models have this built in as **extended thinking** — you set
-> `thinking={"type": "adaptive"}` rather than asking in prose, and the reasoning comes
-> back as separate `thinking` blocks. It is behind this week's fence; know that it exists
+> Current Claude models have this built in as **adaptive thinking**, and it is on by
+> default — you do not ask in prose, and the reasoning comes back as separate
+> `thinking` blocks. It is behind this week's fence; know that it exists
 > and that the prose version is the older way of getting the same effect.
 
 ---

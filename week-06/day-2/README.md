@@ -7,8 +7,8 @@
 
 ## Read / watch first
 
-- [ ] [**Prompt engineering fundamentals**](../../content/week-06/day-2/prompt-engineering.md) — 25 min · docs: [Prompt engineering overview](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview)
-- [ ] [**Temperature and sampling**](../../content/week-06/day-2/temperature-and-sampling.md) — 15 min · docs: [Messages API reference](https://docs.claude.com/en/api/messages)
+- [ ] [**Prompt engineering fundamentals**](../../content/week-06/day-2/prompt-engineering.md) — 25 min · docs: [Prompt engineering overview](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)
+- [ ] [**Temperature and sampling**](../../content/week-06/day-2/temperature-and-sampling.md) — 15 min · docs: [Messages API reference](https://platform.claude.com/docs/en/api/messages)
 
 ---
 
@@ -88,19 +88,29 @@ This is **prompt injection** in miniature, and it is a real security topic — y
 meet it properly in week 11, but the habit starts today. Never paste untrusted text
 straight into a prompt without a fence around it.
 
-### `temperature`
+### `temperature`, and what replaced it
+
+`temperature` sets how much randomness there is in which token gets picked next. Low
+gives the boring, most-likely answer; high gives variety. You will be asked about it in
+interviews and you will meet it in every other LLM API.
+
+**You cannot set it on the current Claude models.** A request that sends
+`temperature=0` comes back as a `400`. Even where it worked, it was never a guarantee of
+identical output.
+
+So what makes an answer you are going to parse reliable is the prompt, a check on what
+came back, and a retry — which is tomorrow.
+
+### `effort`
 
 ```python
-temperature=0.0     # as close to deterministic as it gets. Same-ish answer each time.
-temperature=1.0     # the default. More variety.
+output_config={"effort": "low"}      # low | medium | high | xhigh | max
 ```
 
-**Low for anything you will parse.** Classification, extraction, structured output —
-you want the boring, most-likely answer. **Higher for anything you want variety in** —
-brainstorming, drafting, alternatives.
-
-`temperature=0` is not a guarantee of identical output. It is much more consistent, and
-that is all it promises.
+The setting you do have. It controls how much work the model puts in before it answers,
+and so what the answer costs. **Low for simple, high-volume jobs** — classification,
+short extraction. **High for anything that needs reasoning.** It is not randomness by
+another name: a low-effort answer is quicker and cheaper, not more predictable.
 
 ### `stop_sequences`
 
@@ -154,8 +164,8 @@ role, both rules each on their own line starting with `- `, and the format.
 
 | Function | Sends |
 |---|---|
-| `precise(client, prompt)` | `temperature=0` |
-| `creative(client, prompt)` | `temperature=1.0` |
+| `quick(client, prompt)` | `output_config={"effort": "low"}` |
+| `thorough(client, prompt)` | `output_config={"effort": "high"}` |
 | `one_line(client, prompt)` | `stop_sequences=["\n"]` |
 | `with_system(client, system, prompt)` | the system prompt in the `system` field |
 
@@ -168,7 +178,7 @@ All four return the reply text. The tests check what you sent, not what came bac
 | `build_classifier_system(categories)` | a system prompt naming the allowed answers |
 | `classify(client, text, categories)` | the category, or `"unknown"` if the model answered something not on the list |
 
-`classify` must use `temperature=0` and must not trust the reply — a model asked for one
+`classify` must not send `temperature` and must not trust the reply — a model asked for one
 of three words will occasionally return a fourth, and `"unknown"` is a far better
 outcome than a category nobody expected.
 

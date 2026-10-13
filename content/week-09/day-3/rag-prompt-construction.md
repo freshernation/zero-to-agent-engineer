@@ -11,9 +11,9 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Reduce hallucinations**](https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | Grounding, and telling it to say "I don't know" |
-| [**Use XML tags**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags) | Fencing the retrieved context |
-| [**Long context tips**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/long-context-tips) | Where to put documents in a long prompt |
+| [**Reduce hallucinations**](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | Grounding, and telling it to say "I don't know" |
+| [**Use XML tags**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#structure-prompts-with-xml-tags) | Fencing the retrieved context |
+| [**Long context tips**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#long-context-prompting) | Where to put documents in a long prompt |
 | [**Contextual retrieval**](https://www.anthropic.com/news/contextual-retrieval) | The current state of the art, and worth reading twice |
 
 ---

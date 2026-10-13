@@ -11,8 +11,8 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Structured outputs**](https://docs.claude.com/en/docs/build-with-claude/structured-outputs) | Constraining the response format at the API level |
-| [**Increase output consistency**](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/increase-consistency) | The prompting side |
+| [**Structured outputs**](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) | Constraining the response format at the API level |
+| [**Increase output consistency**](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/increase-consistency) | The prompting side |
 | [**pydantic — Models**](https://docs.pydantic.dev/latest/concepts/models/) | The validation layer |
 | [**`json` (Python)**](https://docs.python.org/3.14/library/json.html) | `loads` and `JSONDecodeError` |
 
@@ -187,7 +187,7 @@ the response format so it *cannot* come back wrong.
 
 ```python
 response = client.messages.create(
-    model="claude-opus-5",
+    model="claude-opus-5-5",
     max_tokens=1000,
     output_config={
         "format": {

@@ -17,7 +17,7 @@ messages = [{"role": "user", "content": "What is 17 * 23?"}]
 
 for step in range(3):
     response = client.messages.create(
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-5-5",
         max_tokens=1000,
         tools=all_schemas(),
         messages=messages,

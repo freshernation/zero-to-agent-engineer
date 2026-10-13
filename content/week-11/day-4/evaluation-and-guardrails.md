@@ -11,10 +11,10 @@
 
 | Page | What it gives you |
 |---|---|
-| [**Create strong empirical evaluations**](https://docs.claude.com/en/docs/test-and-evaluate/develop-tests) | Building the eval set |
-| [**Define your success criteria**](https://docs.claude.com/en/docs/test-and-evaluate/define-success) | Choosing thresholds |
-| [**Reduce hallucinations**](https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | The guardrail side |
-| [**Structured outputs**](https://docs.claude.com/en/docs/build-with-claude/structured-outputs) | Making the judge return parseable JSON |
+| [**Create strong empirical evaluations**](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | Building the eval set |
+| [**Define your success criteria**](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) | Choosing thresholds |
+| [**Reduce hallucinations**](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) | The guardrail side |
+| [**Structured outputs**](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) | Making the judge return parseable JSON |
 | [**pytest**](https://docs.pytest.org/en/stable/) | The gate is a test |
 
 ---

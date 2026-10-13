@@ -74,18 +74,26 @@ class TestFencing:
 
 
 class TestParams:
-    def test_precise_uses_temperature_zero(self, load):
+    def test_quick_uses_low_effort(self, load):
         client = FakeClient([text_reply("ok")])
-        load("params.py").precise(client, "hi")
-        assert client.last_call.get("temperature") == 0, (
-            "Anything you are going to parse wants the boring, most-likely "
-            "answer - temperature=0."
+        load("params.py").quick(client, "hi")
+        assert client.last_call.get("output_config") == {"effort": "low"}, (
+            "A simple, high-volume job wants low effort - "
+            'output_config={"effort": "low"}.'
         )
 
-    def test_creative_uses_temperature_one(self, load):
+    def test_thorough_uses_high_effort(self, load):
         client = FakeClient([text_reply("ok")])
-        load("params.py").creative(client, "hi")
-        assert client.last_call.get("temperature") == 1.0
+        load("params.py").thorough(client, "hi")
+        assert client.last_call.get("output_config") == {"effort": "high"}
+
+    @pytest.mark.parametrize("name", ["quick", "thorough", "one_line"])
+    def test_never_sends_temperature(self, load, name):
+        client = FakeClient([text_reply("ok")])
+        getattr(load("params.py"), name)(client, "hi")
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )
 
     def test_one_line_stops_at_a_newline(self, load):
         client = FakeClient([text_reply("ok")])
@@ -100,7 +108,7 @@ class TestParams:
         )
         assert client.last_call["messages"] == [{"role": "user", "content": "hi"}]
 
-    @pytest.mark.parametrize("name", ["precise", "creative", "one_line"])
+    @pytest.mark.parametrize("name", ["quick", "thorough", "one_line"])
     def test_all_return_the_reply_text(self, load, name):
         client = FakeClient([text_reply("the answer")])
         assert getattr(load("params.py"), name)(client, "hi") == "the answer"
@@ -142,7 +150,9 @@ class TestClassify:
             client, "great", self.CATEGORIES
         ) == "unknown"
 
-    def test_uses_temperature_zero(self, load):
+    def test_does_not_send_temperature(self, load):
         client = FakeClient([text_reply("positive")])
         load("classify.py").classify(client, "great", self.CATEGORIES)
-        assert client.last_call.get("temperature") == 0
+        assert "temperature" not in client.last_call, (
+            "Current models reject temperature with a 400. Do not send it."
+        )

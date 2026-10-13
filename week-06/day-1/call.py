@@ -1,6 +1,6 @@
 # Every function takes client first. The tests pass in a FakeClient.
 #
-#   ask(client, question, model="claude-sonnet-4-5", max_tokens=1000)
+#   ask(client, question, model="claude-sonnet-5-5", max_tokens=1000)
 #       the reply text
 #
 #   extract_text(response)

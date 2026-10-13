@@ -48,5 +48,5 @@ is what almost nobody says.
 
 ## Read `FENCE.md`
 
-Particularly the part about `create_react_agent`, which builds the whole thing in four
+Particularly the part about `create_agent`, which builds the whole thing in four
 lines and is fenced off for a reason worth understanding.

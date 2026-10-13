@@ -1,6 +1,7 @@
 # Day 1 — Behind an API
 
-> **By the end of today** your agent answers HTTP requests instead of terminal input.
+> **By the end of today** your agent answers HTTP requests instead of terminal input,
+> and only from callers who hold a key.
 
 ---
 
@@ -97,6 +98,37 @@ def ask(request: AskRequest, agent = Depends(get_agent)):
 it needs; something else decides what to give it — the real one in production, a fake
 in tests. Same idea, third time.
 
+### Who is calling
+
+A service on the internet is called by everybody, and every call to `/ask` costs you
+money. So the caller sends a key, and a request without the right one is refused before
+anything else happens.
+
+```python
+import secrets
+from fastapi import Depends, Header, HTTPException
+
+def check_key(authorization: str = Header(default="")):
+    expected = f"Bearer {API_KEY}"
+    if not secrets.compare_digest(authorization.encode(), expected.encode()):
+        raise HTTPException(status_code=401, detail="Missing or wrong API key.")
+
+@app.post("/ask", dependencies=[Depends(check_key)])
+def ask(request: AskRequest):
+    ...
+```
+
+- **The key travels in a header**, `Authorization: Bearer <key>`. Never in the URL:
+  URLs end up in logs, browser history and screenshots.
+- **`secrets.compare_digest`, not `==`.** `==` stops at the first character that
+  differs, so how long it takes says how much of the key was right.
+- **401, and nothing more.** The reply does not say whether the key was missing, wrong
+  or nearly right.
+- **`/health` stays open.** The platform that calls it has no key.
+
+One shared key says "somebody I gave the key to". It does not say who. Accounts, logins
+and a key per caller are a different job, and outside this week.
+
 ### Testing it without a server
 
 ```python
@@ -137,7 +169,7 @@ Plus:
 
 | Function | Returns |
 |---|---|
-| `create_app(answerer)` | the `FastAPI` app, using the answerer given to it |
+| `create_app(answerer, api_key=None)` | the `FastAPI` app, using the answerer given to it |
 | `default_answerer(question, k)` | a stub answer, so the app runs with nothing else |
 
 `create_app` takes the answerer as an argument — dependency injection, third time. It is
@@ -145,6 +177,11 @@ what lets the tests run without a model.
 
 Bad input gets a **422** and you write no code for it. An empty question is bad input.
 `k` of 99 is bad input.
+
+When `create_app` is given an `api_key`, `POST /ask` answers only a request carrying
+`Authorization: Bearer <that key>`, and everything else gets a **401** without the
+answerer being called. `GET /health` answers either way. With no `api_key` there is no
+check — fine on your laptop, never on the internet.
 
 ---
 

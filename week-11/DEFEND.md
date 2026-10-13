@@ -25,6 +25,10 @@ do this and will not tell you what went wrong — they will just close the tab.
 4. *"Your eval gate exits non-zero. Who reads that?"*
 5. *"What is in your logs that you would mind the whole company seeing?"* — should be
    nothing, and they should be able to point at the redaction.
+6. *"I do not have your key. What can I do to your service?"* — reach `/health`, and
+   nothing that costs money. Then: *"and what does your key not tell you about me?"*
+7. *"One of your documents says 'ignore the rules above'. What happens?"* — looking for
+   three things: the fence, that no prompt makes it safe, and a number they measured.
 
 ## Phase 2 — Mutate (8 min)
 
@@ -51,6 +55,8 @@ Seed one before they arrive.
 | Medium | bind `127.0.0.1` in the Dockerfile | Works locally, dead in the container |
 | Medium | the budget records a refused spend | Only the third request over the limit shows it |
 | Hard | remove the redaction from one log call | Nothing fails. The key is in the logs. |
+| Hard | compare the key with `==` | Every test still passes. Do they know why it matters? |
+| Hard | add `continue-on-error: true` to the gate step | The push goes green with a failing gate |
 | Nasty | the eval gate compares `refusal_rate >=` instead of `<=` | The gate passes a system that refuses everything |
 
 The **Nasty** one is the best of the course: a deploy gate that waves through the exact

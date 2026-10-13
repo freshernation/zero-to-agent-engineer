@@ -13,10 +13,10 @@ a link to — which is what makes it a portfolio piece rather than a repository.
 
 | Day | Folder | What you'll be able to do |
 |---|---|---|
-| Mon | `day-1/` | Put a service behind HTTP, with validated requests |
+| Mon | `day-1/` | Put a service behind HTTP, with validated requests and a key |
 | Tue | `day-2/` | Configure it, check its health, and deploy it |
 | Wed | `day-3/` | See what happened inside a request, after the fact |
-| Thu | `day-4/` | Gate a deploy on an evaluation, and cap what it can spend |
+| Thu | `day-4/` | Gate a deploy on an evaluation, cap what it can spend, and attack it |
 | Fri | `milestone/` | **Project 3** — deployed, traced, evaluated |
 
 ---
@@ -24,14 +24,16 @@ a link to — which is what makes it a portfolio piece rather than a repository.
 ## What changes
 
 Everything so far ran when you ran it. From today it runs when **somebody else** does,
-which brings four problems you have not had:
+which brings six problems you have not had:
 
 | Problem | Answer |
 |---|---|
 | You are not watching | logs and traces |
 | The input is not yours | validation at the boundary |
+| Anybody can call it | a key |
+| The text can give orders | a fence, and attacks you measure |
 | It costs money per request | caps, and a number you can see |
-| A bad deploy affects real people | an evaluation that blocks it |
+| A bad deploy affects real people | an evaluation that blocks it, on every push |
 
 None of those is difficult. All of them are the difference between a demo and a service,
 and all of them come up in interviews as *"how would you know if it broke?"*

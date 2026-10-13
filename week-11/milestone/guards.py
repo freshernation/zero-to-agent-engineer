@@ -1,5 +1,7 @@
 """Thursday's guards, given to you complete."""
 
+import re
+
 
 class BudgetExceeded(Exception):
     pass
@@ -44,3 +46,11 @@ class Budget:
     def reset(self):
         """Start the day again."""
         self._spent = 0.0
+
+
+def fence(text, tag):
+    """Wrap untrusted text in a tag it cannot close from the inside."""
+    inside = re.sub(
+        rf"<(/?\s*{re.escape(tag)}\s*>)", r"&lt;\1", text, flags=re.IGNORECASE
+    )
+    return f"<{tag}>\n{inside}\n</{tag}>"

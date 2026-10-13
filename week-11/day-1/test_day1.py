@@ -110,6 +110,61 @@ class TestValidation:
         assert any("question" in str(item) for item in detail)
 
 
+KEY = "test-key-123"
+
+
+class TestApiKey:
+    @pytest.fixture
+    def locked(self, load):
+        return TestClient(load("service.py").create_app(fake_answerer, api_key=KEY))
+
+    def test_no_key_is_refused(self, locked):
+        response = locked.post("/ask", json={"question": "hi"})
+        assert response.status_code == 401, (
+            f"Got {response.status_code} with no key. Every call to /ask costs "
+            "money - a caller without the key gets a 401."
+        )
+
+    @pytest.mark.parametrize("header", ["Bearer wrong", KEY, f"Bearer {KEY}x", ""])
+    def test_wrong_key_is_refused(self, locked, header):
+        response = locked.post(
+            "/ask", json={"question": "hi"}, headers={"Authorization": header}
+        )
+        assert response.status_code == 401, (
+            f"'{header}' was accepted. Only 'Bearer <the key>' gets in."
+        )
+
+    def test_right_key_answers(self, locked):
+        response = locked.post(
+            "/ask", json={"question": "hi"},
+            headers={"Authorization": f"Bearer {KEY}"},
+        )
+        assert response.status_code == 200
+        assert "hi" in response.json()["answer"]
+
+    def test_the_answerer_is_not_called_without_a_key(self, load):
+        calls = []
+
+        def counting(question, k):
+            calls.append(question)
+            return fake_answerer(question, k)
+
+        client = TestClient(load("service.py").create_app(counting, api_key=KEY))
+        client.post("/ask", json={"question": "hi"})
+        assert calls == [], (
+            "The answerer ran for a caller with no key. Refuse first - the "
+            "answerer is the part that costs money."
+        )
+
+    def test_the_refusal_does_not_reveal_the_key(self, locked):
+        assert KEY not in locked.post("/ask", json={"question": "hi"}).text
+
+    def test_health_stays_open(self, locked):
+        assert locked.get("/health").status_code == 200, (
+            "The platform calls /health every few seconds, and it has no key."
+        )
+
+
 class TestSources:
     def test_lists_documents(self, client):
         response = client.get("/sources")

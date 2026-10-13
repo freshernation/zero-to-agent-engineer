@@ -1,7 +1,7 @@
 # Project 3 — The Deployed Assistant
 
-> A document assistant behind an API on the public internet, traced, guarded, and with
-> an evaluation that blocks a bad deploy.
+> A document assistant behind an API on the public internet, behind a key, traced,
+> guarded, and with an evaluation that blocks a bad deploy on every push.
 
 **This is the one that gets clicked.** Of your three projects it is the only one an
 interviewer can try without cloning anything, and the link in your README needs to be
@@ -17,6 +17,7 @@ live on the day they read it.
 | `app.py` | The FastAPI service |
 | `evaluate.py` | The eval gate. Exits non-zero on failure. |
 | `Dockerfile` · `.env.example` | Deployment |
+| `gate.yml` | The workflow that runs the tests and the gate on every push |
 | `PROJECT_README.md` | What a stranger reads |
 | `DEPLOYMENT.md` | How you deployed it and what you would do differently |
 
@@ -53,6 +54,9 @@ this week is about assembling and shipping.
 It must open a span for `retrieve` and one for `generate`, refuse **without calling the
 model** when nothing scores, and cite its sources.
 
+The retrieved text goes to the model inside `fence(text, "context")` from `guards.py`,
+so that a document cannot close the fence and write its own instructions.
+
 ## `app.py`
 
 | Endpoint | Does |
@@ -67,6 +71,8 @@ model or a key.
 
 `POST /ask` must:
 
+- answer only a request carrying `Authorization: Bearer <settings["service_key"]>`, and
+  give everything else a **401**. `/health` and `/ready` stay open
 - reject a question over the configured length with a **413**
 - return **429** when the daily budget is spent
 - put the `request_id` in the response body **and** the `X-Request-ID` header
@@ -84,6 +90,26 @@ refusal_rate 0.150 <= 0.200 PASS
 GATE PASSED
 ```
 
+## `gate.yml`
+
+A GitHub Actions workflow that runs on every push, installs `requirements.txt`, runs
+`pytest week-11/milestone`, and then runs `evaluate.py`. Write it here so the tests can
+read it, then copy it to where GitHub looks:
+
+```bash
+mkdir -p .github/workflows
+cp week-11/milestone/gate.yml .github/workflows/gate.yml
+```
+
+Push, open the **Actions** tab of your repository, and watch it run. A red cross there
+is the gate doing its job.
+
+## `.env.example`
+
+Names every variable, with no values in it. There are now two secrets:
+`ANTHROPIC_API_KEY`, which you use to call the model, and `SERVICE_API_KEY`, which your
+callers use to call you. They are different keys and must never be the same string.
+
 ---
 
 ## `PROJECT_README.md`
@@ -93,11 +119,14 @@ The five sections from week 4, plus two that matter now:
 | Section | What goes in it |
 |---|---|
 | `## What it is` | One sentence |
-| `## Try it` | **The live URL**, and a `curl` that works |
+| `## Try it` | **The live URL**, and a `curl` that works — with a placeholder where the key goes, never the key |
 | `## How it works` | Retrieval, then generation. Three or four sentences. |
 | `## Running it yourself` | Commands that work from a fresh clone |
 | `## How I know it works` | The eval numbers. This is the section that gets you asked good questions. |
 | `## What I would do next` | Honest and brief |
+
+An interviewer needs a key to try it. Say in `## Try it` how to get one, and send it with
+your application. A key printed in a public README is not a key.
 
 ## `DEPLOYMENT.md`
 
@@ -123,6 +152,8 @@ python3 week-11/milestone/evaluate.py
 - [ ] Open the live URL on your phone
 - [ ] Paste the `curl` from your README into a fresh terminal
 - [ ] Ask it something the corpus does not cover, and check it refuses
+- [ ] Call `/ask` with no key, and check you get a 401
+- [ ] Open the Actions tab and check the last push is green
 - [ ] Look at `/docs` and see whether it explains itself
 - [ ] Ask somebody who is not on this course to try it, and watch without helping
 

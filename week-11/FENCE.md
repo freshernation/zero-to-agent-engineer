@@ -5,18 +5,22 @@
 **Everything from Weeks 1–10**, plus:
 
 - **FastAPI** — `FastAPI()`, `@app.get`, `@app.post`, Pydantic request and response
-  models, `HTTPException`, `Depends`, `status`, `StreamingResponse`
+  models, `HTTPException`, `Depends`, `Header`, `status`, `StreamingResponse`
 - `fastapi.testclient.TestClient`
 - `uvicorn` as the start command
 - Structured logging with `logging` and `json`
 - A request id, and a tracer you write yourself
+- One shared API key, checked with `secrets.compare_digest`
 - Your own eval gate — golden set, thresholds, a pass/fail
+- A judge checked against your own labels
+- Fencing untrusted text, and an injection rate
 - A `Dockerfile`
+- One GitHub Actions workflow that runs the tests and the gate
 
 ## Not yet
 
-Databases and ORMs · authentication of any kind · rate limiting middleware ·
-Kubernetes, Terraform, autoscaling · CI/CD pipelines beyond one script · a frontend
+Databases and ORMs · authentication beyond one shared API key · rate limiting middleware ·
+Kubernetes, Terraform, autoscaling · CI/CD beyond that one workflow · a frontend
 beyond a single HTML page · OpenTelemetry — **you write the tracer**, then read about
 LangSmith and recognise it
 

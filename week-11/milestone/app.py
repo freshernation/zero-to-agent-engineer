@@ -6,6 +6,8 @@
 #   POST /ask      answers, with a request_id
 #
 # POST /ask must:
+#   - 401 unless the request carries  Authorization: Bearer <settings["service_key"]>
+#     (/health and /ready stay open)
 #   - 413 for a question over settings["max_question_length"]
 #   - 429 when the daily budget is spent
 #   - put request_id in the body AND the X-Request-ID header

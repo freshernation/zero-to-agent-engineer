@@ -1,0 +1,5 @@
+# Your workflow. On every push: install requirements.txt, run
+# pytest week-11/milestone, then run week-11/milestone/evaluate.py.
+#
+# When it works, copy it to .github/workflows/gate.yml - GitHub reads
+# workflows only from there.

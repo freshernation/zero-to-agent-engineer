@@ -155,6 +155,44 @@ and your structure. Log the detail; return the code.
 
 ---
 
+## Who is calling
+
+Everything so far answers anybody. On the internet that means anybody, and every call to
+a model-backed endpoint costs you money. The smallest real answer is one shared key:
+
+```python
+import secrets
+from fastapi import Depends, Header, HTTPException
+
+def check_key(authorization: str = Header(default="")):
+    expected = f"Bearer {API_KEY}"
+    if not secrets.compare_digest(authorization.encode(), expected.encode()):
+        raise HTTPException(status_code=401, detail="Missing or wrong API key.")
+
+@app.post("/ask", dependencies=[Depends(check_key)])
+def ask(request: AskRequest):
+    ...
+```
+
+Four decisions are in those lines:
+
+- **A header, not the URL.** `Authorization: Bearer <key>` is the convention. A key in
+  a query string ends up in server logs, browser history and screenshots.
+- **`secrets.compare_digest`, not `==`.** `==` returns as soon as one character
+  differs, so the time it takes leaks how much of the key was right. `compare_digest`
+  takes the same time either way.
+- **401 with one message.** Missing, wrong and nearly right all get the same reply.
+- **The key comes from the environment**, like every other secret. Tomorrow's topic.
+
+`/health` stays open, because the platform that calls it has no key.
+
+**Be clear about what this is.** A shared key answers "is this somebody I gave the key
+to". It does not say who they are, it cannot be taken away from one caller without
+changing it for all of them, and it is not a login. Per-caller keys, OAuth and user
+accounts are the next step up and a subject of their own.
+
+---
+
 ## Dependency injection, again
 
 ```python
@@ -260,6 +298,7 @@ both, because it blocks the event loop itself. Either `async def` with `await`, 
 2. Why put `max_length` on a question field?
 3. Your endpoint raises `KeyError`. What should the caller see?
 4. Why does `Depends` matter for testing?
+5. Why compare the key with `secrets.compare_digest` rather than `==`?
 
 <details>
 <summary>Answers</summary>
@@ -273,6 +312,9 @@ both, because it blocks the event loop itself. Either `async def` with `await`, 
 4. Because `dependency_overrides` lets a test swap the real agent for a fake without
    touching the endpoint. Otherwise every test needs a live, paid model call — and so
    there are no tests.
+5. `==` stops at the first character that differs, so its timing tells an attacker how
+   many leading characters they got right. `compare_digest` takes the same time
+   whatever differs.
 </details>
 
 ---
@@ -286,6 +328,7 @@ both, because it blocks the event loop itself. Either `async def` with `await`, 
 - [ ] Choose status codes deliberately, and never return 200 with an error body
 - [ ] Log the detail and return a generic 500
 - [ ] Use `Depends`, and override it in tests
+- [ ] Require a key on a paid endpoint, and say what a shared key does not give you
 - [ ] Test with `TestClient`, including the failure paths
 - [ ] Say why `async def` matters for a model-backed endpoint
 

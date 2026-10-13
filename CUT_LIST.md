@@ -15,7 +15,7 @@ engineers know, and every one of them is out.
 - Databases and ORMs
 - AutoGen, Swarm, and whichever framework launched this month
 - Authentication beyond a shared API key
-- CI/CD pipelines beyond one script
+- CI/CD pipelines beyond one workflow
 
 ---
 

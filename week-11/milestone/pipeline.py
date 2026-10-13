@@ -8,3 +8,4 @@
 #
 # Open a span for "retrieve" and one for "generate".
 # Refuse WITHOUT calling the model when nothing scores. Cite sources.
+# Send the retrieved text inside fence(text, "context") from guards.py.

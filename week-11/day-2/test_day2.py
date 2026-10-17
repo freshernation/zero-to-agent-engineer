@@ -123,3 +123,38 @@ class TestLost:
 
     def test_no_tool_calls(self, load):
         assert load("brief.py").lost({**RESULT, "tool_calls": []}, "x") == []
+
+
+class TestBudgetPerWorker:
+    def test_report_budget(self, load):
+        assert load("brief.py").report_budget(8000, 2000, 3) == 2000
+
+    @pytest.mark.parametrize("window,reserve,workers", [(8000, 2000, 0), (1000, 1000, 2)])
+    def test_impossible_budgets(self, load, window, reserve, workers):
+        with pytest.raises(ValueError):
+            load("brief.py").report_budget(window, reserve, workers)
+
+    def test_a_report_inside_its_budget_is_unchanged(self, load):
+        assert load("brief.py").fit_report("Lisbon: 545000.", 10) == "Lisbon: 545000."
+
+    def test_a_long_report_is_cut_and_says_so(self, load):
+        fitted = load("brief.py").fit_report("x" * 2000, 100)
+        assert fitted == "x" * 400 + " [cut: 1600 characters over this worker's budget]", (
+            "A report that is cut without saying so is a fact lost in the handoff "
+            "that nobody can see."
+        )
+
+    def test_one_verbose_worker_cannot_crowd_out_the_others(self, load):
+        brief = load("brief.py")
+        share = brief.report_budget(1200, 300, 3)
+        reports = [brief.fit_report("y" * 3000, share), brief.fit_report("Lagos: 15400000.", share),
+                   brief.fit_report("Bogota: 7900000.", share)]
+        assert sum(brief.estimate_tokens(r) for r in reports) <= 1200 - 300 + 20
+        assert reports[1] == "Lagos: 15400000."
+
+    def test_over_budget(self, load):
+        results = [{**RESULT, "worker": "researcher", "input_tokens": 900},
+                   {**RESULT, "worker": "analyst", "input_tokens": 300}]
+        assert load("brief.py").over_budget(results, 500) == ["researcher"]
+        assert load("brief.py").over_budget(results, 1000) == []
+

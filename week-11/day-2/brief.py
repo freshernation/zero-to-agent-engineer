@@ -23,3 +23,24 @@
 #                                report. Never below zero.
 # lost(result, report)           the tool results in result["tool_calls"] whose
 #                                text does not appear in the report, in order
+#
+# A budget per worker. Every report lands in the ORCHESTRATOR's context, which
+# all the workers share. One worker that sends back a page leaves less room for
+# everyone else - so each gets a share, and is held to it.
+#
+# report_budget(window, reserve, workers)
+#     the tokens each worker's report may use: (window - reserve) // workers,
+#     where reserve is what the orchestrator keeps for its own instructions,
+#     the task and its answer. ValueError for no workers, or a reserve that
+#     leaves nothing.
+#
+# fit_report(report, budget)
+#     the report unchanged if estimate_tokens(report) <= budget. Otherwise its
+#     first budget * 4 characters, then
+#         " [cut: 1600 characters over this worker's budget]"
+#     A cut report says so. A silently short one is a lost fact.
+#
+# over_budget(results, budget)
+#     the "worker" names, in order, whose own input_tokens went above budget:
+#     the workers whose OWN window filled up, even if their reports were short
+

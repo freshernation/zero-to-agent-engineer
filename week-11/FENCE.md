@@ -9,7 +9,7 @@
 - A brief and a report as plain strings
 - One orchestrator and its workers — **two levels, no deeper**
 - `asyncio.gather` and `asyncio.to_thread`, on Thursday
-- Counting model calls and estimating tokens
+- Counting model calls and estimating tokens, and a token budget per worker
 
 ## Not yet
 

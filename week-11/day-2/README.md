@@ -70,6 +70,18 @@ This is where multi-agent systems actually fail, and it is much harder to see th
 exception. So you check: which tool results did the worker see that are not in its
 report?
 
+### A budget per worker
+
+Every report lands in the orchestrator's context, and that context is shared by all of
+its workers. A worker that sends back a page leaves less room for everyone else — and
+the orchestrator's own instructions, the task and its answer have to fit too.
+
+So each worker gets a **share**: what is left of the window after a reserve for the
+orchestrator, divided by the number of workers. A report over its share is cut — and
+**says it was cut**, because a silently short report is exactly the lost fact above,
+made worse. And a worker whose own conversation grew past its budget is named, even if
+its report was short: it is the one that will start dropping things first.
+
 ---
 
 ## Exercises
@@ -88,6 +100,9 @@ pytest week-11/day-2 -v
 | `crossed(brief, report)` | tokens that crossed the handoff, both directions |
 | `kept_out(result, report)` | the worker's input and output tokens, minus the report. Never below zero |
 | `lost(result, report)` | the tool results in `result["tool_calls"]` that do not appear in the report |
+| `report_budget(window, reserve, workers)` | `(window - reserve) // workers`. `ValueError` for no workers or a reserve that leaves nothing |
+| `fit_report(report, budget)` | unchanged within budget; otherwise the first `budget * 4` characters and ` [cut: N characters over this worker's budget]` |
+| `over_budget(results, budget)` | the worker names whose own `input_tokens` went above budget |
 
 `missing_parts` is for checking a brief a **model** wrote. Tomorrow's orchestrator
 writes its own.
